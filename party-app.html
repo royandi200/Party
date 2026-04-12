@@ -219,8 +219,76 @@
     .nav-btn { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; padding:6px 0; background:none; border:none; cursor:pointer; color:var(--text-faint); font-family:var(--font); font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; transition:color 0.2s; }
     .nav-btn svg { width:22px; height:22px; }
     .nav-btn.active { color:var(--aira-lime); }
-    .seat-tooltip { display:none; position:fixed; z-index:150; background:var(--aira-dark3); border:1px solid var(--aira-border); border-radius:10px; padding:10px 14px; font-size:12px; font-weight:600; pointer-events:none; box-shadow:0 8px 24px rgba(0,0,0,0.5); white-space:nowrap; }
-    .seat-tooltip.show { display:block; animation:fade-in 0.15s ease; }
+
+    /* ── SEAT MODAL ──────────────────────────────── */
+    .seat-modal-backdrop {
+      display:none; position:fixed; inset:0; z-index:180;
+      background:rgba(8,16,31,0.75); backdrop-filter:blur(6px);
+      -webkit-backdrop-filter:blur(6px);
+      align-items:flex-end; justify-content:center;
+    }
+    .seat-modal-backdrop.show { display:flex; animation:fade-in 0.2s ease; }
+    .seat-modal {
+      width:100%; max-width:430px;
+      background:var(--aira-dark3);
+      border:1px solid var(--aira-border);
+      border-radius:var(--r-xl) var(--r-xl) 0 0;
+      padding:0 0 max(24px,env(safe-area-inset-bottom));
+      animation:slide-up 0.3s var(--ease-spring);
+    }
+    @keyframes slide-up { from{transform:translateY(100%)} to{transform:translateY(0)} }
+    .seat-modal-handle {
+      width:36px; height:4px; border-radius:2px;
+      background:rgba(255,255,255,0.15);
+      margin:12px auto 20px;
+    }
+    .seat-modal-photo {
+      width:100%; height:220px; object-fit:cover;
+      border-radius:var(--r-lg) var(--r-lg) 0 0;
+      display:block;
+    }
+    .seat-modal-photo-placeholder {
+      width:100%; height:140px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:64px;
+      background:linear-gradient(135deg,var(--aira-dark2),var(--aira-dark3));
+    }
+    .seat-modal-body { padding:0 20px; }
+    .seat-modal-row { display:flex; align-items:center; gap:14px; margin-bottom:14px; }
+    .seat-modal-avatar {
+      width:56px; height:56px; border-radius:50%; overflow:hidden;
+      flex-shrink:0; border:3px solid var(--aira-border);
+    }
+    .seat-modal-avatar img { width:100%; height:100%; object-fit:cover; }
+    .seat-modal-avatar.male-av   { background:linear-gradient(135deg,#004fff,#0066ff); display:flex; align-items:center; justify-content:center; font-size:24px; }
+    .seat-modal-avatar.female-av { background:linear-gradient(135deg,#e1fe52,#c8e840); display:flex; align-items:center; justify-content:center; font-size:24px; }
+    .seat-modal-name { font-size:18px; font-weight:900; }
+    .seat-modal-insta { font-size:13px; color:var(--aira-blue); margin-top:2px; }
+    .seat-modal-chips { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+    .seat-modal-chip {
+      padding:5px 12px; border-radius:100px;
+      font-size:11px; font-weight:700;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.1);
+      color:var(--text-muted);
+    }
+    .seat-modal-chip.blue   { background:rgba(0,79,255,0.15); border-color:rgba(0,79,255,0.3); color:#6699ff; }
+    .seat-modal-chip.lime   { background:rgba(225,254,82,0.1); border-color:rgba(225,254,82,0.25); color:#c8e840; }
+    .seat-modal-chip.gold   { background:rgba(255,215,0,0.1);  border-color:rgba(255,215,0,0.3);  color:#ffd700; }
+    .seat-modal-empty { text-align:center; padding:32px 0 12px; }
+    .seat-modal-empty .sm-icon { font-size:48px; margin-bottom:12px; }
+    .seat-modal-empty h3 { font-size:17px; font-weight:800; margin-bottom:6px; }
+    .seat-modal-empty p { font-size:13px; color:var(--text-muted); }
+    .seat-modal-close-btn {
+      width:100%; margin:0 20px; width:calc(100% - 40px);
+      padding:14px; background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:var(--r); color:var(--text);
+      font-family:var(--font); font-size:15px; font-weight:700;
+      cursor:pointer; transition:all 0.2s;
+    }
+    .seat-modal-close-btn:active { transform:scale(0.98); background:rgba(255,255,255,0.1); }
+
     ::-webkit-scrollbar { display:none; } * { scrollbar-width:none; }
     .poll-btn { display:flex; align-items:center; justify-content:center; gap:6px; width:100%; margin-top:10px; padding:10px; background:rgba(255,255,255,0.04); border:1px dashed rgba(255,255,255,0.1); border-radius:var(--r); font-size:12px; color:var(--text-faint); font-family:var(--font); cursor:pointer; }
   </style>
@@ -309,7 +377,6 @@
         <div class="form-title">Reserva tu puesto</div>
         <div class="form-sub">Únete a la experiencia GuataParty en el Yate Majestic ✨</div>
 
-        <!-- FOTO OBLIGATORIA -->
         <div class="form-group">
           <label class="form-label">
             <span class="required-dot"></span>Foto
@@ -368,7 +435,6 @@
           <div class="vip-hint">Ingresa el código que recibiste para acceder a la zona <strong>VIP</strong></div>
         </div>
 
-        <!-- CONFIRM PREVIEW -->
         <div class="confirm-preview" id="confirm-preview">
           <div class="confirm-avatar"><img id="confirm-avatar-img" src="" alt="Tu foto" width="52" height="52" loading="lazy"></div>
           <div class="confirm-info">
@@ -396,7 +462,15 @@
   </nav>
 </div>
 
-<div class="seat-tooltip" id="seat-tooltip"></div>
+<!-- ── SEAT MODAL ──────────────────────────────────── -->
+<div class="seat-modal-backdrop" id="seat-modal-backdrop" onclick="closeSeatModal(event)">
+  <div class="seat-modal" id="seat-modal">
+    <div class="seat-modal-handle"></div>
+    <div id="seat-modal-content"></div>
+    <button class="seat-modal-close-btn" onclick="closeSeatModal()">Cerrar</button>
+  </div>
+</div>
+
 <div class="full-toast"   id="full-toast"></div>
 
 <div class="success-overlay" id="success-overlay">
@@ -418,7 +492,7 @@ const MAIN_SEATS   = 17;
 const LOWER_SEATS  = 10;
 const VIP_CODES    = ['GUATA2025','AIRA2025','VIPNIGHT','YACHTVIP'];
 const API          = '/api/attendees';
-const UPLOAD_API   = '/api/upload';        // Vercel Blob endpoint
+const UPLOAD_API   = '/api/upload';
 const POLL_INTERVAL = 8000;
 
 // ═══════════════════════════════════════════════════════
@@ -430,9 +504,9 @@ let selectedZone   = '';
 let lastSeat       = null;
 let currentFilter  = 'all';
 let pollTimer      = null;
-let photoFile      = null;   // File object seleccionado
-let photoLocalUrl  = null;   // blob URL para preview local
-let photoBlobUrl   = null;   // URL pública de Vercel Blob tras subida
+let photoFile      = null;
+let photoLocalUrl  = null;
+let photoBlobUrl   = null;
 let photoUploading = false;
 
 // ═══════════════════════════════════════════════════════
@@ -481,42 +555,30 @@ async function onPhotoSelected(input) {
   const file = input.files[0];
   if(!file) return;
   if(file.size > 5 * 1024 * 1024) { showToast('⚠️ La foto debe ser menor a 5 MB'); input.value=''; return; }
-
   photoFile     = file;
   photoLocalUrl = URL.createObjectURL(file);
   photoBlobUrl  = null;
-
-  // Mostrar preview local inmediatamente
   renderPhotoPreview(photoLocalUrl, true);
   updateConfirmPreview();
-
-  // Subir a Vercel Blob en segundo plano
   await uploadToBlobStorage(file);
 }
 
 async function uploadToBlobStorage(file) {
   photoUploading = true;
   showUploadingState();
-
   try {
     const formData = new FormData();
     formData.append('file', file);
-
     const res = await fetch(UPLOAD_API, { method: 'POST', body: formData });
     if(!res.ok) throw new Error('Upload HTTP ' + res.status);
-
     const json = await res.json();
     photoBlobUrl = json.url;
-
-    // Actualizar badge a OK
     document.getElementById('photo-badge').textContent = '✅ LISTA';
     document.getElementById('photo-badge').style.background = 'rgba(100,220,100,0.15)';
     document.getElementById('photo-badge').style.color = '#64dc64';
     document.getElementById('photo-badge').style.borderColor = 'rgba(100,220,100,0.3)';
-
     renderPhotoPreview(photoLocalUrl, false);
   } catch(e) {
-    // Si falla el upload guardamos el archivo para reintentar al registrar
     console.warn('Blob upload failed, will retry on register:', e);
     renderPhotoPreview(photoLocalUrl, false);
     document.getElementById('photo-badge').textContent = '⚠️ REINTENTANDO';
@@ -552,24 +614,19 @@ function renderPhotoPreview(url, uploading) {
 function updateConfirmPreview() {
   const name   = document.getElementById('input-name').value.trim();
   const insta  = document.getElementById('input-insta').value.trim().replace(/^@/,'');
-  const zone   = selectedZone;
-  const gender = selectedGender;
   const hasPhoto = !!photoLocalUrl;
-
-  if(!name || !insta || !gender || !zone || !hasPhoto || photoUploading) {
+  if(!name || !insta || !selectedGender || !selectedZone || !hasPhoto || photoUploading) {
     document.getElementById('confirm-preview').classList.remove('visible');
     return;
   }
-
   document.getElementById('confirm-avatar-img').src = photoLocalUrl;
   document.getElementById('confirm-name').textContent = name;
-  const zLabel = {vip:'🌟 VIP',main:'🎵 General',lower:'🌊 Social'}[zone] || zone;
-  const gLabel = gender === 'male' ? '👦 Hombre' : '👩 Mujer';
+  const zLabel = {vip:'🌟 VIP',main:'🎵 General',lower:'🌊 Social'}[selectedZone] || selectedZone;
+  const gLabel = selectedGender === 'male' ? '👦 Hombre' : '👩 Mujer';
   document.getElementById('confirm-meta').textContent = `${gLabel} · ${zLabel} · @${insta}`;
   document.getElementById('confirm-preview').classList.add('visible');
 }
 
-// Escuchar cambios en nombre e instagram para actualizar preview
 document.addEventListener('DOMContentLoaded', () => {
   ['input-name','input-insta'].forEach(id => {
     document.getElementById(id).addEventListener('input', updateConfirmPreview);
@@ -627,18 +684,67 @@ function mkSeat(id, person, newSeat) {
   else if(person.zone === 'vip')          { el.classList.add('vip');    el.textContent = person.gender === 'male' ? '👦' : '👩'; }
   else if(person.gender === 'male')       { el.classList.add('male');   el.textContent = '👦'; }
   else                                    { el.classList.add('female'); el.textContent = '👩'; }
-  el.addEventListener('click', e => showTip(e, id, person));
+  // ✅ CAMBIO: click abre modal persistente, ya no tooltip que desaparece
+  el.addEventListener('click', () => openSeatModal(id, person));
   return el;
 }
 
-function showTip(e, id, person) {
-  const t = document.getElementById('seat-tooltip');
-  t.textContent = person ? `${person.name} · @${person.instagram} · ${id}` : `Puesto ${id} — Disponible 🟢`;
-  t.classList.add('show');
-  const r = e.target.getBoundingClientRect();
-  t.style.top  = (r.top - 46) + 'px';
-  t.style.left = Math.max(8, Math.min(r.left - 20, window.innerWidth - 220)) + 'px';
-  setTimeout(() => t.classList.remove('show'), 2200);
+// ═══════════════════════════════════════════════════════
+//  SEAT MODAL — persiste hasta que el usuario cierre
+// ═══════════════════════════════════════════════════════
+function openSeatModal(id, person) {
+  const content = document.getElementById('seat-modal-content');
+
+  if(!person) {
+    // Puesto vacío
+    content.innerHTML = `
+      <div class="seat-modal-empty">
+        <div class="sm-icon">🟢</div>
+        <h3>Puesto ${id} disponible</h3>
+        <p>Este lugar está libre.<br>¡Regístrate para tomarlo!</p>
+      </div>
+      <div style="height:16px"></div>`;
+  } else {
+    const zoneLabel = {vip:'🌟 VIP',main:'🎵 General',lower:'🌊 Social'}[person.zone] || person.zone;
+    const genderLabel = person.gender === 'male' ? '👦 Hombre' : '👩 Mujer';
+    const chipClass   = person.zone === 'vip' ? 'gold' : person.gender === 'male' ? 'blue' : 'lime';
+
+    const photoHtml = person.photo_url
+      ? `<img class="seat-modal-photo" src="${person.photo_url}" alt="${person.name}" width="430" height="220" loading="lazy">`
+      : `<div class="seat-modal-photo-placeholder">${person.gender === 'male' ? '👦' : '👩'}</div>`;
+
+    const avatarHtml = person.photo_url
+      ? `<div class="seat-modal-avatar"><img src="${person.photo_url}" alt="${person.name}" width="56" height="56" loading="lazy"></div>`
+      : `<div class="seat-modal-avatar ${person.gender === 'male' ? 'male-av' : 'female-av'}">${person.gender === 'male' ? '👦' : '👩'}</div>`;
+
+    content.innerHTML = `
+      ${photoHtml}
+      <div class="seat-modal-body" style="margin-top:16px;">
+        <div class="seat-modal-row">
+          ${avatarHtml}
+          <div>
+            <div class="seat-modal-name">${person.name}</div>
+            <div class="seat-modal-insta">@${person.instagram}</div>
+          </div>
+        </div>
+        <div class="seat-modal-chips">
+          <span class="seat-modal-chip ${chipClass}">${zoneLabel}</span>
+          <span class="seat-modal-chip">${genderLabel}</span>
+          <span class="seat-modal-chip">Puesto ${id}</span>
+        </div>
+      </div>`;
+  }
+
+  document.getElementById('seat-modal-backdrop').classList.add('show');
+  // Bloquear scroll del fondo
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSeatModal(event) {
+  // Si el click fue dentro del modal (no en el backdrop), no cerrar
+  if(event && event.target !== document.getElementById('seat-modal-backdrop')) return;
+  document.getElementById('seat-modal-backdrop').classList.remove('show');
+  document.body.style.overflow = '';
 }
 
 // ═══════════════════════════════════════════════════════
@@ -758,7 +864,6 @@ async function registerAttendee() {
   const vipCode = document.getElementById('input-vip-code').value.trim().toUpperCase();
   const btn     = document.getElementById('btn-register');
 
-  // Validar foto primero
   if(!photoFile) {
     const area = document.getElementById('photo-upload-area');
     area.classList.add('error-shake');
@@ -767,7 +872,6 @@ async function registerAttendee() {
     setTimeout(() => triggerPhotoInput(), 600);
     return;
   }
-
   if(!name)           { flashInput('input-name');  showToast('⚠️ Ingresa tu nombre');         return; }
   if(!insta)          { flashInput('input-insta'); showToast('⚠️ Instagram es obligatorio'); return; }
   if(!selectedGender) {
@@ -785,7 +889,6 @@ async function registerAttendee() {
 
   btn.disabled = true;
 
-  // Si el upload de blob no terminó aún, reintentarlo
   if(!photoBlobUrl && photoFile) {
     btn.textContent = '📤 Subiendo foto…';
     try {
@@ -796,7 +899,6 @@ async function registerAttendee() {
       const json = await res.json();
       photoBlobUrl = json.url;
     } catch(e) {
-      // Si sigue fallando, guardamos null y registramos sin foto en blob
       console.warn('Blob upload still failing:', e);
       photoBlobUrl = null;
     }
@@ -808,14 +910,7 @@ async function registerAttendee() {
     const res = await fetch(API, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name,
-        instagram: insta,
-        gender:    selectedGender,
-        zone:      selectedZone,
-        seat,
-        photo_url: photoBlobUrl || null    // URL pública de Vercel Blob
-      })
+      body: JSON.stringify({ name, instagram: insta, gender: selectedGender, zone: selectedZone, seat, photo_url: photoBlobUrl || null })
     });
     const json = await res.json();
     if(!res.ok) throw new Error(json.error || 'Error');
@@ -823,7 +918,6 @@ async function registerAttendee() {
     await loadAttendees();
     lastSeat = seat;
 
-    // Pantalla de éxito con foto
     const photoWrap = document.getElementById('success-photo-wrap');
     if(photoLocalUrl) {
       photoWrap.innerHTML = `<div class="success-photo"><img src="${photoLocalUrl}" alt="${name}" width="100" height="100" loading="lazy"></div>`;
@@ -840,7 +934,6 @@ async function registerAttendee() {
     spawnConfetti();
     document.getElementById('success-overlay').classList.add('show');
 
-    // Reset form
     document.getElementById('input-name').value  = '';
     document.getElementById('input-insta').value = '';
     document.getElementById('input-vip-code').value = '';

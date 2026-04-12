@@ -2,6 +2,12 @@ import mysql from 'mysql2/promise';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-setup-token');
+
+  // Responder preflight inmediatamente
+  if (req.method === 'OPTIONS') return res.status(200).end();
+
   // Solo accesible con token de setup
   if (req.headers['x-setup-token'] !== process.env.SETUP_TOKEN)
     return res.status(401).json({ error: 'No autorizado' });

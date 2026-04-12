@@ -1,0 +1,13 @@
+{
+  "name": "party-aira",
+  "version": "1.0.0",
+  "description": "🛥️ Party — App móvil de registro para eventos en yate. Visualiza los puestos en tiempo real con distinción por género. Estilo AIRA.",
+  "main": "party-app.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx live-server ."
+  },
+  "keywords": ["party", "yate", "aira", "evento", "registro"],
+  "author": "royandi200",
+  "license": "MIT"
+}

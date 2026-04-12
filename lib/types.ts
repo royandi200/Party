@@ -8,6 +8,7 @@ export interface Attendee {
   vip: boolean;
   seat: string;
   insta: string;
+  photoUrl?: string;
 }
 
 export type Screen = "deck" | "list" | "register";

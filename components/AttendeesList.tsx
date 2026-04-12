@@ -93,8 +93,10 @@ export default function AttendeesList({ attendees }: Props) {
                 background: "var(--aira-card)", border: "1px solid var(--aira-border)",
                 borderRadius: 16, padding: "12px 14px", animation: "slide-in 0.3s ease",
               }}>
-                <div style={{ width: 40, height: 40, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, flexShrink: 0, fontWeight: 700, background: avatarBg, color: avatarColor }}>
-                  {ini}
+                <div style={{ width: 40, height: 40, borderRadius: "50%", flexShrink: 0, overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, background: avatarBg, color: avatarColor }}>
+                  {a.photoUrl ? (
+                    <img src={a.photoUrl} alt={a.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  ) : ini}
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontSize: 14, fontWeight: 700, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{a.name}</div>

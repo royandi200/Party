@@ -26,7 +26,8 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'POST') {
-      const { name, instagram, gender, zone, seat } = req.body;
+      // ✅ Ahora incluye photo_url
+      const { name, instagram, gender, zone, seat, photo_url } = req.body;
 
       if (!name || !instagram || !gender || !zone || !seat)
         return res.status(400).json({ error: 'Faltan campos obligatorios' });
@@ -38,9 +39,10 @@ export default async function handler(req, res) {
       if (existing.length > 0)
         return res.status(409).json({ error: 'Puesto ya ocupado' });
 
+      // ✅ Guarda photo_url en la BD (puede ser null si no se subió)
       await pool.query(
-        'INSERT INTO attendees (name, instagram, gender, zone, seat) VALUES (?, ?, ?, ?, ?)',
-        [name, instagram, gender, zone, seat]
+        'INSERT INTO attendees (name, instagram, gender, zone, seat, photo_url) VALUES (?, ?, ?, ?, ?, ?)',
+        [name, instagram, gender, zone, seat, photo_url || null]
       );
       return res.status(201).json({ ok: true });
     }

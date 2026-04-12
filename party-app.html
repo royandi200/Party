@@ -3,19 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Party 🛥️ — AIRA Yacht Night</title>
-  <meta name="description" content="App de registro para AIRA Party · Yate Majestic · Represa Guatapé">
+  <title>GuataParty 🛥️ — AIRA Yacht Night</title>
+  <meta name="description" content="App de registro para GuataParty · Yate Majestic · Represa Guatapé">
   <meta name="theme-color" content="#004fff">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Party">
-  <!-- OG -->
-  <meta property="og:title" content="AIRA Party 🛥️ Yacht Night">
+  <meta name="apple-mobile-web-app-title" content="GuataParty">
+  <meta property="og:title" content="GuataParty 🛥️ Yacht Night">
   <meta property="og:description" content="Reserva tu puesto en el Yate Majestic · Represa Guatapé">
   <meta property="og:type" content="website">
-  <!-- Favicon SVG -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23004fff'/><text y='24' x='4' font-size='22'>🛥️</text></svg>">
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -29,7 +26,6 @@
       --aira-dark3: #101e38;
       --aira-card: #0f1c35;
       --aira-border: rgba(0,79,255,0.18);
-      --aira-border2: rgba(225,254,82,0.15);
       --text: #e8eef8;
       --text-muted: #6b7f9e;
       --text-faint: #3a4d6a;
@@ -46,10 +42,10 @@
     /* HEADER */
     header { position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:18px 20px 14px; background:rgba(8,16,31,0.88); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid var(--aira-border); }
     .logo { display:flex; align-items:center; gap:10px; }
-    .logo-svg { width:36px; height:36px; border-radius:10px; background:linear-gradient(135deg,var(--aira-blue),#0052ff); display:flex; align-items:center; justify-content:center; }
-    .logo-text { font-size:22px; font-weight:800; letter-spacing:-0.5px; color:#fff; }
+    .logo-svg { width:36px; height:36px; border-radius:10px; background:linear-gradient(135deg,var(--aira-blue),#0052ff); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .logo-text { font-size:20px; font-weight:900; letter-spacing:-0.5px; color:#fff; }
     .logo-text em { color:var(--aira-lime); font-style:normal; }
-    .live-badge { display:flex; align-items:center; gap:5px; background:rgba(225,254,82,0.1); border:1px solid rgba(225,254,82,0.3); border-radius:20px; padding:4px 10px; font-size:11px; font-weight:700; color:var(--aira-lime); text-transform:uppercase; letter-spacing:0.8px; }
+    .live-badge { display:flex; align-items:center; gap:5px; background:rgba(225,254,82,0.1); border:1px solid rgba(225,254,82,0.3); border-radius:20px; padding:4px 10px; font-size:11px; font-weight:700; color:var(--aira-lime); text-transform:uppercase; letter-spacing:0.8px; flex-shrink:0; }
     .live-dot { width:6px; height:6px; border-radius:50%; background:var(--aira-lime); animation:pulse-dot 1.5s ease-in-out infinite; }
     @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
 
@@ -59,7 +55,7 @@
     @keyframes fade-in { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
     section { padding:0 16px; margin-bottom:24px; }
 
-    /* HERO BANNER */
+    /* HERO */
     .hero-banner { margin:16px 16px 0; background:linear-gradient(135deg,var(--aira-dark3) 0%,var(--aira-dark2) 100%); border:1px solid var(--aira-border); border-radius:var(--r-xl); padding:24px; position:relative; overflow:hidden; }
     .hero-banner::before { content:''; position:absolute; top:-40px; right:-40px; width:180px; height:180px; background:radial-gradient(circle,rgba(0,79,255,0.25) 0%,transparent 70%); pointer-events:none; }
     .hero-banner::after { content:''; position:absolute; bottom:-30px; left:20px; width:120px; height:120px; background:radial-gradient(circle,rgba(225,254,82,0.1) 0%,transparent 70%); pointer-events:none; }
@@ -151,33 +147,56 @@
     .form-title { font-size:20px; font-weight:900; margin-bottom:6px; }
     .form-sub { font-size:13px; color:var(--text-muted); margin-bottom:22px; line-height:1.5; }
     .form-group { margin-bottom:16px; }
-    .form-label { font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.7px; margin-bottom:6px; display:block; }
+    .form-label { font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.7px; margin-bottom:6px; display:flex; align-items:center; gap:5px; }
+    .required-dot { width:6px; height:6px; border-radius:50%; background:var(--aira-lime); display:inline-block; flex-shrink:0; }
     .form-input { width:100%; padding:13px 16px; background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.1); border-radius:var(--r); color:var(--text); font-family:var(--font); font-size:15px; outline:none; transition:border-color 0.2s, box-shadow 0.2s; -webkit-appearance:none; appearance:none; }
     .form-input:focus { border-color:var(--aira-blue); box-shadow:0 0 0 3px rgba(0,79,255,0.15); }
     .form-input::placeholder { color:var(--text-faint); }
+    .insta-wrap { position:relative; }
+    .insta-wrap .at { position:absolute; left:16px; top:50%; transform:translateY(-50%); color:var(--aira-blue); font-weight:800; font-size:15px; pointer-events:none; }
+    .insta-wrap .form-input { padding-left:30px; }
     .gender-selector { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
     .gender-opt { padding:14px 12px; border-radius:var(--r); border:1.5px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.03); display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; transition:all 0.2s; font-size:13px; font-weight:600; color:var(--text-muted); }
     .gender-opt span { font-size:24px; }
     .gender-opt.selected-m { border-color:var(--aira-blue); background:rgba(0,79,255,0.12); color:#6699ff; }
     .gender-opt.selected-f { border-color:var(--aira-lime); background:rgba(225,254,82,0.08); color:#c8e840; }
-    .vip-toggle { display:flex; align-items:center; justify-content:space-between; background:rgba(255,215,0,0.06); border:1.5px solid rgba(255,215,0,0.2); border-radius:var(--r); padding:14px 16px; cursor:pointer; transition:all 0.2s; }
-    .vip-toggle.on { background:rgba(255,215,0,0.12); border-color:rgba(255,215,0,0.4); }
-    .vip-left { display:flex; align-items:center; gap:10px; }
-    .vip-icon { font-size:22px; }
-    .vip-label { font-size:14px; font-weight:700; color:#ffd700; }
-    .vip-desc { font-size:11px; color:var(--text-muted); margin-top:1px; }
-    .toggle-pill { width:44px; height:26px; border-radius:100px; background:rgba(255,255,255,0.1); position:relative; transition:background 0.2s; flex-shrink:0; }
-    .toggle-pill::after { content:''; position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%; background:white; transition:transform 0.2s; }
-    .toggle-pill.on { background:#ffd700; }
-    .toggle-pill.on::after { transform:translateX(18px); background:#08101f; }
+
+    /* ZONE SELECTOR */
+    .zone-cards { display:flex; flex-direction:column; gap:8px; }
+    .zone-card { display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:var(--r); border:1.5px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); cursor:pointer; transition:all 0.2s; }
+    .zone-card:active { transform:scale(0.98); }
+    .zone-card.selected-general { border-color:var(--aira-blue); background:rgba(0,79,255,0.1); }
+    .zone-card.selected-vip { border-color:#ffd700; background:rgba(255,215,0,0.08); }
+    .zone-icon { font-size:22px; flex-shrink:0; }
+    .zone-info { flex:1; }
+    .zone-name { font-size:14px; font-weight:700; }
+    .zone-desc { font-size:11px; color:var(--text-muted); margin-top:2px; }
+    .zone-badge-vip { font-size:10px; font-weight:800; padding:3px 8px; border-radius:20px; background:rgba(255,215,0,0.12); color:#ffd700; border:1px solid rgba(255,215,0,0.3); white-space:nowrap; }
+    .zone-badge-free { font-size:10px; font-weight:800; padding:3px 8px; border-radius:20px; background:rgba(0,79,255,0.12); color:#6699ff; border:1px solid rgba(0,79,255,0.25); white-space:nowrap; }
+    .zone-select-radio { width:18px; height:18px; border-radius:50%; border:2px solid rgba(255,255,255,0.15); flex-shrink:0; transition:all 0.2s; display:flex; align-items:center; justify-content:center; }
+    .zone-card.selected-general .zone-select-radio { border-color:var(--aira-blue); background:var(--aira-blue); }
+    .zone-card.selected-vip .zone-select-radio { border-color:#ffd700; background:#ffd700; }
+    .zone-select-radio::after { content:''; width:7px; height:7px; border-radius:50%; background:#08101f; opacity:0; transition:opacity 0.2s; }
+    .zone-card.selected-general .zone-select-radio::after,
+    .zone-card.selected-vip .zone-select-radio::after { opacity:1; }
+
+    /* VIP CODE INPUT */
+    .vip-code-group { display:none; margin-top:10px; animation:fade-in 0.2s ease; }
+    .vip-code-group.visible { display:block; }
+    .vip-code-input { letter-spacing:4px; font-size:18px; font-weight:800; text-align:center; text-transform:uppercase; }
+    .vip-hint { font-size:11px; color:var(--text-muted); text-align:center; margin-top:6px; }
+    .vip-hint strong { color:#ffd700; }
+
+    /* BUTTONS */
     .btn-register { width:100%; padding:16px; background:var(--aira-blue); color:#fff; font-family:var(--font); font-size:15px; font-weight:800; border:none; border-radius:var(--r); cursor:pointer; margin-top:20px; transition:all 0.2s; letter-spacing:0.3px; }
     .btn-register:active { transform:scale(0.98); }
     .btn-register:hover { background:#0040cc; }
     .btn-register:disabled { opacity:0.5; cursor:not-allowed; }
 
-    /* FULL TOAST */
+    /* TOAST */
     .full-toast { display:none; position:fixed; top:80px; left:50%; transform:translateX(-50%); z-index:300; background:rgba(255,60,60,0.12); border:1px solid rgba(255,60,60,0.35); border-radius:12px; padding:12px 20px; font-size:13px; font-weight:700; color:#ff7070; white-space:nowrap; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
     .full-toast.show { display:block; animation:fade-in 0.25s ease; }
+    .full-toast.success { background:rgba(0,79,255,0.12); border-color:rgba(0,79,255,0.35); color:#6699ff; }
 
     /* SUCCESS OVERLAY */
     .success-overlay { display:none; position:fixed; inset:0; z-index:200; background:rgba(8,16,31,0.97); flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:40px; }
@@ -203,7 +222,6 @@
     .seat-tooltip { display:none; position:fixed; z-index:150; background:var(--aira-dark3); border:1px solid var(--aira-border); border-radius:10px; padding:10px 14px; font-size:12px; font-weight:600; pointer-events:none; box-shadow:0 8px 24px rgba(0,0,0,0.5); white-space:nowrap; }
     .seat-tooltip.show { display:block; animation:fade-in 0.15s ease; }
 
-    /* SCROLLBAR */
     ::-webkit-scrollbar { display:none; }
     * { scrollbar-width:none; }
   </style>
@@ -212,15 +230,14 @@
 <div id="app">
   <header>
     <div class="logo">
-      <!-- Logo SVG custom -->
-      <div class="logo-svg" aria-label="Party">
+      <div class="logo-svg" aria-label="GuataParty">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
           <path d="M2 18c0 0 5-3 10-3s10 3 10 3" stroke="white" stroke-width="2" stroke-linecap="round"/>
           <path d="M5 18V11l7-7 7 7v7" stroke="white" stroke-width="2" stroke-linejoin="round"/>
           <path d="M10 18v-4h4v4" stroke="white" stroke-width="1.5"/>
         </svg>
       </div>
-      <div class="logo-text">Par<em>ty</em></div>
+      <div class="logo-text">Guata<em>Party</em></div>
     </div>
     <div class="live-badge"><div class="live-dot"></div>En vivo</div>
   </header>
@@ -228,17 +245,17 @@
   <!-- SCREEN: CUBIERTA -->
   <div class="screen active" id="screen-deck">
     <div class="hero-banner">
-      <div class="hero-date">Sábado 15 Ago · Represa Guatapé</div>
-      <div class="hero-title">AIRA Party 🛥️<br>Yacht Night</div>
+      <div class="hero-date">Sábado · Represa Guatapé 🌊</div>
+      <div class="hero-title">GuataParty 🛥️<br>Yacht Night</div>
       <div class="hero-subtitle">Yate Majestic — el más grande de<br>agua dulce en Latinoamérica</div>
       <div class="hero-stats">
         <div class="stat"><div class="stat-num" id="total-registered">0</div><div class="stat-label">Registrados</div></div>
-        <div class="stat"><div class="stat-num" id="total-spots">60</div><div class="stat-label">Cupos</div></div>
-        <div class="stat"><div class="stat-num" id="spots-left">60</div><div class="stat-label">Disponibles</div></div>
+        <div class="stat"><div class="stat-num" id="total-spots">35</div><div class="stat-label">Cupos</div></div>
+        <div class="stat"><div class="stat-num" id="spots-left">35</div><div class="stat-label">Disponibles</div></div>
       </div>
     </div>
     <div class="progress-section" style="margin-top:20px;">
-      <div class="progress-header"><span class="progress-label">Ocupación del yate</span><span class="progress-count" id="progress-text">0 / 60</span></div>
+      <div class="progress-header"><span class="progress-label">Ocupación del yate</span><span class="progress-count" id="progress-text">0 / 35</span></div>
       <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
       <div class="gender-split">
         <div class="gender-pill m"><span>👦</span><div><div class="gender-num" id="male-count">0</div><div style="font-size:10px;color:var(--text-faint)">Hombres</div></div></div>
@@ -248,7 +265,7 @@
     <section>
       <div class="section-title">Mapa del Yate <span>Toca para ver info</span></div>
       <div class="yacht-container">
-        <div class="yacht-header"><div class="yacht-name">Yate Majestic 🚢</div><div class="yacht-capacity" id="capacity-txt">0/60 puestos</div></div>
+        <div class="yacht-header"><div class="yacht-name">Yate Majestic 🚢</div><div class="yacht-capacity" id="capacity-txt">0/35 puestos</div></div>
         <div class="boat-prow">⚓</div>
         <div class="deck"><div class="deck-label">🌟 Zona VIP — Cubierta Superior</div><div id="deck-vip" class="seats-row" style="justify-content:center;flex-wrap:wrap;gap:5px;"></div></div>
         <div class="deck-divider"></div>
@@ -285,32 +302,76 @@
     <div style="padding:20px 0 0;">
       <div class="form-card">
         <div class="form-title">Reserva tu puesto</div>
-        <div class="form-sub">Únete a la experiencia AIRA Party en el Yate Majestic ✨</div>
-        <div class="form-group"><label class="form-label">Nombre completo</label><input class="form-input" type="text" id="input-name" placeholder="Ej: María García" autocomplete="name"></div>
-        <div class="form-group"><label class="form-label">Instagram (opcional)</label><input class="form-input" type="text" id="input-insta" placeholder="@tuusuario" autocomplete="off"></div>
+        <div class="form-sub">Únete a la experiencia GuataParty en el Yate Majestic ✨</div>
+
+        <!-- Nombre -->
         <div class="form-group">
-          <label class="form-label">Género</label>
+          <label class="form-label"><span class="required-dot"></span>Nombre completo</label>
+          <input class="form-input" type="text" id="input-name" placeholder="Ej: María García" autocomplete="name">
+        </div>
+
+        <!-- Instagram OBLIGATORIO -->
+        <div class="form-group">
+          <label class="form-label"><span class="required-dot"></span>Instagram</label>
+          <div class="insta-wrap">
+            <span class="at">@</span>
+            <input class="form-input" type="text" id="input-insta" placeholder="tuusuario" autocomplete="off" autocapitalize="none" spellcheck="false">
+          </div>
+        </div>
+
+        <!-- Género -->
+        <div class="form-group">
+          <label class="form-label"><span class="required-dot"></span>Género</label>
           <div class="gender-selector">
             <div class="gender-opt" id="opt-male" onclick="selectGender('male')"><span>👦</span>Hombre</div>
             <div class="gender-opt" id="opt-female" onclick="selectGender('female')"><span>👩</span>Mujer</div>
           </div>
         </div>
+
+        <!-- Zona -->
         <div class="form-group">
-          <label class="form-label">Zona preferida</label>
-          <select class="form-input" id="input-zone">
-            <option value="">Selecciona una zona</option>
-            <option value="vip">🌟 VIP — Cubierta Superior</option>
-            <option value="main">🎵 General — Cubierta Principal</option>
-            <option value="lower">🌊 Social — Cubierta Baja</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Acceso especial</label>
-          <div class="vip-toggle" id="vip-toggle" onclick="toggleVip()">
-            <div class="vip-left"><div class="vip-icon">🎟️</div><div><div class="vip-label">Pass VIP</div><div class="vip-desc">Acceso exclusivo · Open bar · Zona gold</div></div></div>
-            <div class="toggle-pill" id="vip-pill"></div>
+          <label class="form-label"><span class="required-dot"></span>Zona</label>
+          <div class="zone-cards">
+            <!-- Zona General -->
+            <div class="zone-card" id="zone-main" onclick="selectZone('main')">
+              <div class="zone-icon">🎵</div>
+              <div class="zone-info">
+                <div class="zone-name">General — Cubierta Principal</div>
+                <div class="zone-desc">Pista de baile · Bar · Vista al lago</div>
+              </div>
+              <div class="zone-badge-free">Libre</div>
+              <div class="zone-select-radio"></div>
+            </div>
+            <!-- Zona Social -->
+            <div class="zone-card" id="zone-lower" onclick="selectZone('lower')">
+              <div class="zone-icon">🌊</div>
+              <div class="zone-info">
+                <div class="zone-name">Social — Cubierta Baja</div>
+                <div class="zone-desc">Zona de chill · Hamacas · Terrace</div>
+              </div>
+              <div class="zone-badge-free">Libre</div>
+              <div class="zone-select-radio"></div>
+            </div>
+            <!-- Zona VIP -->
+            <div class="zone-card" id="zone-vip" onclick="selectZone('vip')">
+              <div class="zone-icon">🌟</div>
+              <div class="zone-info">
+                <div class="zone-name">VIP — Cubierta Superior</div>
+                <div class="zone-desc">Open bar · Zona gold · Acceso exclusivo</div>
+              </div>
+              <div class="zone-badge-vip">Solo invitados</div>
+              <div class="zone-select-radio"></div>
+            </div>
           </div>
         </div>
+
+        <!-- Código VIP (solo si selecciona VIP) -->
+        <div class="form-group vip-code-group" id="vip-code-group">
+          <label class="form-label">🔑 Código de invitación VIP</label>
+          <input class="form-input vip-code-input" type="text" id="input-vip-code" placeholder="XXXX" maxlength="8" autocomplete="off" autocapitalize="characters">
+          <div class="vip-hint">Ingresa el código que recibiste para acceder a la zona <strong>VIP</strong></div>
+        </div>
+
         <button class="btn-register" id="btn-register" onclick="registerAttendee()">Reservar mi puesto →</button>
       </div>
     </div>
@@ -345,204 +406,279 @@
 </div>
 
 <script>
-  const TOTAL=60, VIP_SEATS=10, MAIN_SEATS=28, LOWER_SEATS=22;
-  let currentFilter='all';
-  let attendees=[
-    {name:'Carlos M.',gender:'male',zone:'vip',vip:true,seat:'V3',insta:'@carlosm'},
-    {name:'Ana López',gender:'female',zone:'vip',vip:true,seat:'V7',insta:'@analopez'},
-    {name:'Sebastián R.',gender:'male',zone:'main',vip:false,seat:'M5',insta:'@sebas'},
-    {name:'Valeria P.',gender:'female',zone:'main',vip:false,seat:'M12',insta:'@vale'},
-    {name:'Mateo G.',gender:'male',zone:'main',vip:false,seat:'M19',insta:'@mateo'},
-    {name:'Isabela T.',gender:'female',zone:'lower',vip:false,seat:'L8',insta:'@isa'},
-    {name:'Daniel H.',gender:'male',zone:'lower',vip:false,seat:'L2',insta:''},
-    {name:'Camila S.',gender:'female',zone:'main',vip:false,seat:'M24',insta:'@camila'},
-  ];
-  let selectedGender='', isVip=false, lastSeat=null;
+  // ─── CONFIG ───────────────────────────────────────────────────────────
+  const TOTAL      = 35;
+  const VIP_SEATS  = 8;   // V1–V8
+  const MAIN_SEATS = 17;  // M1–M17
+  const LOWER_SEATS= 10;  // L1–L10
+  const VIP_CODES  = ['GUATA2025', 'AIRA2025', 'VIPNIGHT', 'YACHTVIP']; // códigos válidos
 
-  function getOccupied(){return new Set(attendees.map(a=>a.seat));}
+  let currentFilter = 'all';
+  let attendees = [];
+  let selectedGender = '';
+  let selectedZone   = '';
+  let lastSeat       = null;
+
+  // ─── SEAT HELPERS ─────────────────────────────────────────────────────
+  function getOccupied(){ return new Set(attendees.map(a => a.seat)); }
+
   function assignSeat(zone){
-    const occ=getOccupied();
-    const p=zone==='vip'?'V':zone==='main'?'M':'L';
-    const max=zone==='vip'?VIP_SEATS:zone==='main'?MAIN_SEATS:LOWER_SEATS;
-    for(let i=1;i<=max;i++){const s=p+i;if(!occ.has(s))return s;}
+    const occ = getOccupied();
+    const prefix = zone === 'vip' ? 'V' : zone === 'main' ? 'M' : 'L';
+    const max    = zone === 'vip' ? VIP_SEATS : zone === 'main' ? MAIN_SEATS : LOWER_SEATS;
+    for(let i = 1; i <= max; i++){
+      const s = prefix + i;
+      if(!occ.has(s)) return s;
+    }
     return null;
   }
 
+  // ─── DECK RENDER ──────────────────────────────────────────────────────
   function renderDeck(newSeat){
-    const map={};
-    attendees.forEach(a=>{map[a.seat]=a;});
-    function buildDeck(el,prefix,count,rows){
-      el.innerHTML='';
+    const map = {};
+    attendees.forEach(a => { map[a.seat] = a; });
+
+    function buildDeck(el, prefix, count, rows){
+      el.innerHTML = '';
       if(rows){
-        rows.forEach(row=>{
-          const r=document.createElement('div');r.className='seats-row';
-          row.forEach(i=>{const s=prefix+i;r.appendChild(createSeat(s,map[s],newSeat));});
+        rows.forEach(row => {
+          const r = document.createElement('div');
+          r.className = 'seats-row';
+          row.forEach(i => { const s = prefix+i; r.appendChild(createSeat(s, map[s], newSeat)); });
           el.appendChild(r);
         });
       } else {
-        const r=document.createElement('div');r.className='seats-row';r.style.flexWrap='wrap';
-        for(let i=1;i<=count;i++){const s=prefix+i;r.appendChild(createSeat(s,map[s],newSeat));}
+        const r = document.createElement('div');
+        r.className = 'seats-row';
+        r.style.flexWrap = 'wrap';
+        for(let i = 1; i <= count; i++){
+          const s = prefix + i;
+          r.appendChild(createSeat(s, map[s], newSeat));
+        }
         el.appendChild(r);
       }
     }
-    buildDeck(document.getElementById('deck-vip'),'V',VIP_SEATS,null);
-    buildDeck(document.getElementById('deck-main'),'M',MAIN_SEATS,[[1,2,3,4,5,6,7],[8,9,10,11,12,13,14],[15,16,17,18,19,20,21],[22,23,24,25,26,27,28]]);
-    buildDeck(document.getElementById('deck-lower'),'L',LOWER_SEATS,[[1,2,3,4,5],[6,7,8,9,10,11],[12,13,14,15,16],[17,18,19,20,21,22]]);
+
+    // VIP: 8 seats in one row
+    buildDeck(document.getElementById('deck-vip'), 'V', VIP_SEATS, null);
+    // Main: 17 seats in 3 rows [6,6,5]
+    buildDeck(document.getElementById('deck-main'), 'M', MAIN_SEATS,
+      [[1,2,3,4,5,6],[7,8,9,10,11,12],[13,14,15,16,17]]);
+    // Lower: 10 seats in 2 rows [5,5]
+    buildDeck(document.getElementById('deck-lower'), 'L', LOWER_SEATS,
+      [[1,2,3,4,5],[6,7,8,9,10]]);
+
     updateStats();
   }
 
-  function createSeat(seatId,person,newSeat){
-    const el=document.createElement('div');
-    el.className='seat'+(seatId===newSeat?' new-seat':'');
-    el.dataset.seat=seatId;
-    if(!person){el.classList.add('empty');}
-    else if(person.vip){el.classList.add('vip');el.textContent=person.gender==='male'?'👦':'👩';}
-    else if(person.gender==='male'){el.classList.add('male');el.textContent='👦';}
-    else{el.classList.add('female');el.textContent='👩';}
-    el.addEventListener('click',e=>showTip(e,seatId,person));
+  function createSeat(seatId, person, newSeat){
+    const el = document.createElement('div');
+    el.className = 'seat' + (seatId === newSeat ? ' new-seat' : '');
+    el.dataset.seat = seatId;
+    if(!person){
+      el.classList.add('empty');
+    } else if(person.zone === 'vip'){
+      el.classList.add('vip');
+      el.textContent = person.gender === 'male' ? '👦' : '👩';
+    } else if(person.gender === 'male'){
+      el.classList.add('male');
+      el.textContent = '👦';
+    } else {
+      el.classList.add('female');
+      el.textContent = '👩';
+    }
+    el.addEventListener('click', e => showTip(e, seatId, person));
     return el;
   }
 
-  function showTip(e,seatId,person){
-    const t=document.getElementById('seat-tooltip');
-    t.textContent=person?`${person.name}${person.vip?' ⭐VIP':''} · Puesto ${seatId}`:`Puesto ${seatId} — Disponible 🟢`;
+  function showTip(e, seatId, person){
+    const t = document.getElementById('seat-tooltip');
+    t.textContent = person
+      ? `${person.name} · @${person.insta} · ${seatId}`
+      : `Puesto ${seatId} — Disponible 🟢`;
     t.classList.add('show');
-    const r=e.target.getBoundingClientRect();
-    t.style.top=(r.top-46)+'px';
-    t.style.left=Math.max(8,Math.min(r.left-20,window.innerWidth-220))+'px';
-    setTimeout(()=>t.classList.remove('show'),2200);
+    const r = e.target.getBoundingClientRect();
+    t.style.top  = (r.top - 46) + 'px';
+    t.style.left = Math.max(8, Math.min(r.left - 20, window.innerWidth - 220)) + 'px';
+    setTimeout(() => t.classList.remove('show'), 2200);
   }
 
+  // ─── STATS ────────────────────────────────────────────────────────────
   function animateBump(id){
-    const el=document.getElementById(id);
-    if(!el)return;
+    const el = document.getElementById(id);
+    if(!el) return;
     el.classList.add('bump');
-    setTimeout(()=>el.classList.remove('bump'),350);
+    setTimeout(() => el.classList.remove('bump'), 350);
   }
 
   function updateStats(){
-    const tot=attendees.length;
-    const males=attendees.filter(a=>a.gender==='male').length;
-    const females=attendees.filter(a=>a.gender==='female').length;
-    document.getElementById('total-registered').textContent=tot;
-    document.getElementById('spots-left').textContent=TOTAL-tot;
-    document.getElementById('progress-text').textContent=tot+' / '+TOTAL;
-    document.getElementById('progress-fill').style.width=Math.round(tot/TOTAL*100)+'%';
-    document.getElementById('male-count').textContent=males;
-    document.getElementById('female-count').textContent=females;
-    document.getElementById('capacity-txt').textContent=tot+'/'+TOTAL+' puestos';
-    document.getElementById('list-count').textContent=tot;
+    const tot     = attendees.length;
+    const males   = attendees.filter(a => a.gender === 'male').length;
+    const females = attendees.filter(a => a.gender === 'female').length;
+    document.getElementById('total-registered').textContent = tot;
+    document.getElementById('spots-left').textContent       = TOTAL - tot;
+    document.getElementById('progress-text').textContent    = tot + ' / ' + TOTAL;
+    document.getElementById('progress-fill').style.width    = Math.round(tot / TOTAL * 100) + '%';
+    document.getElementById('male-count').textContent       = males;
+    document.getElementById('female-count').textContent     = females;
+    document.getElementById('capacity-txt').textContent     = tot + '/' + TOTAL + ' puestos';
+    document.getElementById('list-count').textContent       = tot;
   }
 
+  // ─── LIST ─────────────────────────────────────────────────────────────
   function setFilter(f){
-    currentFilter=f;
-    document.querySelectorAll('.chip').forEach(c=>{
-      c.classList.toggle('active',c.dataset.filter===f);
+    currentFilter = f;
+    document.querySelectorAll('.chip').forEach(c => {
+      c.classList.toggle('active', c.dataset.filter === f);
     });
     renderList();
   }
 
   function renderList(){
-    const el=document.getElementById('attendees-list');
-    let filtered=attendees;
-    if(currentFilter==='male') filtered=attendees.filter(a=>a.gender==='male');
-    else if(currentFilter==='female') filtered=attendees.filter(a=>a.gender==='female');
-    else if(currentFilter==='vip') filtered=attendees.filter(a=>a.vip);
+    const el = document.getElementById('attendees-list');
+    let filtered = attendees;
+    if(currentFilter === 'male')   filtered = attendees.filter(a => a.gender === 'male');
+    else if(currentFilter === 'female') filtered = attendees.filter(a => a.gender === 'female');
+    else if(currentFilter === 'vip')    filtered = attendees.filter(a => a.zone === 'vip');
     if(!filtered.length){
-      el.innerHTML=`<div class="empty-state"><div class="empty-icon">🛥️</div><h3>${currentFilter==='all'?'Aún no hay registros':'Sin resultados'}</h3><p>${currentFilter==='all'?'¡Sé el primero en unirte a la noche de yate!':'No hay asistentes en esta categoría aún.'}</p></div>`;
+      el.innerHTML = `<div class="empty-state"><div class="empty-icon">🛥️</div><h3>${currentFilter === 'all' ? 'Aún no hay registros' : 'Sin resultados'}</h3><p>${currentFilter === 'all' ? '¡Sé el primero en unirte a GuataParty!' : 'No hay asistentes en esta categoría aún.'}</p></div>`;
       return;
     }
-    el.innerHTML=[...filtered].reverse().map(a=>{
-      const ini=a.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
-      const zone={vip:'🌟 VIP',main:'🎵 General',lower:'🌊 Social'}[a.zone]||a.zone;
-      const bc=a.vip?'vip':a.gender;
-      const bl=a.vip?'⭐ VIP':a.gender==='male'?'👦 H':'👩 M';
-      return `<div class="attendee-card"><div class="avatar ${a.gender}">${ini}</div><div class="attendee-info"><div class="attendee-name">${a.name}</div><div class="attendee-meta">${zone} · Puesto ${a.seat}${a.insta?' · <span style="color:var(--aira-blue);font-size:10px">${a.insta}</span>':''}</div></div><div class="seat-badge ${bc}">${bl}</div></div>`;
+    el.innerHTML = [...filtered].reverse().map(a => {
+      const ini  = a.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+      const zone = {vip:'🌟 VIP', main:'🎵 General', lower:'🌊 Social'}[a.zone] || a.zone;
+      const bc   = a.zone === 'vip' ? 'vip' : a.gender;
+      const bl   = a.zone === 'vip' ? '⭐ VIP' : a.gender === 'male' ? '👦 H' : '👩 M';
+      return `<div class="attendee-card"><div class="avatar ${a.gender}">${ini}</div><div class="attendee-info"><div class="attendee-name">${a.name}</div><div class="attendee-meta">${zone} · Puesto ${a.seat} · <span style="color:var(--aira-blue);font-size:10px">@${a.insta}</span></div></div><div class="seat-badge ${bc}">${bl}</div></div>`;
     }).join('');
   }
 
+  // ─── NAV ──────────────────────────────────────────────────────────────
   function goTo(s){
-    document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
-    document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));
-    document.getElementById('screen-'+s).classList.add('active');
-    document.getElementById('nav-'+s).classList.add('active');
-    if(s==='list')renderList();
-    if(s==='deck')renderDeck(null);
+    document.querySelectorAll('.screen').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(x => x.classList.remove('active'));
+    document.getElementById('screen-' + s).classList.add('active');
+    document.getElementById('nav-' + s).classList.add('active');
+    if(s === 'list') renderList();
+    if(s === 'deck') renderDeck(null);
   }
 
+  // ─── FORM INTERACTIONS ────────────────────────────────────────────────
   function selectGender(g){
-    selectedGender=g;
-    document.getElementById('opt-male').className='gender-opt'+(g==='male'?' selected-m':'');
-    document.getElementById('opt-female').className='gender-opt'+(g==='female'?' selected-f':'');
+    selectedGender = g;
+    document.getElementById('opt-male').className   = 'gender-opt' + (g === 'male'   ? ' selected-m' : '');
+    document.getElementById('opt-female').className = 'gender-opt' + (g === 'female' ? ' selected-f' : '');
   }
 
-  function toggleVip(){
-    isVip=!isVip;
-    document.getElementById('vip-pill').classList.toggle('on',isVip);
-    document.getElementById('vip-toggle').classList.toggle('on',isVip);
-    if(isVip)document.getElementById('input-zone').value='vip';
+  function selectZone(z){
+    selectedZone = z;
+    ['main','lower','vip'].forEach(id => {
+      const card = document.getElementById('zone-' + id);
+      card.className = 'zone-card' + (id === z ? (' selected-' + (id === 'vip' ? 'vip' : 'general')) : '');
+    });
+    // Mostrar/ocultar campo de código VIP
+    const codeGroup = document.getElementById('vip-code-group');
+    if(z === 'vip'){
+      codeGroup.classList.add('visible');
+    } else {
+      codeGroup.classList.remove('visible');
+      document.getElementById('input-vip-code').value = '';
+    }
   }
 
+  // ─── VALIDATION HELPERS ───────────────────────────────────────────────
   function flashInput(id){
-    const el=document.getElementById(id);
-    el.style.borderColor='rgba(255,79,79,0.7)';
-    el.style.boxShadow='0 0 0 3px rgba(255,79,79,0.15)';
-    setTimeout(()=>{el.style.borderColor='';el.style.boxShadow='';},900);
+    const el = document.getElementById(id);
+    el.style.borderColor = 'rgba(255,79,79,0.7)';
+    el.style.boxShadow   = '0 0 0 3px rgba(255,79,79,0.15)';
+    setTimeout(() => { el.style.borderColor = ''; el.style.boxShadow = ''; }, 900);
     el.focus();
   }
 
-  function showToast(msg){
-    const t=document.getElementById('full-toast');
-    t.textContent=msg;
-    t.classList.add('show');
-    setTimeout(()=>t.classList.remove('show'),2500);
+  function showToast(msg, type){
+    const t = document.getElementById('full-toast');
+    t.textContent = msg;
+    t.className = 'full-toast show' + (type === 'success' ? ' success' : '');
+    setTimeout(() => t.className = 'full-toast', 2800);
   }
 
   function spawnConfetti(){
-    const c=document.getElementById('confetti-container');
-    c.innerHTML='';
-    const colors=['#004fff','#e1fe52','#ffffff','#ffd700','#0066ff','#c8e840'];
-    for(let i=0;i<40;i++){
-      const p=document.createElement('div');
-      p.className='confetti-piece';
-      p.style.cssText=`left:${Math.random()*100}%;top:${-10+Math.random()*-20}%;background:${colors[i%colors.length]};animation-delay:${Math.random()*0.8}s;animation-duration:${1.5+Math.random()}s;transform:rotate(${Math.random()*360}deg);border-radius:${Math.random()>0.5?'50%':'2px'};`;
+    const c = document.getElementById('confetti-container');
+    c.innerHTML = '';
+    const colors = ['#004fff','#e1fe52','#ffffff','#ffd700','#0066ff','#c8e840'];
+    for(let i = 0; i < 50; i++){
+      const p = document.createElement('div');
+      p.className = 'confetti-piece';
+      p.style.cssText = `left:${Math.random()*100}%;top:${-10+Math.random()*-20}%;background:${colors[i%colors.length]};animation-delay:${Math.random()*0.8}s;animation-duration:${1.5+Math.random()}s;transform:rotate(${Math.random()*360}deg);border-radius:${Math.random()>.5?'50%':'2px'};`;
       c.appendChild(p);
     }
   }
 
+  // ─── REGISTER ─────────────────────────────────────────────────────────
   function registerAttendee(){
-    const name=document.getElementById('input-name').value.trim();
-    const insta=document.getElementById('input-insta').value.trim();
-    const zone=document.getElementById('input-zone').value;
-    if(!name){flashInput('input-name');return;}
+    const name      = document.getElementById('input-name').value.trim();
+    const instaRaw  = document.getElementById('input-insta').value.trim().replace(/^@/, '');
+    const vipCode   = document.getElementById('input-vip-code').value.trim().toUpperCase();
+
+    // Validaciones
+    if(!name){ flashInput('input-name'); showToast('⚠️ Ingresa tu nombre'); return; }
+
+    if(!instaRaw){ flashInput('input-insta'); showToast('⚠️ Instagram es obligatorio'); return; }
+
     if(!selectedGender){
-      document.querySelectorAll('.gender-opt').forEach(el=>{
-        el.style.borderColor='rgba(255,79,79,0.5)';
-        setTimeout(()=>el.style.borderColor='',900);
+      document.querySelectorAll('.gender-opt').forEach(el => {
+        el.style.borderColor = 'rgba(255,79,79,0.5)';
+        setTimeout(() => el.style.borderColor = '', 900);
       });
+      showToast('⚠️ Selecciona tu género');
       return;
     }
-    if(!zone){flashInput('input-zone');return;}
-    if(attendees.length>=TOTAL){showToast('🛥️ ¡El yate está lleno!');return;}
-    const seat=assignSeat(zone);
-    if(!seat){showToast('⚠️ La zona '+({vip:'VIP',main:'General',lower:'Social'}[zone])+' está llena');return;}
-    attendees.push({name,gender:selectedGender,zone,vip:isVip,seat,insta});
-    lastSeat=seat;
-    document.getElementById('success-seat-num').textContent='Puesto '+seat;
-    document.getElementById('success-msg').innerHTML=(isVip?'<strong style="color:#ffd700">⭐ Pass VIP activado</strong><br>':'')+'<strong>'+name+'</strong>, tu lugar está asegurado<br>en el Yate Majestic 🛥️';
+
+    if(!selectedZone){
+      showToast('⚠️ Elige una zona');
+      return;
+    }
+
+    // Validar código VIP si eligió VIP
+    if(selectedZone === 'vip'){
+      if(!vipCode){ flashInput('input-vip-code'); showToast('🔑 Ingresa tu código de invitación'); return; }
+      if(!VIP_CODES.includes(vipCode)){ flashInput('input-vip-code'); showToast('❌ Código VIP inválido'); return; }
+    }
+
+    // Verificar cupos totales
+    if(attendees.length >= TOTAL){ showToast('🛥️ ¡El yate está lleno!'); return; }
+
+    // Verificar cupos en la zona
+    const seat = assignSeat(selectedZone);
+    if(!seat){ showToast('⚠️ La zona ' + ({vip:'VIP',main:'General',lower:'Social'}[selectedZone]) + ' está llena'); return; }
+
+    // Registrar
+    const newAttendee = { name, insta: instaRaw, gender: selectedGender, zone: selectedZone, seat };
+    attendees.push(newAttendee);
+    lastSeat = seat;
+
+    // Success overlay
+    const zoneLabel = {vip:'🌟 VIP',main:'🎵 General',lower:'🌊 Social'}[selectedZone];
+    document.getElementById('success-seat-num').textContent = 'Puesto ' + seat;
+    document.getElementById('success-msg').innerHTML =
+      (selectedZone === 'vip' ? '<strong style="color:#ffd700">⭐ Zona VIP confirmada</strong><br>' : '') +
+      '<strong>' + name + '</strong>, tu lugar está asegurado<br>en el Yate Majestic 🛥️<br>' +
+      '<span style="color:var(--aira-blue);font-size:13px">@' + instaRaw + '</span> · ' + zoneLabel;
+
     spawnConfetti();
     animateBump('total-registered');
-    animateBump(selectedGender==='male'?'male-count':'female-count');
+    animateBump(selectedGender === 'male' ? 'male-count' : 'female-count');
     document.getElementById('success-overlay').classList.add('show');
+
     // Reset form
-    document.getElementById('input-name').value='';
-    document.getElementById('input-insta').value='';
-    document.getElementById('input-zone').value='';
-    selectedGender=''; isVip=false;
-    document.getElementById('opt-male').className='gender-opt';
-    document.getElementById('opt-female').className='gender-opt';
-    document.getElementById('vip-pill').classList.remove('on');
-    document.getElementById('vip-toggle').classList.remove('on');
+    document.getElementById('input-name').value = '';
+    document.getElementById('input-insta').value = '';
+    document.getElementById('input-vip-code').value = '';
+    selectedGender = ''; selectedZone = '';
+    document.getElementById('opt-male').className   = 'gender-opt';
+    document.getElementById('opt-female').className = 'gender-opt';
+    ['main','lower','vip'].forEach(id => document.getElementById('zone-'+id).className = 'zone-card');
+    document.getElementById('vip-code-group').classList.remove('visible');
   }
 
   function closeSuccess(){
@@ -551,7 +687,7 @@
     renderDeck(lastSeat);
   }
 
-  // Init
+  // ─── INIT ─────────────────────────────────────────────────────────────
   renderDeck(null);
   updateStats();
 </script>

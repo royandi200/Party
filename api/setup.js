@@ -5,10 +5,8 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-setup-token');
 
-  // Responder preflight inmediatamente
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  // Solo accesible con token de setup
   if (req.headers['x-setup-token'] !== process.env.SETUP_TOKEN)
     return res.status(401).json({ error: 'No autorizado' });
 
@@ -21,6 +19,7 @@ export default async function handler(req, res) {
     ssl: false
   });
 
+  // Crear tabla con photo_url incluido
   await conn.execute(`
     CREATE TABLE IF NOT EXISTS attendees (
       id         INT AUTO_INCREMENT PRIMARY KEY,
@@ -29,10 +28,11 @@ export default async function handler(req, res) {
       instagram  VARCHAR(80)  NOT NULL,
       gender     ENUM('male','female') NOT NULL,
       zone       ENUM('vip','main','lower') NOT NULL,
-      seat       VARCHAR(10)  NOT NULL UNIQUE
+      seat       VARCHAR(10)  NOT NULL UNIQUE,
+      photo_url  TEXT NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
   `);
 
   await conn.end();
-  return res.status(200).json({ ok: true, message: 'Tabla attendees creada ✅' });
+  return res.status(200).json({ ok: true, message: 'Tabla attendees creada ✅ (con photo_url)' });
 }

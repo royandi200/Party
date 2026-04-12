@@ -4,27 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>GuataParty 🛥️ — AIRA Yacht Night</title>
-  <meta name="description" content="App de registro para GuataParty · Yate Majestic · Represa Guatapé">
   <meta name="theme-color" content="#004fff">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="GuataParty">
-  <meta property="og:title" content="GuataParty 🛥️ Yacht Night">
-  <meta property="og:description" content="Reserva tu puesto en el Yate Majestic · Represa Guatapé">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23004fff'/><text y='24' x='4' font-size='22'>🛥️</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <!-- ═══════════════════════════════════════════════════════════
-       SUPABASE CONFIG — reemplaza estos dos valores con los tuyos
-       Los encuentras en: supabase.com > tu proyecto > Settings > API
-       ═══════════════════════════════════════════════════════════ -->
-  <script>
-    window.SUPABASE_URL  = 'REEMPLAZA_CON_TU_SUPABASE_URL';
-    window.SUPABASE_ANON = 'REEMPLAZA_CON_TU_SUPABASE_ANON_KEY';
-  </script>
-
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -47,8 +33,6 @@
     body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
       background: radial-gradient(ellipse 60% 40% at 20% 10%, rgba(0,79,255,0.18) 0%, transparent 70%),
                   radial-gradient(ellipse 40% 30% at 80% 80%, rgba(225,254,82,0.07) 0%, transparent 60%); }
-
-    /* ── HEADER ─────────────────────────────────────────────── */
     header { position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:18px 20px 14px; background:rgba(8,16,31,0.88); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid var(--aira-border); }
     .logo { display:flex; align-items:center; gap:10px; }
     .logo-svg { width:36px; height:36px; border-radius:10px; background:linear-gradient(135deg,var(--aira-blue),#0052ff); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
@@ -57,8 +41,6 @@
     .live-badge { display:flex; align-items:center; gap:5px; background:rgba(225,254,82,0.1); border:1px solid rgba(225,254,82,0.3); border-radius:20px; padding:4px 10px; font-size:11px; font-weight:700; color:var(--aira-lime); text-transform:uppercase; letter-spacing:0.8px; flex-shrink:0; }
     .live-dot { width:6px; height:6px; border-radius:50%; background:var(--aira-lime); animation:pulse-dot 1.5s ease-in-out infinite; }
     @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
-
-    /* ── DB STATUS BANNER ───────────────────────────────────── */
     .db-banner { margin:12px 16px 0; padding:10px 14px; border-radius:12px; font-size:12px; font-weight:600; display:flex; align-items:center; gap:8px; }
     .db-banner.connecting { background:rgba(255,200,0,0.08); border:1px solid rgba(255,200,0,0.25); color:#ffc800; }
     .db-banner.connected  { background:rgba(100,220,100,0.08); border:1px solid rgba(100,220,100,0.25); color:#64dc64; }
@@ -66,17 +48,13 @@
     .db-banner.hidden     { display:none; }
     .db-dot { width:8px; height:8px; border-radius:50%; background:currentColor; flex-shrink:0; }
     .db-banner.connected .db-dot { animation:pulse-dot 2s ease-in-out infinite; }
-
-    /* ── SCREENS ────────────────────────────────────────────── */
     .screen { display:none; flex:1; flex-direction:column; padding-bottom:90px; overflow-y:auto; -webkit-overflow-scrolling:touch; }
     .screen.active { display:flex; animation:fade-in 0.25s ease; }
     @keyframes fade-in { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
     section { padding:0 16px; margin-bottom:24px; }
-
-    /* ── HERO ───────────────────────────────────────────────── */
     .hero-banner { margin:16px 16px 0; background:linear-gradient(135deg,var(--aira-dark3) 0%,var(--aira-dark2) 100%); border:1px solid var(--aira-border); border-radius:var(--r-xl); padding:24px; position:relative; overflow:hidden; }
     .hero-banner::before { content:''; position:absolute; top:-40px; right:-40px; width:180px; height:180px; background:radial-gradient(circle,rgba(0,79,255,0.25) 0%,transparent 70%); pointer-events:none; }
-    .hero-banner::after { content:''; position:absolute; bottom:-30px; left:20px; width:120px; height:120px; background:radial-gradient(circle,rgba(225,254,82,0.1) 0%,transparent 70%); pointer-events:none; }
+    .hero-banner::after  { content:''; position:absolute; bottom:-30px; left:20px; width:120px; height:120px; background:radial-gradient(circle,rgba(225,254,82,0.1) 0%,transparent 70%); pointer-events:none; }
     .hero-date { font-size:11px; font-weight:700; color:var(--aira-lime); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
     .hero-title { font-size:28px; font-weight:900; line-height:1.1; margin-bottom:6px; }
     .hero-subtitle { font-size:13px; color:var(--text-muted); margin-bottom:18px; line-height:1.5; }
@@ -85,8 +63,6 @@
     .stat-num { font-size:22px; font-weight:900; color:var(--aira-lime); transition:transform 0.3s var(--ease-spring); }
     .stat-num.bump { transform:scale(1.3); }
     .stat-label { font-size:11px; color:var(--text-muted); font-weight:500; }
-
-    /* ── PROGRESS ───────────────────────────────────────────── */
     .progress-section { margin:0 16px 20px; }
     .progress-header { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
     .progress-label { font-size:13px; font-weight:600; }
@@ -95,12 +71,9 @@
     .progress-fill { height:100%; border-radius:100px; background:linear-gradient(90deg,var(--aira-blue),var(--aira-lime)); transition:width 0.5s var(--ease-spring); }
     .gender-split { display:flex; gap:8px; margin-top:6px; }
     .gender-pill { flex:1; display:flex; align-items:center; justify-content:center; gap:6px; background:rgba(255,255,255,0.04); border-radius:10px; padding:8px 6px; font-size:11px; font-weight:600; }
-    .gender-pill.m { color:#6699ff; }
-    .gender-pill.f { color:#c8e840; }
+    .gender-pill.m { color:#6699ff; } .gender-pill.f { color:#c8e840; }
     .gender-num { font-size:20px; font-weight:900; transition:transform 0.3s var(--ease-spring); }
     .gender-num.bump { transform:scale(1.35); }
-
-    /* ── YACHT MAP ──────────────────────────────────────────── */
     .section-title { font-size:13px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px; margin-top:8px; display:flex; align-items:center; justify-content:space-between; }
     .section-title span { color:var(--text-faint); font-size:11px; font-weight:600; }
     .yacht-container { background:var(--aira-card); border:1px solid var(--aira-border); border-radius:var(--r-lg); padding:20px 16px; }
@@ -112,30 +85,26 @@
     .seats-row { display:flex; gap:5px; align-items:center; justify-content:center; }
     .seat { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:12px; cursor:pointer; transition:transform 0.2s; }
     .seat:active { transform:scale(0.88); }
-    .seat.empty { background:rgba(255,255,255,0.04); border:1.5px dashed rgba(255,255,255,0.1); }
+    .seat.empty  { background:rgba(255,255,255,0.04); border:1.5px dashed rgba(255,255,255,0.1); }
     .seat.male   { background:linear-gradient(135deg,#004fff,#0066ff); box-shadow:0 2px 8px rgba(0,79,255,0.4); }
     .seat.female { background:linear-gradient(135deg,#e1fe52,#c8e840); box-shadow:0 2px 8px rgba(225,254,82,0.35); }
     .seat.vip    { background:linear-gradient(135deg,#ffd700,#ffb800); box-shadow:0 2px 8px rgba(255,215,0,0.4); }
     .seat.new-seat { animation:pop-in 0.4s var(--ease-spring); }
     @keyframes pop-in { from{transform:scale(0);opacity:0} 60%{transform:scale(1.25)} to{transform:scale(1);opacity:1} }
     .boat-prow  { width:60px; height:24px; background:rgba(0,79,255,0.15); border:1px solid rgba(0,79,255,0.3); border-radius:50% 50% 0 0/100% 100% 0 0; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; font-size:14px; }
-    .boat-stern { width:80px; height:14px; background:rgba(0,79,255,0.1);  border:1px solid rgba(0,79,255,0.2); border-radius:0 0 50% 50%/0 0 100% 100%; margin:6px auto 0; }
+    .boat-stern { width:80px; height:14px; background:rgba(0,79,255,0.1); border:1px solid rgba(0,79,255,0.2); border-radius:0 0 50% 50%/0 0 100% 100%; margin:6px auto 0; }
     .deck-divider { height:1px; background:var(--aira-border); margin:12px 0; }
     .legend { display:flex; gap:14px; justify-content:center; margin-top:14px; flex-wrap:wrap; }
     .legend-item { display:flex; align-items:center; gap:6px; font-size:11px; color:var(--text-muted); }
     .legend-dot { width:12px; height:12px; border-radius:4px; }
-    .legend-dot.male   { background:#004fff; }
-    .legend-dot.female { background:#e1fe52; }
-    .legend-dot.vip    { background:#ffd700; }
-    .legend-dot.empty  { background:transparent; border:1.5px dashed rgba(255,255,255,0.2); }
-
-    /* ── ATTENDEES LIST ─────────────────────────────────────── */
+    .legend-dot.male   { background:#004fff; } .legend-dot.female { background:#e1fe52; }
+    .legend-dot.vip    { background:#ffd700; } .legend-dot.empty  { background:transparent; border:1.5px dashed rgba(255,255,255,0.2); }
     .filter-chips { display:flex; gap:8px; margin-bottom:16px; overflow-x:auto; padding-bottom:4px; scrollbar-width:none; }
     .filter-chips::-webkit-scrollbar { display:none; }
     .chip { flex-shrink:0; padding:6px 14px; border-radius:100px; font-size:12px; font-weight:700; border:1.5px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.04); color:var(--text-muted); cursor:pointer; transition:all 0.2s; text-transform:uppercase; letter-spacing:0.5px; }
-    .chip.active     { background:rgba(0,79,255,0.15);    border-color:var(--aira-blue); color:#6699ff; }
-    .chip.active.f   { background:rgba(225,254,82,0.1);   border-color:var(--aira-lime); color:#c8e840; }
-    .chip.active.vip { background:rgba(255,215,0,0.1);    border-color:#ffd700;          color:#ffd700; }
+    .chip.active     { background:rgba(0,79,255,0.15);   border-color:var(--aira-blue); color:#6699ff; }
+    .chip.active.f   { background:rgba(225,254,82,0.1);  border-color:var(--aira-lime); color:#c8e840; }
+    .chip.active.vip { background:rgba(255,215,0,0.1);   border-color:#ffd700;          color:#ffd700; }
     .attendees-list { display:flex; flex-direction:column; gap:8px; }
     .attendee-card { display:flex; align-items:center; gap:12px; background:var(--aira-card); border:1px solid var(--aira-border); border-radius:var(--r); padding:12px 14px; animation:slide-in 0.3s ease; }
     @keyframes slide-in { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
@@ -153,8 +122,6 @@
     .empty-state .empty-icon { font-size:56px; margin-bottom:14px; }
     .empty-state h3 { font-size:16px; font-weight:700; color:var(--text-muted); margin-bottom:6px; }
     .empty-state p { font-size:13px; line-height:1.5; max-width:28ch; }
-
-    /* ── FORM ───────────────────────────────────────────────── */
     .form-card { background:var(--aira-card); border:1px solid var(--aira-border); border-radius:var(--r-lg); padding:20px; margin:0 16px; }
     .form-title { font-size:20px; font-weight:900; margin-bottom:6px; }
     .form-sub { font-size:13px; color:var(--text-muted); margin-bottom:22px; line-height:1.5; }
@@ -198,15 +165,9 @@
     .btn-register:active  { transform:scale(0.98); }
     .btn-register:hover   { background:#0040cc; }
     .btn-register:disabled { opacity:0.5; cursor:not-allowed; }
-    .btn-loading { pointer-events:none; opacity:0.7; }
-    .btn-loading::after { content:' ⏳'; }
-
-    /* ── TOAST ──────────────────────────────────────────────── */
     .full-toast { display:none; position:fixed; top:80px; left:50%; transform:translateX(-50%); z-index:300; border-radius:12px; padding:12px 20px; font-size:13px; font-weight:700; white-space:nowrap; backdrop-filter:blur(10px); }
     .full-toast.show         { display:block; animation:fade-in 0.25s ease; background:rgba(255,60,60,0.12); border:1px solid rgba(255,60,60,0.35); color:#ff7070; }
     .full-toast.show.success { background:rgba(100,220,100,0.12); border-color:rgba(100,220,100,0.35); color:#64dc64; }
-
-    /* ── SUCCESS OVERLAY ────────────────────────────────────── */
     .success-overlay { display:none; position:fixed; inset:0; z-index:200; background:rgba(8,16,31,0.97); flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:40px; }
     .success-overlay.show { display:flex; animation:fade-in 0.35s ease; }
     .success-emoji { font-size:72px; margin-bottom:16px; animation:pop-in 0.5s var(--ease-spring) 0.1s both; }
@@ -218,8 +179,6 @@
     .success-msg   { font-size:14px; color:var(--text-muted); margin-bottom:28px; line-height:1.5; }
     .btn-back { padding:14px 32px; background:var(--aira-lime); color:#08101f; border:none; border-radius:var(--r); font-family:var(--font); font-size:15px; font-weight:800; cursor:pointer; transition:transform 0.2s; }
     .btn-back:active { transform:scale(0.97); }
-
-    /* ── NAV ────────────────────────────────────────────────── */
     nav.bottom { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:430px; z-index:100; background:rgba(8,16,31,0.92); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-top:1px solid var(--aira-border); display:flex; padding:8px 0 max(8px,env(safe-area-inset-bottom)); }
     .nav-btn { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; padding:6px 0; background:none; border:none; cursor:pointer; color:var(--text-faint); font-family:var(--font); font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; transition:color 0.2s; }
     .nav-btn svg { width:22px; height:22px; }
@@ -227,6 +186,7 @@
     .seat-tooltip { display:none; position:fixed; z-index:150; background:var(--aira-dark3); border:1px solid var(--aira-border); border-radius:10px; padding:10px 14px; font-size:12px; font-weight:600; pointer-events:none; box-shadow:0 8px 24px rgba(0,0,0,0.5); white-space:nowrap; }
     .seat-tooltip.show { display:block; animation:fade-in 0.15s ease; }
     ::-webkit-scrollbar { display:none; } * { scrollbar-width:none; }
+    .poll-btn { display:flex; align-items:center; justify-content:center; gap:6px; width:100%; margin-top:10px; padding:10px; background:rgba(255,255,255,0.04); border:1px dashed rgba(255,255,255,0.1); border-radius:var(--r); font-size:12px; color:var(--text-faint); font-family:var(--font); cursor:pointer; }
   </style>
 </head>
 <body>
@@ -245,13 +205,12 @@
     <div class="live-badge"><div class="live-dot"></div>En vivo</div>
   </header>
 
-  <!-- DB status -->
   <div class="db-banner connecting" id="db-banner">
     <div class="db-dot"></div>
-    <span id="db-status-text">Conectando con la base de datos…</span>
+    <span id="db-status-text">Conectando con MySQL…</span>
   </div>
 
-  <!-- ══ SCREEN: CUBIERTA ════════════════════════════════════ -->
+  <!-- CUBIERTA -->
   <div class="screen active" id="screen-deck">
     <div class="hero-banner">
       <div class="hero-date">Sábado · Represa Guatapé 🌊</div>
@@ -289,10 +248,11 @@
           <div class="legend-item"><div class="legend-dot empty"></div>Libre</div>
         </div>
       </div>
+      <button class="poll-btn" onclick="loadAttendees()">🔄 Actualizar datos</button>
     </section>
   </div>
 
-  <!-- ══ SCREEN: ASISTENTES ══════════════════════════════════ -->
+  <!-- ASISTENTES -->
   <div class="screen" id="screen-list">
     <section style="padding-top:20px;">
       <div class="section-title">Asistentes <span id="list-count">0</span></div>
@@ -306,7 +266,7 @@
     </section>
   </div>
 
-  <!-- ══ SCREEN: REGISTRO ════════════════════════════════════ -->
+  <!-- REGISTRO -->
   <div class="screen" id="screen-register">
     <div style="padding:20px 0 0;">
       <div class="form-card">
@@ -384,28 +344,31 @@
   <button class="btn-back" onclick="closeSuccess()">Ver mi puesto →</button>
 </div>
 
-<!-- Supabase JS SDK (ESM via CDN) -->
-<script type="module">
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+<script>
+// ═══════════════════════════════════════════════════════
+//  CONFIG
+// ═══════════════════════════════════════════════════════
+const TOTAL        = 35;
+const VIP_SEATS    = 8;
+const MAIN_SEATS   = 17;
+const LOWER_SEATS  = 10;
+const VIP_CODES    = ['GUATA2025','AIRA2025','VIPNIGHT','YACHTVIP'];
+const API          = '/api/attendees';   // Vercel Serverless Function
+const POLL_INTERVAL = 8000;              // refresco automático cada 8s
 
-// ── CONFIG ────────────────────────────────────────────────────────────
-const TOTAL       = 35;
-const VIP_SEATS   = 8;
-const MAIN_SEATS  = 17;
-const LOWER_SEATS = 10;
-const VIP_CODES   = ['GUATA2025','AIRA2025','VIPNIGHT','YACHTVIP'];
-
-// Supabase client — lee las variables inyectadas en window
-const supabase = createClient(window.SUPABASE_URL, window.SUPABASE_ANON);
-
-// ── STATE ─────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════════
 let attendees      = [];
 let selectedGender = '';
 let selectedZone   = '';
 let lastSeat       = null;
 let currentFilter  = 'all';
+let pollTimer      = null;
 
-// ── DB STATUS BANNER ──────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════
+//  BANNER
+// ═══════════════════════════════════════════════════════
 function setBanner(state, msg) {
   const b = document.getElementById('db-banner');
   const t = document.getElementById('db-status-text');
@@ -414,36 +377,32 @@ function setBanner(state, msg) {
   if(state === 'connected') setTimeout(() => b.classList.add('hidden'), 3000);
 }
 
-// ── LOAD INITIAL DATA ─────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════
+//  LOAD DATA  (polling cada 8s)
+// ═══════════════════════════════════════════════════════
 async function loadAttendees() {
-  const { data, error } = await supabase
-    .from('attendees')
-    .select('*')
-    .order('created_at', { ascending: true });
-  if(error) {
-    setBanner('error', '⚠️ Error de conexión — los datos no se guardarán en la nube');
-    console.error(error);
-    return;
+  try {
+    const res  = await fetch(API);
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    attendees  = data;
+    setBanner('connected', '✅ MySQL conectada · datos en vivo');
+    renderDeck(null);
+    renderList();
+  } catch(e) {
+    setBanner('error', '⚠️ Sin conexión con la base de datos');
+    console.error(e);
   }
-  attendees = data;
-  setBanner('connected', '✅ Conectado — datos en tiempo real activos');
-  renderDeck(null);
-  renderList();
 }
 
-// ── REALTIME SUBSCRIPTION ─────────────────────────────────────────────
-supabase
-  .channel('attendees-changes')
-  .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'attendees' }, payload => {
-    attendees.push(payload.new);
-    renderDeck(payload.new.seat);
-    renderList();
-    animateBump('total-registered');
-    animateBump(payload.new.gender === 'male' ? 'male-count' : 'female-count');
-  })
-  .subscribe();
+function startPolling() {
+  loadAttendees();
+  pollTimer = setInterval(loadAttendees, POLL_INTERVAL);
+}
 
-// ── SEAT HELPERS ──────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════
+//  SEAT HELPERS
+// ═══════════════════════════════════════════════════════
 function getOccupied() { return new Set(attendees.map(a => a.seat)); }
 
 function assignSeat(zone) {
@@ -457,11 +416,12 @@ function assignSeat(zone) {
   return null;
 }
 
-// ── DECK RENDER ───────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════
+//  DECK RENDER
+// ═══════════════════════════════════════════════════════
 function renderDeck(newSeat) {
   const map = {};
   attendees.forEach(a => { map[a.seat] = a; });
-
   function buildDeck(el, prefix, count, rows) {
     el.innerHTML = '';
     if(rows) {
@@ -478,7 +438,6 @@ function renderDeck(newSeat) {
       el.appendChild(r);
     }
   }
-
   buildDeck(document.getElementById('deck-vip'),   'V', VIP_SEATS,   null);
   buildDeck(document.getElementById('deck-main'),  'M', MAIN_SEATS,  [[1,2,3,4,5,6],[7,8,9,10,11,12],[13,14,15,16,17]]);
   buildDeck(document.getElementById('deck-lower'), 'L', LOWER_SEATS, [[1,2,3,4,5],[6,7,8,9,10]]);
@@ -488,24 +447,17 @@ function renderDeck(newSeat) {
 function mkSeat(id, person, newSeat) {
   const el = document.createElement('div');
   el.className = 'seat' + (id === newSeat ? ' new-seat' : '');
-  if(!person) {
-    el.classList.add('empty');
-  } else if(person.zone === 'vip') {
-    el.classList.add('vip');   el.textContent = person.gender === 'male' ? '👦' : '👩';
-  } else if(person.gender === 'male') {
-    el.classList.add('male');  el.textContent = '👦';
-  } else {
-    el.classList.add('female'); el.textContent = '👩';
-  }
+  if(!person) { el.classList.add('empty'); }
+  else if(person.zone === 'vip')          { el.classList.add('vip');    el.textContent = person.gender === 'male' ? '👦' : '👩'; }
+  else if(person.gender === 'male')       { el.classList.add('male');   el.textContent = '👦'; }
+  else                                    { el.classList.add('female'); el.textContent = '👩'; }
   el.addEventListener('click', e => showTip(e, id, person));
   return el;
 }
 
 function showTip(e, id, person) {
   const t = document.getElementById('seat-tooltip');
-  t.textContent = person
-    ? `${person.name} · @${person.instagram} · ${id}`
-    : `Puesto ${id} — Disponible 🟢`;
+  t.textContent = person ? `${person.name} · @${person.instagram} · ${id}` : `Puesto ${id} — Disponible 🟢`;
   t.classList.add('show');
   const r = e.target.getBoundingClientRect();
   t.style.top  = (r.top - 46) + 'px';
@@ -513,7 +465,9 @@ function showTip(e, id, person) {
   setTimeout(() => t.classList.remove('show'), 2200);
 }
 
-// ── STATS ─────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════
+//  STATS
+// ═══════════════════════════════════════════════════════
 function animateBump(id) {
   const el = document.getElementById(id);
   if(!el) return;
@@ -535,17 +489,18 @@ function updateStats() {
   document.getElementById('list-count').textContent       = tot;
 }
 
-// ── LIST ──────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════
+//  LIST
+// ═══════════════════════════════════════════════════════
 function setFilter(f) {
   currentFilter = f;
   document.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.dataset.filter === f));
   renderList();
 }
-window.setFilter = setFilter;
 
 function renderList() {
-  const el  = document.getElementById('attendees-list');
-  let list  = attendees;
+  const el   = document.getElementById('attendees-list');
+  let   list = attendees;
   if(currentFilter === 'male')   list = attendees.filter(a => a.gender === 'male');
   if(currentFilter === 'female') list = attendees.filter(a => a.gender === 'female');
   if(currentFilter === 'vip')    list = attendees.filter(a => a.zone   === 'vip');
@@ -554,15 +509,17 @@ function renderList() {
     return;
   }
   el.innerHTML = [...list].reverse().map(a => {
-    const ini   = a.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
-    const zone  = {vip:'🌟 VIP',main:'🎵 General',lower:'🌊 Social'}[a.zone];
-    const bc    = a.zone === 'vip' ? 'vip' : a.gender;
-    const bl    = a.zone === 'vip' ? '⭐ VIP' : a.gender === 'male' ? '👦 H' : '👩 M';
+    const ini  = a.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+    const zone = {vip:'🌟 VIP',main:'🎵 General',lower:'🌊 Social'}[a.zone];
+    const bc   = a.zone === 'vip' ? 'vip' : a.gender;
+    const bl   = a.zone === 'vip' ? '⭐ VIP' : a.gender === 'male' ? '👦 H' : '👩 M';
     return `<div class="attendee-card"><div class="avatar ${a.gender}">${ini}</div><div class="attendee-info"><div class="attendee-name">${a.name}</div><div class="attendee-meta">${zone} · Puesto ${a.seat} · <span style="color:var(--aira-blue);font-size:10px">@${a.instagram}</span></div></div><div class="seat-badge ${bc}">${bl}</div></div>`;
   }).join('');
 }
 
-// ── NAV ───────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════
+//  NAV
+// ═══════════════════════════════════════════════════════
 function goTo(s) {
   document.querySelectorAll('.screen').forEach(x  => x.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(x  => x.classList.remove('active'));
@@ -571,27 +528,25 @@ function goTo(s) {
   if(s === 'list') renderList();
   if(s === 'deck') renderDeck(null);
 }
-window.goTo = goTo;
 
-// ── FORM INTERACTIONS ─────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════
+//  FORM
+// ═══════════════════════════════════════════════════════
 function selectGender(g) {
   selectedGender = g;
   document.getElementById('opt-male').className   = 'gender-opt' + (g==='male'   ? ' selected-m' : '');
   document.getElementById('opt-female').className = 'gender-opt' + (g==='female' ? ' selected-f' : '');
 }
-window.selectGender = selectGender;
 
 function selectZone(z) {
   selectedZone = z;
   ['main','lower','vip'].forEach(id => {
-    const card = document.getElementById('zone-' + id);
-    card.className = 'zone-card' + (id===z ? (' selected-' + (id==='vip'?'vip':'general')) : '');
+    document.getElementById('zone-'+id).className = 'zone-card' + (id===z ? (' selected-'+(id==='vip'?'vip':'general')) : '');
   });
-  const codeGroup = document.getElementById('vip-code-group');
-  if(z === 'vip') { codeGroup.classList.add('visible'); }
-  else { codeGroup.classList.remove('visible'); document.getElementById('input-vip-code').value = ''; }
+  const cg = document.getElementById('vip-code-group');
+  if(z === 'vip') cg.classList.add('visible');
+  else { cg.classList.remove('visible'); document.getElementById('input-vip-code').value=''; }
 }
-window.selectZone = selectZone;
 
 function flashInput(id) {
   const el = document.getElementById(id);
@@ -620,78 +575,80 @@ function spawnConfetti() {
   }
 }
 
-// ── REGISTER ──────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════
+//  REGISTER
+// ═══════════════════════════════════════════════════════
 async function registerAttendee() {
-  const name     = document.getElementById('input-name').value.trim();
-  const insta    = document.getElementById('input-insta').value.trim().replace(/^@/, '');
-  const vipCode  = document.getElementById('input-vip-code').value.trim().toUpperCase();
-  const btn      = document.getElementById('btn-register');
+  const name    = document.getElementById('input-name').value.trim();
+  const insta   = document.getElementById('input-insta').value.trim().replace(/^@/, '');
+  const vipCode = document.getElementById('input-vip-code').value.trim().toUpperCase();
+  const btn     = document.getElementById('btn-register');
 
-  if(!name)          { flashInput('input-name');  showToast('⚠️ Ingresa tu nombre');          return; }
-  if(!insta)         { flashInput('input-insta'); showToast('⚠️ Instagram es obligatorio');  return; }
+  if(!name)           { flashInput('input-name');  showToast('⚠️ Ingresa tu nombre');         return; }
+  if(!insta)          { flashInput('input-insta'); showToast('⚠️ Instagram es obligatorio'); return; }
   if(!selectedGender) {
     document.querySelectorAll('.gender-opt').forEach(el => { el.style.borderColor='rgba(255,79,79,0.5)'; setTimeout(()=>el.style.borderColor='',900); });
     showToast('⚠️ Selecciona tu género'); return;
   }
   if(!selectedZone) { showToast('⚠️ Elige una zona'); return; }
   if(selectedZone === 'vip') {
-    if(!vipCode)                   { flashInput('input-vip-code'); showToast('🔑 Ingresa tu código de invitación'); return; }
-    if(!VIP_CODES.includes(vipCode)) { flashInput('input-vip-code'); showToast('❌ Código VIP inválido'); return; }
+    if(!vipCode)                    { flashInput('input-vip-code'); showToast('🔑 Ingresa tu código de invitación'); return; }
+    if(!VIP_CODES.includes(vipCode)) { flashInput('input-vip-code'); showToast('❌ Código VIP inválido');            return; }
   }
   if(attendees.length >= TOTAL) { showToast('🛥️ ¡El yate está lleno!'); return; }
   const seat = assignSeat(selectedZone);
-  if(!seat) { showToast('⚠️ La zona ' + ({vip:'VIP',main:'General',lower:'Social'}[selectedZone]) + ' está llena'); return; }
+  if(!seat) { showToast('⚠️ La zona '+({vip:'VIP',main:'General',lower:'Social'}[selectedZone])+' está llena'); return; }
 
-  // Loading state
-  btn.classList.add('btn-loading');
-  btn.disabled = true;
+  btn.disabled = true; btn.textContent = 'Guardando… ⏳';
 
-  const { error } = await supabase
-    .from('attendees')
-    .insert([{ name, instagram: insta, gender: selectedGender, zone: selectedZone, seat }]);
+  try {
+    const res = await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, instagram: insta, gender: selectedGender, zone: selectedZone, seat })
+    });
+    const json = await res.json();
+    if(!res.ok) throw new Error(json.error || 'Error');
 
-  btn.classList.remove('btn-loading');
-  btn.disabled = false;
+    await loadAttendees(); // recargar datos frescos desde MySQL
+    lastSeat = seat;
 
-  if(error) {
-    console.error(error);
-    showToast('❌ Error al guardar — intenta de nuevo');
-    return;
+    const zoneLabel = {vip:'🌟 VIP',main:'🎵 General',lower:'🌊 Social'}[selectedZone];
+    document.getElementById('success-seat-num').textContent = 'Puesto ' + seat;
+    document.getElementById('success-msg').innerHTML =
+      (selectedZone==='vip' ? '<strong style="color:#ffd700">⭐ Zona VIP confirmada</strong><br>' : '') +
+      `<strong>${name}</strong>, tu lugar está asegurado<br>en el Yate Majestic 🛥️<br><span style="color:var(--aira-blue);font-size:13px">@${insta}</span> · ${zoneLabel}`;
+
+    spawnConfetti();
+    document.getElementById('success-overlay').classList.add('show');
+
+    document.getElementById('input-name').value  = '';
+    document.getElementById('input-insta').value = '';
+    document.getElementById('input-vip-code').value = '';
+    selectedGender=''; selectedZone='';
+    document.getElementById('opt-male').className   = 'gender-opt';
+    document.getElementById('opt-female').className = 'gender-opt';
+    ['main','lower','vip'].forEach(id => document.getElementById('zone-'+id).className='zone-card');
+    document.getElementById('vip-code-group').classList.remove('visible');
+  } catch(e) {
+    showToast('❌ ' + e.message);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Reservar mi puesto →';
   }
-
-  lastSeat = seat;
-  const zoneLabel = {vip:'🌟 VIP',main:'🎵 General',lower:'🌊 Social'}[selectedZone];
-  document.getElementById('success-seat-num').textContent = 'Puesto ' + seat;
-  document.getElementById('success-msg').innerHTML =
-    (selectedZone==='vip' ? '<strong style="color:#ffd700">⭐ Zona VIP confirmada</strong><br>' : '') +
-    `<strong>${name}</strong>, tu lugar está asegurado<br>en el Yate Majestic 🛥️<br><span style="color:var(--aira-blue);font-size:13px">@${insta}</span> · ${zoneLabel}`;
-
-  spawnConfetti();
-  document.getElementById('success-overlay').classList.add('show');
-
-  // Reset
-  document.getElementById('input-name').value = '';
-  document.getElementById('input-insta').value = '';
-  document.getElementById('input-vip-code').value = '';
-  selectedGender=''; selectedZone='';
-  document.getElementById('opt-male').className   = 'gender-opt';
-  document.getElementById('opt-female').className = 'gender-opt';
-  ['main','lower','vip'].forEach(id => document.getElementById('zone-'+id).className='zone-card');
-  document.getElementById('vip-code-group').classList.remove('visible');
 }
-window.registerAttendee = registerAttendee;
 
 function closeSuccess() {
   document.getElementById('success-overlay').classList.remove('show');
   goTo('deck');
   renderDeck(lastSeat);
 }
-window.closeSuccess = closeSuccess;
 
-// ── INIT ──────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════
 renderDeck(null);
 updateStats();
-loadAttendees();
+startPolling();
 </script>
 </body>
 </html>

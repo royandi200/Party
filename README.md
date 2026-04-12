@@ -1,73 +1,77 @@
 # GuataParty 🛥️
 
-App de registro en tiempo real para el evento en el Yate Majestic — Represa Guatapé.
+App de registro en tiempo real · Yate Majestic · Represa Guatapé
 
-## Setup Supabase (5 minutos)
+## Arquitectura
 
-### 1. Crear proyecto
-1. Entra a [supabase.com](https://supabase.com) y crea un proyecto nuevo
-2. Anota el nombre del proyecto
+```
+Navegador (Vercel) ──► /api/attendees (Serverless Function) ──► MySQL en VPS
+```
 
-### 2. Crear la tabla `attendees`
+## Variables de entorno en Vercel
 
-En tu proyecto Supabase ve a **SQL Editor** y pega esto:
+En tu proyecto de Vercel → **Settings → Environment Variables** agrega:
+
+| Variable | Ejemplo | Descripción |
+|---|---|---|
+| `DB_HOST` | `162.214.224.213` | IP de tu VPS |
+| `DB_PORT` | `3306` | Puerto MySQL (default) |
+| `DB_USER` | `root` | Usuario MySQL |
+| `DB_PASSWORD` | `tu_password` | Contraseña MySQL |
+| `DB_NAME` | `guataparty` | Nombre de la base de datos |
+| `SETUP_TOKEN` | `cualquier_clave_secreta` | Para proteger el endpoint de setup |
+
+## Crear la tabla MySQL en tu VPS
+
+### Opción A — Llamar al endpoint de setup (una sola vez)
+
+Después de hacer deploy en Vercel, llama:
+
+```bash
+curl -X POST https://TU-APP.vercel.app/api/setup \
+  -H "x-setup-token: TU_SETUP_TOKEN"
+```
+
+Esto crea la tabla automáticamente. ✅
+
+### Opción B — SQL manual en el VPS
 
 ```sql
-create table attendees (
-  id          uuid default gen_random_uuid() primary key,
-  created_at  timestamptz default now(),
-  name        text not null,
-  instagram   text not null,
-  gender      text not null check (gender in ('male', 'female')),
-  zone        text not null check (zone in ('vip', 'main', 'lower')),
-  seat        text not null unique
-);
+CREATE DATABASE IF NOT EXISTS guataparty CHARACTER SET utf8mb4;
+USE guataparty;
 
--- Habilitar Row Level Security
-alter table attendees enable row level security;
-
--- Permitir lectura pública (para que todos vean el mapa en tiempo real)
-create policy "read_all" on attendees for select using (true);
-
--- Permitir inserción pública (para que se puedan registrar)
-create policy "insert_all" on attendees for insert with check (true);
+CREATE TABLE IF NOT EXISTS attendees (
+  id         INT AUTO_INCREMENT PRIMARY KEY,
+  created_at DATETIME DEFAULT NOW(),
+  name       VARCHAR(120) NOT NULL,
+  instagram  VARCHAR(80)  NOT NULL,
+  gender     ENUM('male','female') NOT NULL,
+  zone       ENUM('vip','main','lower') NOT NULL,
+  seat       VARCHAR(10)  NOT NULL UNIQUE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 
-### 3. Obtener credenciales
+## Abrir puerto MySQL en el VPS
 
-En Supabase ve a **Settings → API** y copia:
-- `Project URL` → es tu `SUPABASE_URL`
-- `anon public` key → es tu `SUPABASE_ANON_KEY`
+Para que Vercel pueda conectarse, abre el puerto 3306:
 
-### 4. Insertar credenciales en el HTML
+```bash
+# UFW (Ubuntu)
+ufw allow 3306/tcp
+ufw reload
 
-Abre `party-app.html` y reemplaza las dos líneas al inicio del `<script>`:
-
-```js
-window.SUPABASE_URL  = 'https://xxxx.supabase.co';   // ← tu URL
-window.SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIs...';    // ← tu anon key
+# iptables
+iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
 ```
 
-> **Nota:** La `anon key` es segura para poner en el frontend — Supabase la diseñó para eso.
-> Solo da acceso a lo que las políticas RLS permitan.
-
-### 5. Deploy
-Haz push y Vercel redeploya automáticamente. ✨
-
----
+> ⚠️ Si prefieres seguridad máxima, crea un usuario MySQL que solo acepte
+> conexiones desde las IPs de Vercel. Ver: https://vercel.com/docs/edge-network/regions
 
 ## Configuración del evento
 
-| Variable | Valor actual | Dónde cambiarla |
+| Parámetro | Valor | Dónde cambiarlo |
 |---|---|---|
-| Cupos totales | 35 | `const TOTAL = 35` en el JS |
-| Cupos VIP | 8 | `const VIP_SEATS = 8` |
-| Códigos VIP | GUATA2025, AIRA2025, VIPNIGHT, YACHTVIP | `const VIP_CODES = [...]` |
-
-## Características
-
-- 🟢 **Tiempo real** — todos los dispositivos se sincronizan instantáneamente
-- 🛥️ **Mapa visual** del yate con ocupación en vivo
-- 🔑 **Código de invitación** para zona VIP
-- 📸 **Instagram obligatorio** para el registro
-- 📊 **Stats en tiempo real** — hombres, mujeres, disponibles
+| Cupos totales | 35 | `const TOTAL` en party-app.html |
+| Cupos VIP | 8 | `const VIP_SEATS` |
+| Códigos VIP | GUATA2025, AIRA2025... | `const VIP_CODES` |
+| Polling interval | 8 segundos | `const POLL_INTERVAL` |

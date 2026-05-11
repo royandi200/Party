@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Pre-AIRA Party 🛥️</title>
+  <title>Pre-AIRA Party 🎉</title>
   <meta name="theme-color" content="#004fff">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23004fff'/><text y='24' x='4' font-size='22'>🛥️</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23004fff'/><text y='24' x='4' font-size='22'>🎉</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -27,6 +27,10 @@
       --font: 'Figtree', sans-serif;
       --r: 16px; --r-lg: 24px; --r-xl: 32px;
       --ease-spring: cubic-bezier(0.34,1.56,0.64,1);
+      /* Zone colors */
+      --zone-playita: #00c9a7;
+      --zone-lobby:   #004fff;
+      --zone-muelle:  #e1fe52;
     }
     html, body { height:100%; min-height:100dvh; background:var(--aira-dark); color:var(--text); font-family:var(--font); font-size:16px; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
     #app { display:flex; flex-direction:column; min-height:100dvh; max-width:430px; margin:0 auto; position:relative; }
@@ -50,60 +54,21 @@
     .video-banner { position:relative; width:100%; overflow:hidden; background:#000; }
     .video-track  { display:flex; transition:transform 0.45s cubic-bezier(0.4,0,0.2,1); will-change:transform; }
     .video-slide  { flex:0 0 100%; position:relative; }
-    .video-slide video {
-      width:100%; height:220px; object-fit:cover; display:block;
-      background:#000;
-    }
-    /* Placeholder cuando no hay video cargado */
-    .video-placeholder {
-      width:100%; height:220px; display:flex; flex-direction:column;
-      align-items:center; justify-content:center; gap:8px;
-      background:linear-gradient(135deg,var(--aira-dark3),var(--aira-dark2));
-      cursor:pointer;
-    }
+    .video-slide video { width:100%; height:220px; object-fit:cover; display:block; background:#000; }
+    .video-placeholder { width:100%; height:220px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; background:linear-gradient(135deg,var(--aira-dark3),var(--aira-dark2)); cursor:pointer; }
     .video-placeholder-icon { font-size:42px; opacity:0.5; }
     .video-placeholder-text { font-size:12px; color:var(--text-faint); font-weight:600; }
-    /* Overlay gradiente inferior */
-    .video-slide::after {
-      content:''; position:absolute; bottom:0; left:0; right:0; height:60px;
-      background:linear-gradient(to top, rgba(8,16,31,0.8), transparent);
-      pointer-events:none;
-    }
-    /* Botones prev/next */
-    .video-arrow {
-      position:absolute; top:50%; transform:translateY(-50%); z-index:10;
-      width:32px; height:32px; border-radius:50%;
-      background:rgba(8,16,31,0.6); border:1px solid rgba(255,255,255,0.15);
-      color:#fff; font-size:14px; display:flex; align-items:center; justify-content:center;
-      cursor:pointer; backdrop-filter:blur(6px); transition:background 0.2s;
-      -webkit-tap-highlight-color:transparent;
-    }
+    .video-slide::after { content:''; position:absolute; bottom:0; left:0; right:0; height:60px; background:linear-gradient(to top, rgba(8,16,31,0.8), transparent); pointer-events:none; }
+    .video-arrow { position:absolute; top:50%; transform:translateY(-50%); z-index:10; width:32px; height:32px; border-radius:50%; background:rgba(8,16,31,0.6); border:1px solid rgba(255,255,255,0.15); color:#fff; font-size:14px; display:flex; align-items:center; justify-content:center; cursor:pointer; backdrop-filter:blur(6px); transition:background 0.2s; -webkit-tap-highlight-color:transparent; }
     .video-arrow:active { background:rgba(0,79,255,0.5); }
     .video-arrow.prev { left:10px; }
     .video-arrow.next { right:10px; }
-    /* Dots */
     .video-dots { position:absolute; bottom:10px; left:50%; transform:translateX(-50%); display:flex; gap:5px; z-index:10; }
     .video-dot { width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,0.35); transition:all 0.25s; }
     .video-dot.active { background:var(--aira-lime); width:14px; border-radius:3px; }
-    /* Botón subir video */
-    .video-upload-btn {
-      position:absolute; top:10px; right:10px; z-index:10;
-      display:flex; align-items:center; gap:5px;
-      background:rgba(8,16,31,0.75); border:1px solid rgba(0,79,255,0.4);
-      border-radius:20px; padding:5px 12px;
-      font-size:11px; font-weight:700; color:#6699ff; font-family:var(--font);
-      cursor:pointer; backdrop-filter:blur(8px); transition:all 0.2s;
-      -webkit-tap-highlight-color:transparent;
-    }
-    .video-upload-btn:active { background:rgba(0,79,255,0.3); }
-    /* Label del slide */
-    .video-label {
-      position:absolute; bottom:14px; left:14px; z-index:10;
-      font-size:11px; font-weight:700; color:rgba(255,255,255,0.7);
-      text-shadow:0 1px 4px rgba(0,0,0,0.6);
-      pointer-events:none;
-    }
+    .video-label { position:absolute; bottom:14px; left:14px; z-index:10; font-size:11px; font-weight:700; color:rgba(255,255,255,0.7); text-shadow:0 1px 4px rgba(0,0,0,0.6); pointer-events:none; }
 
+    /* ── HERO ── */
     .hero-banner { margin:16px 16px 0; background:linear-gradient(135deg,var(--aira-dark3) 0%,var(--aira-dark2) 100%); border:1px solid var(--aira-border); border-radius:var(--r-xl); padding:24px; position:relative; overflow:hidden; }
     .hero-banner::before { content:''; position:absolute; top:-40px; right:-40px; width:180px; height:180px; background:radial-gradient(circle,rgba(0,79,255,0.25) 0%,transparent 70%); pointer-events:none; }
     .hero-banner::after  { content:''; position:absolute; bottom:-30px; left:20px; width:120px; height:120px; background:radial-gradient(circle,rgba(225,254,82,0.1) 0%,transparent 70%); pointer-events:none; }
@@ -115,6 +80,8 @@
     .stat-num { font-size:22px; font-weight:900; color:var(--aira-lime); transition:transform 0.3s var(--ease-spring); }
     .stat-num.bump { transform:scale(1.3); }
     .stat-label { font-size:11px; color:var(--text-muted); font-weight:500; }
+
+    /* ── PROGRESS ── */
     .progress-section { margin:0 16px 20px; }
     .progress-header { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
     .progress-label { font-size:13px; font-weight:600; }
@@ -126,37 +93,64 @@
     .gender-pill.m { color:#6699ff; } .gender-pill.f { color:#c8e840; }
     .gender-num { font-size:20px; font-weight:900; transition:transform 0.3s var(--ease-spring); }
     .gender-num.bump { transform:scale(1.35); }
+
+    /* ── SECTION TITLE ── */
     .section-title { font-size:13px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px; margin-top:8px; display:flex; align-items:center; justify-content:space-between; }
     .section-title span { color:var(--text-faint); font-size:11px; font-weight:600; }
-    .yacht-container { background:var(--aira-card); border:1px solid var(--aira-border); border-radius:var(--r-lg); padding:20px 16px; }
-    .yacht-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
-    .yacht-name { font-size:16px; font-weight:800; }
-    .yacht-capacity { font-size:11px; color:var(--text-muted); background:rgba(255,255,255,0.05); border-radius:20px; padding:4px 10px; font-weight:600; }
-    .deck { margin-bottom:16px; }
-    .deck-label { font-size:10px; font-weight:700; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:8px; }
-    .seats-row { display:flex; gap:5px; align-items:center; justify-content:center; }
+
+    /* ── JOINN HOTEL MAP ── */
+    .hotel-map-container { background:var(--aira-card); border:1px solid var(--aira-border); border-radius:var(--r-lg); padding:20px 16px; }
+    .hotel-map-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+    .hotel-map-name { font-size:16px; font-weight:800; }
+    .hotel-map-capacity { font-size:11px; color:var(--text-muted); background:rgba(255,255,255,0.05); border-radius:20px; padding:4px 10px; font-weight:600; }
+
+    /* SVG aerial map wrapper */
+    .hotel-svg-wrap { width:100%; border-radius:var(--r); overflow:hidden; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); margin-bottom:16px; }
+    .hotel-svg-wrap svg { width:100%; height:auto; display:block; }
+
+    /* Zone rows below map */
+    .zone-rows { display:flex; flex-direction:column; gap:10px; }
+    .zone-row { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:12px; padding:12px 14px; }
+    .zone-row-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+    .zone-row-label { font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.7px; display:flex; align-items:center; gap:7px; }
+    .zone-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+    .zone-dot.playita { background:var(--zone-playita); box-shadow:0 0 6px rgba(0,201,167,0.5); }
+    .zone-dot.lobby   { background:var(--zone-lobby);   box-shadow:0 0 6px rgba(0,79,255,0.5); }
+    .zone-dot.muelle  { background:var(--zone-muelle);  box-shadow:0 0 6px rgba(225,254,82,0.4); }
+    .zone-count-badge { font-size:10px; font-weight:800; padding:3px 8px; border-radius:20px; }
+    .zone-count-badge.playita { background:rgba(0,201,167,0.12); color:#00c9a7; border:1px solid rgba(0,201,167,0.25); }
+    .zone-count-badge.lobby   { background:rgba(0,79,255,0.12);  color:#6699ff; border:1px solid rgba(0,79,255,0.25); }
+    .zone-count-badge.muelle  { background:rgba(225,254,82,0.1); color:#c8e840; border:1px solid rgba(225,254,82,0.2); }
+    .seats-row { display:flex; gap:5px; align-items:center; justify-content:flex-start; flex-wrap:wrap; }
     .seat { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:12px; cursor:pointer; transition:transform 0.2s; }
     .seat:active { transform:scale(0.88); }
     .seat.empty  { background:rgba(255,255,255,0.04); border:1.5px dashed rgba(255,255,255,0.1); }
-    .seat.male   { background:linear-gradient(135deg,#004fff,#0066ff); box-shadow:0 2px 8px rgba(0,79,255,0.4); }
-    .seat.female { background:linear-gradient(135deg,#e1fe52,#c8e840); box-shadow:0 2px 8px rgba(225,254,82,0.35); }
-    .seat.vip    { background:linear-gradient(135deg,#ffd700,#ffb800); box-shadow:0 2px 8px rgba(255,215,0,0.4); }
+    .seat.male.playita   { background:linear-gradient(135deg,#00c9a7,#00b896); box-shadow:0 2px 8px rgba(0,201,167,0.4); }
+    .seat.female.playita { background:linear-gradient(135deg,#00e8c4,#00c9a7); box-shadow:0 2px 8px rgba(0,201,167,0.3); }
+    .seat.male.lobby     { background:linear-gradient(135deg,#004fff,#0066ff); box-shadow:0 2px 8px rgba(0,79,255,0.4); }
+    .seat.female.lobby   { background:linear-gradient(135deg,#3377ff,#004fff); box-shadow:0 2px 8px rgba(0,79,255,0.3); }
+    .seat.male.muelle    { background:linear-gradient(135deg,#b8d400,#c8e840); box-shadow:0 2px 8px rgba(200,232,64,0.35); }
+    .seat.female.muelle  { background:linear-gradient(135deg,#e1fe52,#c8e840); box-shadow:0 2px 8px rgba(225,254,82,0.3); }
     .seat.new-seat { animation:pop-in 0.4s var(--ease-spring); }
     @keyframes pop-in { from{transform:scale(0);opacity:0} 60%{transform:scale(1.25)} to{transform:scale(1);opacity:1} }
-    .boat-prow  { width:60px; height:24px; background:rgba(0,79,255,0.15); border:1px solid rgba(0,79,255,0.3); border-radius:50% 50% 0 0/100% 100% 0 0; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; font-size:14px; }
-    .boat-stern { width:80px; height:14px; background:rgba(0,79,255,0.1); border:1px solid rgba(0,79,255,0.2); border-radius:0 0 50% 50%/0 0 100% 100%; margin:6px auto 0; }
-    .deck-divider { height:1px; background:var(--aira-border); margin:12px 0; }
-    .legend { display:flex; gap:14px; justify-content:center; margin-top:14px; flex-wrap:wrap; }
+
+    .map-legend { display:flex; gap:12px; justify-content:center; margin-top:14px; flex-wrap:wrap; }
     .legend-item { display:flex; align-items:center; gap:6px; font-size:11px; color:var(--text-muted); }
-    .legend-dot { width:12px; height:12px; border-radius:4px; }
-    .legend-dot.male   { background:#004fff; } .legend-dot.female { background:#e1fe52; }
-    .legend-dot.vip    { background:#ffd700; } .legend-dot.empty  { background:transparent; border:1.5px dashed rgba(255,255,255,0.2); }
+    .legend-dot { width:10px; height:10px; border-radius:3px; }
+    .legend-dot.male-p   { background:#00c9a7; }
+    .legend-dot.female-p { background:#00e8c4; }
+    .legend-dot.male-l   { background:#004fff; }
+    .legend-dot.female-l { background:#3377ff; }
+    .legend-dot.male-m   { background:#b8d400; }
+    .legend-dot.female-m { background:#e1fe52; }
+    .legend-dot.empty    { background:transparent; border:1.5px dashed rgba(255,255,255,0.2); }
+
+    /* ── LIST ── */
     .filter-chips { display:flex; gap:8px; margin-bottom:16px; overflow-x:auto; padding-bottom:4px; scrollbar-width:none; }
     .filter-chips::-webkit-scrollbar { display:none; }
     .chip { flex-shrink:0; padding:6px 14px; border-radius:100px; font-size:12px; font-weight:700; border:1.5px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.04); color:var(--text-muted); cursor:pointer; transition:all 0.2s; text-transform:uppercase; letter-spacing:0.5px; }
-    .chip.active     { background:rgba(0,79,255,0.15);   border-color:var(--aira-blue); color:#6699ff; }
-    .chip.active.f   { background:rgba(225,254,82,0.1);  border-color:var(--aira-lime); color:#c8e840; }
-    .chip.active.vip { background:rgba(255,215,0,0.1);   border-color:#ffd700;          color:#ffd700; }
+    .chip.active { background:rgba(0,79,255,0.15); border-color:var(--aira-blue); color:#6699ff; }
+    .chip.active.f { background:rgba(225,254,82,0.1); border-color:var(--aira-lime); color:#c8e840; }
     .attendees-list { display:flex; flex-direction:column; gap:8px; }
     .attendee-card { display:flex; align-items:center; gap:12px; background:var(--aira-card); border:1px solid var(--aira-border); border-radius:var(--r); padding:12px 14px; animation:slide-in 0.3s ease; }
     @keyframes slide-in { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
@@ -168,13 +162,14 @@
     .attendee-name { font-size:14px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .attendee-meta { font-size:11px; color:var(--text-muted); margin-top:1px; }
     .seat-badge { font-size:10px; font-weight:800; padding:3px 8px; border-radius:20px; text-transform:uppercase; letter-spacing:0.5px; white-space:nowrap; }
-    .seat-badge.male   { background:rgba(0,79,255,0.15); color:#6699ff; border:1px solid rgba(0,79,255,0.3); }
+    .seat-badge.male   { background:rgba(0,79,255,0.15);  color:#6699ff; border:1px solid rgba(0,79,255,0.3); }
     .seat-badge.female { background:rgba(225,254,82,0.1); color:#c8e840; border:1px solid rgba(225,254,82,0.25); }
-    .seat-badge.vip    { background:rgba(255,215,0,0.1);  color:#ffd700;  border:1px solid rgba(255,215,0,0.3); }
     .empty-state { display:flex; flex-direction:column; align-items:center; text-align:center; padding:60px 20px; color:var(--text-faint); }
     .empty-state .empty-icon { font-size:56px; margin-bottom:14px; }
     .empty-state h3 { font-size:16px; font-weight:700; color:var(--text-muted); margin-bottom:6px; }
     .empty-state p { font-size:13px; line-height:1.5; max-width:28ch; }
+
+    /* ── FORM ── */
     .form-card { background:var(--aira-card); border:1px solid var(--aira-border); border-radius:var(--r-lg); padding:20px; margin:0 16px; }
     .form-title { font-size:20px; font-weight:900; margin-bottom:6px; }
     .form-sub { font-size:13px; color:var(--text-muted); margin-bottom:22px; line-height:1.5; }
@@ -194,30 +189,29 @@
     .gender-opt span { font-size:24px; }
     .gender-opt.selected-m { border-color:var(--aira-blue); background:rgba(0,79,255,0.12); color:#6699ff; }
     .gender-opt.selected-f { border-color:var(--aira-lime); background:rgba(225,254,82,0.08); color:#c8e840; }
+
+    /* Zone selector — 3 zonas sin VIP */
     .zone-cards { display:flex; flex-direction:column; gap:8px; }
     .zone-card { display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:var(--r); border:1.5px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); cursor:pointer; transition:all 0.2s; }
     .zone-card:active { transform:scale(0.98); }
-    .zone-card.selected-general { border-color:var(--aira-blue); background:rgba(0,79,255,0.1); }
-    .zone-card.selected-vip     { border-color:#ffd700;          background:rgba(255,215,0,0.08); }
+    .zone-card.selected-playita { border-color:var(--zone-playita); background:rgba(0,201,167,0.1); }
+    .zone-card.selected-lobby   { border-color:var(--zone-lobby);   background:rgba(0,79,255,0.1); }
+    .zone-card.selected-muelle  { border-color:var(--zone-muelle);  background:rgba(225,254,82,0.08); }
     .zone-icon { font-size:22px; flex-shrink:0; }
     .zone-info { flex:1; }
     .zone-name { font-size:14px; font-weight:700; }
     .zone-desc { font-size:11px; color:var(--text-muted); margin-top:2px; }
-    .zone-badge-vip  { font-size:10px; font-weight:800; padding:3px 8px; border-radius:20px; background:rgba(255,215,0,0.12); color:#ffd700; border:1px solid rgba(255,215,0,0.3); white-space:nowrap; }
-    .zone-badge-free { font-size:10px; font-weight:800; padding:3px 8px; border-radius:20px; background:rgba(0,79,255,0.12); color:#6699ff;  border:1px solid rgba(0,79,255,0.25);  white-space:nowrap; }
+    .zone-badge-free { font-size:10px; font-weight:800; padding:3px 8px; border-radius:20px; background:rgba(0,79,255,0.12); color:#6699ff; border:1px solid rgba(0,79,255,0.25); white-space:nowrap; }
     .zone-radio { width:18px; height:18px; border-radius:50%; border:2px solid rgba(255,255,255,0.15); flex-shrink:0; transition:all 0.2s; display:flex; align-items:center; justify-content:center; }
-    .zone-card.selected-general .zone-radio { border-color:var(--aira-blue); background:var(--aira-blue); }
-    .zone-card.selected-vip     .zone-radio { border-color:#ffd700;          background:#ffd700; }
+    .zone-card.selected-playita .zone-radio { border-color:var(--zone-playita); background:var(--zone-playita); }
+    .zone-card.selected-lobby   .zone-radio { border-color:var(--zone-lobby);   background:var(--zone-lobby); }
+    .zone-card.selected-muelle  .zone-radio { border-color:var(--zone-muelle);  background:var(--zone-muelle); }
     .zone-radio::after { content:''; width:7px; height:7px; border-radius:50%; background:#08101f; opacity:0; transition:opacity 0.2s; }
-    .zone-card.selected-general .zone-radio::after,
-    .zone-card.selected-vip     .zone-radio::after { opacity:1; }
-    .vip-code-group { display:none; margin-top:10px; animation:fade-in 0.2s ease; }
-    .vip-code-group.visible { display:block; }
-    .vip-code-input { letter-spacing:4px; font-size:18px; font-weight:800; text-align:center; text-transform:uppercase; }
-    .vip-hint { font-size:11px; color:var(--text-muted); text-align:center; margin-top:6px; }
-    .vip-hint strong { color:#ffd700; }
+    .zone-card.selected-playita .zone-radio::after,
+    .zone-card.selected-lobby   .zone-radio::after,
+    .zone-card.selected-muelle  .zone-radio::after { opacity:1; }
 
-    /* ── PHOTO UPLOAD ─────────────────────────────── */
+    /* ── PHOTO UPLOAD ── */
     .photo-upload-area { width:100%; min-height:130px; border-radius:var(--r); border:2px dashed rgba(0,79,255,0.35); background:rgba(0,79,255,0.05); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; cursor:pointer; transition:all 0.25s; position:relative; overflow:hidden; }
     .photo-upload-area:active { transform:scale(0.98); }
     .photo-upload-area.has-photo { border-style:solid; border-color:rgba(0,79,255,0.5); padding:0; min-height:180px; }
@@ -235,7 +229,7 @@
     @keyframes spin { to{transform:rotate(360deg)} }
     .upload-status-text { font-size:12px; font-weight:600; color:var(--aira-blue); }
 
-    /* ── CONFIRM PREVIEW ──────────────────────────── */
+    /* ── CONFIRM PREVIEW ── */
     .confirm-preview { background:rgba(0,79,255,0.06); border:1px solid rgba(0,79,255,0.2); border-radius:var(--r); padding:14px 16px; margin-top:16px; display:none; animation:fade-in 0.3s ease; }
     .confirm-preview.visible { display:flex; align-items:center; gap:14px; }
     .confirm-avatar { width:52px; height:52px; border-radius:50%; overflow:hidden; flex-shrink:0; border:2px solid rgba(0,79,255,0.4); }
@@ -250,9 +244,11 @@
     .btn-register:hover   { background:#0040cc; }
     .btn-register:disabled { opacity:0.5; cursor:not-allowed; }
     .btn-register.ready   { background:var(--aira-blue); box-shadow:0 4px 20px rgba(0,79,255,0.4); }
+
     .full-toast { display:none; position:fixed; top:80px; left:50%; transform:translateX(-50%); z-index:300; border-radius:12px; padding:12px 20px; font-size:13px; font-weight:700; white-space:nowrap; backdrop-filter:blur(10px); }
     .full-toast.show         { display:block; animation:fade-in 0.25s ease; background:rgba(255,60,60,0.12); border:1px solid rgba(255,60,60,0.35); color:#ff7070; }
     .full-toast.show.success { background:rgba(100,220,100,0.12); border-color:rgba(100,220,100,0.35); color:#64dc64; }
+
     .success-overlay { display:none; position:fixed; inset:0; z-index:200; background:rgba(8,16,31,0.97); flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:40px; }
     .success-overlay.show { display:flex; animation:fade-in 0.35s ease; }
     .success-photo { width:100px; height:100px; border-radius:50%; overflow:hidden; margin-bottom:16px; border:3px solid var(--aira-lime); animation:pop-in 0.5s var(--ease-spring) 0.05s both; }
@@ -267,78 +263,38 @@
     .success-msg   { font-size:14px; color:var(--text-muted); margin-bottom:28px; line-height:1.5; }
     .btn-back { padding:14px 32px; background:var(--aira-lime); color:#08101f; border:none; border-radius:var(--r); font-family:var(--font); font-size:15px; font-weight:800; cursor:pointer; transition:transform 0.2s; }
     .btn-back:active { transform:scale(0.97); }
+
     nav.bottom { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:430px; z-index:100; background:rgba(8,16,31,0.92); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-top:1px solid var(--aira-border); display:flex; padding:8px 0 max(8px,env(safe-area-inset-bottom)); }
     .nav-btn { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; padding:6px 0; background:none; border:none; cursor:pointer; color:var(--text-faint); font-family:var(--font); font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; transition:color 0.2s; }
     .nav-btn svg { width:22px; height:22px; }
     .nav-btn.active { color:var(--aira-lime); }
 
-    /* ── SEAT MODAL ──────────────────────────────── */
-    .seat-modal-backdrop {
-      display:none; position:fixed; inset:0; z-index:180;
-      background:rgba(8,16,31,0.75); backdrop-filter:blur(6px);
-      -webkit-backdrop-filter:blur(6px);
-      align-items:flex-end; justify-content:center;
-    }
+    /* ── SEAT MODAL ── */
+    .seat-modal-backdrop { display:none; position:fixed; inset:0; z-index:180; background:rgba(8,16,31,0.75); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); align-items:flex-end; justify-content:center; }
     .seat-modal-backdrop.show { display:flex; animation:fade-in 0.2s ease; }
-    .seat-modal {
-      width:100%; max-width:430px;
-      background:var(--aira-dark3);
-      border:1px solid var(--aira-border);
-      border-radius:var(--r-xl) var(--r-xl) 0 0;
-      padding:0 0 max(24px,env(safe-area-inset-bottom));
-      animation:slide-up 0.3s var(--ease-spring);
-    }
+    .seat-modal { width:100%; max-width:430px; background:var(--aira-dark3); border:1px solid var(--aira-border); border-radius:var(--r-xl) var(--r-xl) 0 0; padding:0 0 max(24px,env(safe-area-inset-bottom)); animation:slide-up 0.3s var(--ease-spring); }
     @keyframes slide-up { from{transform:translateY(100%)} to{transform:translateY(0)} }
-    .seat-modal-handle {
-      width:36px; height:4px; border-radius:2px;
-      background:rgba(255,255,255,0.15);
-      margin:12px auto 20px;
-    }
-    .seat-modal-photo {
-      width:100%; height:220px; object-fit:cover;
-      border-radius:var(--r-lg) var(--r-lg) 0 0;
-      display:block;
-    }
-    .seat-modal-photo-placeholder {
-      width:100%; height:140px;
-      display:flex; align-items:center; justify-content:center;
-      font-size:64px;
-      background:linear-gradient(135deg,var(--aira-dark2),var(--aira-dark3));
-    }
+    .seat-modal-handle { width:36px; height:4px; border-radius:2px; background:rgba(255,255,255,0.15); margin:12px auto 20px; }
+    .seat-modal-photo { width:100%; height:220px; object-fit:cover; border-radius:var(--r-lg) var(--r-lg) 0 0; display:block; }
+    .seat-modal-photo-placeholder { width:100%; height:140px; display:flex; align-items:center; justify-content:center; font-size:64px; background:linear-gradient(135deg,var(--aira-dark2),var(--aira-dark3)); }
     .seat-modal-body { padding:0 20px; }
     .seat-modal-row { display:flex; align-items:center; gap:14px; margin-bottom:14px; }
-    .seat-modal-avatar {
-      width:56px; height:56px; border-radius:50%; overflow:hidden;
-      flex-shrink:0; border:3px solid var(--aira-border);
-    }
+    .seat-modal-avatar { width:56px; height:56px; border-radius:50%; overflow:hidden; flex-shrink:0; border:3px solid var(--aira-border); }
     .seat-modal-avatar img { width:100%; height:100%; object-fit:cover; }
     .seat-modal-avatar.male-av   { background:linear-gradient(135deg,#004fff,#0066ff); display:flex; align-items:center; justify-content:center; font-size:24px; }
     .seat-modal-avatar.female-av { background:linear-gradient(135deg,#e1fe52,#c8e840); display:flex; align-items:center; justify-content:center; font-size:24px; }
     .seat-modal-name { font-size:18px; font-weight:900; }
     .seat-modal-insta { font-size:13px; color:var(--aira-blue); margin-top:2px; }
     .seat-modal-chips { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
-    .seat-modal-chip {
-      padding:5px 12px; border-radius:100px;
-      font-size:11px; font-weight:700;
-      background:rgba(255,255,255,0.05);
-      border:1px solid rgba(255,255,255,0.1);
-      color:var(--text-muted);
-    }
-    .seat-modal-chip.blue   { background:rgba(0,79,255,0.15); border-color:rgba(0,79,255,0.3); color:#6699ff; }
-    .seat-modal-chip.lime   { background:rgba(225,254,82,0.1); border-color:rgba(225,254,82,0.25); color:#c8e840; }
-    .seat-modal-chip.gold   { background:rgba(255,215,0,0.1);  border-color:rgba(255,215,0,0.3);  color:#ffd700; }
+    .seat-modal-chip { padding:5px 12px; border-radius:100px; font-size:11px; font-weight:700; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:var(--text-muted); }
+    .seat-modal-chip.blue  { background:rgba(0,79,255,0.15);  border-color:rgba(0,79,255,0.3);  color:#6699ff; }
+    .seat-modal-chip.teal  { background:rgba(0,201,167,0.12); border-color:rgba(0,201,167,0.3); color:#00c9a7; }
+    .seat-modal-chip.lime  { background:rgba(225,254,82,0.1);  border-color:rgba(225,254,82,0.25); color:#c8e840; }
     .seat-modal-empty { text-align:center; padding:32px 0 12px; }
     .seat-modal-empty .sm-icon { font-size:48px; margin-bottom:12px; }
     .seat-modal-empty h3 { font-size:17px; font-weight:800; margin-bottom:6px; }
     .seat-modal-empty p { font-size:13px; color:var(--text-muted); }
-    .seat-modal-close-btn {
-      width:100%; margin:0 20px; width:calc(100% - 40px);
-      padding:14px; background:rgba(255,255,255,0.06);
-      border:1px solid rgba(255,255,255,0.1);
-      border-radius:var(--r); color:var(--text);
-      font-family:var(--font); font-size:15px; font-weight:700;
-      cursor:pointer; transition:all 0.2s;
-    }
+    .seat-modal-close-btn { width:calc(100% - 40px); margin:0 20px; padding:14px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:var(--r); color:var(--text); font-family:var(--font); font-size:15px; font-weight:700; cursor:pointer; transition:all 0.2s; }
     .seat-modal-close-btn:active { transform:scale(0.98); background:rgba(255,255,255,0.1); }
 
     ::-webkit-scrollbar { display:none; } * { scrollbar-width:none; }
@@ -351,9 +307,8 @@
     <div class="logo">
       <div class="logo-svg">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <path d="M2 18c0 0 5-3 10-3s10 3 10 3" stroke="white" stroke-width="2" stroke-linecap="round"/>
-          <path d="M5 18V11l7-7 7 7v7" stroke="white" stroke-width="2" stroke-linejoin="round"/>
-          <path d="M10 18v-4h4v4" stroke="white" stroke-width="1.5"/>
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M9 22V12h6v10" stroke="white" stroke-width="2" stroke-linejoin="round"/>
         </svg>
       </div>
       <div class="logo-text">Pre-<em>AIRA</em> Party</div>
@@ -361,55 +316,153 @@
     <div class="live-badge"><div class="live-dot"></div>En vivo</div>
   </header>
 
-  <!-- CUBIERTA -->
+  <!-- MAPA -->
   <div class="screen active" id="screen-deck">
 
-    <!-- ══ VIDEO CAROUSEL BANNER ══════════════════════ -->
+    <!-- VIDEO CAROUSEL -->
     <div class="video-banner" id="video-banner">
-      <div class="video-track" id="video-track">
-        <!-- Los slides se generan dinámicamente via JS -->
-      </div>
+      <div class="video-track" id="video-track"></div>
       <button class="video-arrow prev" id="vid-prev" onclick="videoCarousel.prev()" aria-label="Video anterior">&#8249;</button>
       <button class="video-arrow next" id="vid-next" onclick="videoCarousel.next()" aria-label="Video siguiente">&#8250;</button>
       <div class="video-dots" id="video-dots"></div>
-      <!-- Botón subir video (oculto por defecto, descomenta para admins) -->
-      <!-- <button class="video-upload-btn" onclick="addVideoSlide()">＋ Agregar video</button> -->
     </div>
-    <!-- ══════════════════════════════════════════════ -->
 
     <div class="hero-banner">
-      <div class="hero-date">Sábado · Represa Guatapé 🌊</div>
-      <div class="hero-title">Pre-AIRA Party 🛥️</div>
-      <div class="hero-subtitle">Yate Majestic — el más grande de<br>agua dulce en Latinoamérica</div>
+      <div class="hero-date">Sábado · Hotel Joinn Guatapé 🏨</div>
+      <div class="hero-title">Pre-AIRA Party 🎉</div>
+      <div class="hero-subtitle">Hotel Joinn — Represa de Guatapé<br>Playita · Lobby · Muelle</div>
       <div class="hero-stats">
         <div class="stat"><div class="stat-num" id="total-registered">0</div><div class="stat-label">Registrados</div></div>
-        <div class="stat"><div class="stat-num" id="total-spots">35</div><div class="stat-label">Cupos</div></div>
-        <div class="stat"><div class="stat-num" id="spots-left">35</div><div class="stat-label">Disponibles</div></div>
+        <div class="stat"><div class="stat-num" id="total-spots">30</div><div class="stat-label">Cupos</div></div>
+        <div class="stat"><div class="stat-num" id="spots-left">30</div><div class="stat-label">Disponibles</div></div>
       </div>
     </div>
+
     <div class="progress-section" style="margin-top:20px;">
-      <div class="progress-header"><span class="progress-label">Ocupación del yate</span><span class="progress-count" id="progress-text">0 / 35</span></div>
+      <div class="progress-header"><span class="progress-label">Ocupación del evento</span><span class="progress-count" id="progress-text">0 / 30</span></div>
       <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
       <div class="gender-split">
         <div class="gender-pill m"><span>👦</span><div><div class="gender-num" id="male-count">0</div><div style="font-size:10px;color:var(--text-faint)">Hombres</div></div></div>
         <div class="gender-pill f"><span>👩</span><div><div class="gender-num" id="female-count">0</div><div style="font-size:10px;color:var(--text-faint)">Mujeres</div></div></div>
       </div>
     </div>
+
     <section>
-      <div class="section-title">Mapa del Yate <span>Toca para ver info</span></div>
-      <div class="yacht-container">
-        <div class="yacht-header"><div class="yacht-name">Yate Majestic 🚢</div><div class="yacht-capacity" id="capacity-txt">0/35 puestos</div></div>
-        <div class="boat-prow">⚓</div>
-        <div class="deck"><div class="deck-label">🌟 Zona VIP — Cubierta Superior</div><div id="deck-vip" class="seats-row" style="flex-wrap:wrap;gap:5px;"></div></div>
-        <div class="deck-divider"></div>
-        <div class="deck"><div class="deck-label">🎵 Zona General — Cubierta Principal</div><div id="deck-main" style="display:flex;flex-direction:column;gap:5px;align-items:center;"></div></div>
-        <div class="deck-divider"></div>
-        <div class="deck"><div class="deck-label">🌊 Zona Social — Cubierta Baja</div><div id="deck-lower" style="display:flex;flex-direction:column;gap:5px;align-items:center;"></div></div>
-        <div class="boat-stern"></div>
-        <div class="legend">
-          <div class="legend-item"><div class="legend-dot male"></div>Hombre</div>
-          <div class="legend-item"><div class="legend-dot female"></div>Mujer</div>
-          <div class="legend-item"><div class="legend-dot vip"></div>VIP</div>
+      <div class="section-title">Mapa Hotel Joinn <span>Toca un puesto para ver info</span></div>
+      <div class="hotel-map-container">
+        <div class="hotel-map-header">
+          <div class="hotel-map-name">Hotel Joinn 🏨</div>
+          <div class="hotel-map-capacity" id="capacity-txt">0/30 puestos</div>
+        </div>
+
+        <!-- SVG AERIAL MAP -->
+        <div class="hotel-svg-wrap">
+          <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mapa aéreo Hotel Joinn">
+            <!-- Water / lake background -->
+            <rect width="400" height="260" fill="#0a1628"/>
+            <ellipse cx="200" cy="220" rx="240" ry="80" fill="#0d2a4a" opacity="0.8"/>
+            <ellipse cx="200" cy="240" rx="200" ry="50" fill="#0e3060" opacity="0.6"/>
+            <!-- Water ripples -->
+            <ellipse cx="80" cy="230" rx="30" ry="6" fill="none" stroke="rgba(0,150,255,0.15)" stroke-width="1"/>
+            <ellipse cx="320" cy="245" rx="25" ry="5" fill="none" stroke="rgba(0,150,255,0.12)" stroke-width="1"/>
+            <ellipse cx="200" cy="255" rx="60" ry="8" fill="none" stroke="rgba(0,150,255,0.1)" stroke-width="1"/>
+
+            <!-- Hotel main building -->
+            <rect x="100" y="30" width="200" height="110" rx="6" fill="#1a2d4a" stroke="rgba(0,79,255,0.4)" stroke-width="1.5"/>
+            <!-- Building roof detail -->
+            <rect x="110" y="38" width="80" height="50" rx="4" fill="#1f3560" stroke="rgba(0,79,255,0.2)" stroke-width="1"/>
+            <rect x="210" y="38" width="80" height="50" rx="4" fill="#1f3560" stroke="rgba(0,79,255,0.2)" stroke-width="1"/>
+            <!-- Windows -->
+            <rect x="118" y="46" width="12" height="8" rx="2" fill="rgba(225,254,82,0.3)"/>
+            <rect x="136" y="46" width="12" height="8" rx="2" fill="rgba(225,254,82,0.25)"/>
+            <rect x="154" y="46" width="12" height="8" rx="2" fill="rgba(225,254,82,0.2)"/>
+            <rect x="172" y="46" width="12" height="8" rx="2" fill="rgba(225,254,82,0.15)"/>
+            <rect x="118" y="62" width="12" height="8" rx="2" fill="rgba(225,254,82,0.2)"/>
+            <rect x="136" y="62" width="12" height="8" rx="2" fill="rgba(225,254,82,0.3)"/>
+            <rect x="154" y="62" width="12" height="8" rx="2" fill="rgba(225,254,82,0.15)"/>
+            <rect x="172" y="62" width="12" height="8" rx="2" fill="rgba(225,254,82,0.25)"/>
+            <rect x="218" y="46" width="12" height="8" rx="2" fill="rgba(225,254,82,0.3)"/>
+            <rect x="236" y="46" width="12" height="8" rx="2" fill="rgba(225,254,82,0.2)"/>
+            <rect x="254" y="46" width="12" height="8" rx="2" fill="rgba(225,254,82,0.25)"/>
+            <rect x="272" y="46" width="12" height="8" rx="2" fill="rgba(225,254,82,0.15)"/>
+            <rect x="218" y="62" width="12" height="8" rx="2" fill="rgba(225,254,82,0.15)"/>
+            <rect x="236" y="62" width="12" height="8" rx="2" fill="rgba(225,254,82,0.3)"/>
+            <rect x="254" y="62" width="12" height="8" rx="2" fill="rgba(225,254,82,0.2)"/>
+            <rect x="272" y="62" width="12" height="8" rx="2" fill="rgba(225,254,82,0.25)"/>
+
+            <!-- Lobby zone (center building bottom) -->
+            <rect x="140" y="96" width="120" height="44" rx="4" fill="rgba(0,79,255,0.25)" stroke="rgba(0,79,255,0.6)" stroke-width="1.5"/>
+            <text x="200" y="114" text-anchor="middle" font-size="9" font-weight="700" fill="#6699ff" font-family="Figtree,sans-serif">LOBBY</text>
+            <text x="200" y="126" text-anchor="middle" font-size="8" fill="rgba(102,153,255,0.7)" font-family="Figtree,sans-serif">10 puestos</text>
+
+            <!-- Path from lobby to muelle -->
+            <rect x="185" y="140" width="30" height="40" rx="2" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+            <!-- Muelle zone (pier into water) -->
+            <rect x="160" y="180" width="80" height="50" rx="4" fill="rgba(225,254,82,0.15)" stroke="rgba(225,254,82,0.5)" stroke-width="1.5"/>
+            <rect x="175" y="200" width="50" height="20" rx="3" fill="rgba(225,254,82,0.08)" stroke="rgba(225,254,82,0.3)" stroke-width="1"/>
+            <text x="200" y="196" text-anchor="middle" font-size="9" font-weight="700" fill="#c8e840" font-family="Figtree,sans-serif">MUELLE</text>
+            <text x="200" y="208" text-anchor="middle" font-size="8" fill="rgba(200,232,64,0.7)" font-family="Figtree,sans-serif">10 puestos</text>
+            <!-- Pier planks -->
+            <line x1="175" y1="203" x2="225" y2="203" stroke="rgba(225,254,82,0.15)" stroke-width="1"/>
+            <line x1="175" y1="208" x2="225" y2="208" stroke="rgba(225,254,82,0.15)" stroke-width="1"/>
+            <line x1="175" y1="213" x2="225" y2="213" stroke="rgba(225,254,82,0.15)" stroke-width="1"/>
+
+            <!-- Playita zone (left side beach) -->
+            <ellipse cx="58" cy="155" rx="50" ry="35" fill="rgba(0,201,167,0.15)" stroke="rgba(0,201,167,0.55)" stroke-width="1.5"/>
+            <text x="58" y="151" text-anchor="middle" font-size="9" font-weight="700" fill="#00c9a7" font-family="Figtree,sans-serif">PLAYITA</text>
+            <text x="58" y="163" text-anchor="middle" font-size="8" fill="rgba(0,201,167,0.7)" font-family="Figtree,sans-serif">10 puestos</text>
+            <!-- Beach sand texture -->
+            <ellipse cx="58" cy="168" rx="35" ry="10" fill="rgba(255,220,100,0.06)"/>
+
+            <!-- Path lobby to playita -->
+            <path d="M140 118 Q100 118 108 150" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2" stroke-dasharray="4,3"/>
+
+            <!-- Hotel label -->
+            <text x="200" y="22" text-anchor="middle" font-size="10" font-weight="800" fill="rgba(232,238,248,0.6)" font-family="Figtree,sans-serif" letter-spacing="1">HOTEL JOINN</text>
+
+            <!-- Compass rose -->
+            <g transform="translate(370,20)">
+              <circle cx="0" cy="0" r="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+              <text x="0" y="-16" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.4)" font-family="sans-serif">N</text>
+              <polygon points="0,-10 3,0 0,4 -3,0" fill="rgba(225,254,82,0.7)"/>
+              <polygon points="0,10 3,0 0,-4 -3,0" fill="rgba(255,255,255,0.2)"/>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Zone seat rows -->
+        <div class="zone-rows">
+          <div class="zone-row">
+            <div class="zone-row-header">
+              <div class="zone-row-label"><div class="zone-dot playita"></div><span style="color:#00c9a7">🏖️ Playita</span></div>
+              <div class="zone-count-badge playita" id="badge-playita">0/10</div>
+            </div>
+            <div class="seats-row" id="deck-playita"></div>
+          </div>
+          <div class="zone-row">
+            <div class="zone-row-header">
+              <div class="zone-row-label"><div class="zone-dot lobby"></div><span style="color:#6699ff">🏨 Lobby</span></div>
+              <div class="zone-count-badge lobby" id="badge-lobby">0/10</div>
+            </div>
+            <div class="seats-row" id="deck-lobby"></div>
+          </div>
+          <div class="zone-row">
+            <div class="zone-row-header">
+              <div class="zone-row-label"><div class="zone-dot muelle"></div><span style="color:#c8e840">⚓ Muelle</span></div>
+              <div class="zone-count-badge muelle" id="badge-muelle">0/10</div>
+            </div>
+            <div class="seats-row" id="deck-muelle"></div>
+          </div>
+        </div>
+
+        <div class="map-legend" style="margin-top:16px;">
+          <div class="legend-item"><div class="legend-dot male-p"></div>H·Playita</div>
+          <div class="legend-item"><div class="legend-dot female-p"></div>M·Playita</div>
+          <div class="legend-item"><div class="legend-dot male-l"></div>H·Lobby</div>
+          <div class="legend-item"><div class="legend-dot female-l"></div>M·Lobby</div>
+          <div class="legend-item"><div class="legend-dot male-m"></div>H·Muelle</div>
+          <div class="legend-item"><div class="legend-dot female-m"></div>M·Muelle</div>
           <div class="legend-item"><div class="legend-dot empty"></div>Libre</div>
         </div>
       </div>
@@ -425,7 +478,6 @@
         <div class="chip active" data-filter="all"    onclick="setFilter('all')">Todos</div>
         <div class="chip"        data-filter="male"   onclick="setFilter('male')">👦 Hombres</div>
         <div class="chip f"      data-filter="female" onclick="setFilter('female')">👩 Mujeres</div>
-        <div class="chip vip"    data-filter="vip"    onclick="setFilter('vip')">⭐ VIP</div>
       </div>
       <div class="attendees-list" id="attendees-list"></div>
     </section>
@@ -436,7 +488,7 @@
     <div style="padding:20px 0 0;">
       <div class="form-card">
         <div class="form-title">Reserva tu puesto</div>
-        <div class="form-sub">Únete a la experiencia Pre-AIRA Party en el Yate Majestic ✨</div>
+        <div class="form-sub">Únete a la experiencia Pre-AIRA Party en el Hotel Joinn ✨</div>
 
         <div class="form-group">
           <label class="form-label">
@@ -473,27 +525,22 @@
         <div class="form-group">
           <label class="form-label"><span class="required-dot"></span>Zona</label>
           <div class="zone-cards">
-            <div class="zone-card" id="zone-main"  onclick="selectZone('main')">
-              <div class="zone-icon">🎵</div>
-              <div class="zone-info"><div class="zone-name">General — Cubierta Principal</div><div class="zone-desc">Pista de baile · Bar · Vista al lago</div></div>
+            <div class="zone-card" id="zone-playita" onclick="selectZone('playita')">
+              <div class="zone-icon">🏖️</div>
+              <div class="zone-info"><div class="zone-name">Playita</div><div class="zone-desc">Zona de playa · Hamacas · Vista al lago</div></div>
               <div class="zone-badge-free">Libre</div><div class="zone-radio"></div>
             </div>
-            <div class="zone-card" id="zone-lower" onclick="selectZone('lower')">
-              <div class="zone-icon">🌊</div>
-              <div class="zone-info"><div class="zone-name">Social — Cubierta Baja</div><div class="zone-desc">Zona de chill · Hamacas · Terrace</div></div>
+            <div class="zone-card" id="zone-lobby" onclick="selectZone('lobby')">
+              <div class="zone-icon">🏨</div>
+              <div class="zone-info"><div class="zone-name">Lobby</div><div class="zone-desc">Zona principal · Bar · Música</div></div>
               <div class="zone-badge-free">Libre</div><div class="zone-radio"></div>
             </div>
-            <div class="zone-card" id="zone-vip"   onclick="selectZone('vip')">
-              <div class="zone-icon">🌟</div>
-              <div class="zone-info"><div class="zone-name">VIP — Cubierta Superior</div><div class="zone-desc">Open bar · Zona gold · Acceso exclusivo</div></div>
-              <div class="zone-badge-vip">Solo invitados</div><div class="zone-radio"></div>
+            <div class="zone-card" id="zone-muelle" onclick="selectZone('muelle')">
+              <div class="zone-icon">⚓</div>
+              <div class="zone-info"><div class="zone-name">Muelle</div><div class="zone-desc">Muelle sobre el lago · Chill · Terrace</div></div>
+              <div class="zone-badge-free">Libre</div><div class="zone-radio"></div>
             </div>
           </div>
-        </div>
-        <div class="form-group vip-code-group" id="vip-code-group">
-          <label class="form-label">🔑 Código de invitación VIP</label>
-          <input class="form-input vip-code-input" type="text" id="input-vip-code" placeholder="XXXX" maxlength="8" autocomplete="off" autocapitalize="characters">
-          <div class="vip-hint">Ingresa el código que recibiste para acceder a la zona <strong>VIP</strong></div>
         </div>
 
         <div class="confirm-preview" id="confirm-preview">
@@ -511,10 +558,10 @@
   </div>
 
   <nav class="bottom">
-    <button class="nav-btn active" id="nav-deck"     onclick="goTo('deck')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l4-8 4 4 4-6 4 10M3 21h18"/></svg>Cubierta
+    <button class="nav-btn active" id="nav-deck" onclick="goTo('deck')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Mapa
     </button>
-    <button class="nav-btn" id="nav-list"     onclick="goTo('list')">
+    <button class="nav-btn" id="nav-list" onclick="goTo('list')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>Asistentes
     </button>
     <button class="nav-btn" id="nav-register" onclick="goTo('register')">
@@ -523,7 +570,7 @@
   </nav>
 </div>
 
-<!-- ── SEAT MODAL ──────────────────────────────────── -->
+<!-- SEAT MODAL -->
 <div class="seat-modal-backdrop" id="seat-modal-backdrop" onclick="closeSeatModal(event)">
   <div class="seat-modal" id="seat-modal">
     <div class="seat-modal-handle"></div>
@@ -532,7 +579,7 @@
   </div>
 </div>
 
-<div class="full-toast"   id="full-toast"></div>
+<div class="full-toast" id="full-toast"></div>
 
 <div class="success-overlay" id="success-overlay">
   <div class="success-confetti" id="confetti-container"></div>
@@ -544,122 +591,70 @@
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 //  VIDEO CAROUSEL
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 const videoCarousel = (() => {
-  // Array de videos — agrega objetos { src, label } para cargar videos reales.
-  // src puede ser una URL directa (.mp4) o un blob URL después de subir.
-  // Si el array está vacío se muestra un placeholder.
-  const videos = [
-    // Ejemplo: { src: 'https://tu-cdn.com/video1.mp4', label: 'Noche 1 🎶' },
-    // Ejemplo: { src: 'https://tu-cdn.com/video2.mp4', label: 'Highlights 🛥️' },
-  ];
-
-  let current  = 0;
-  let autoTimer = null;
+  const videos = [];
+  let current = 0, autoTimer = null;
   const AUTO_DELAY = 6000;
 
   function render() {
     const track = document.getElementById('video-track');
     const dots  = document.getElementById('video-dots');
     if (!track || !dots) return;
-
     if (videos.length === 0) {
-      track.innerHTML = `
-        <div class="video-slide">
-          <div class="video-placeholder">
-            <div class="video-placeholder-icon">🎬</div>
-            <div class="video-placeholder-text">Los videos del evento aparecerán aquí</div>
-          </div>
-        </div>`;
+      track.innerHTML = `<div class="video-slide"><div class="video-placeholder"><div class="video-placeholder-icon">🎬</div><div class="video-placeholder-text">Los videos del evento aparecerán aquí</div></div></div>`;
       dots.innerHTML = '';
       document.getElementById('vid-prev').style.display = 'none';
       document.getElementById('vid-next').style.display = 'none';
       return;
     }
-
-    track.innerHTML = videos.map((v, i) => `
-      <div class="video-slide">
-        <video src="${v.src}" playsinline muted loop preload="metadata"
-               poster="" width="430" height="220"
-               oncanplay="this.closest('.video-slide').querySelector('.video-placeholder')?.remove()"
-        ></video>
-        ${v.label ? `<div class="video-label">${v.label}</div>` : ''}
-      </div>`).join('');
-
-    dots.innerHTML = videos.map((_, i) =>
-      `<div class="video-dot${i === 0 ? ' active' : ''}" onclick="videoCarousel.goTo(${i})"></div>`
-    ).join('');
-
-    goTo(0, false);
-    startAuto();
+    track.innerHTML = videos.map((v, i) => `<div class="video-slide"><video src="${v.src}" playsinline muted loop preload="metadata" width="430" height="220"></video>${v.label ? `<div class="video-label">${v.label}</div>` : ''}</div>`).join('');
+    dots.innerHTML = videos.map((_, i) => `<div class="video-dot${i===0?' active':''}" onclick="videoCarousel.goTo(${i})"></div>`).join('');
+    goTo(0, false); startAuto();
   }
 
-  function goTo(idx, animate = true) {
+  function goTo(idx) {
     if (videos.length === 0) return;
     current = (idx + videos.length) % videos.length;
     const track = document.getElementById('video-track');
     if (track) track.style.transform = `translateX(-${current * 100}%)`;
-
-    // Pausa todos, reproduce el actual
-    track.querySelectorAll('video').forEach((v, i) => {
-      if (i === current) { v.play().catch(()=>{}); }
-      else               { v.pause(); v.currentTime = 0; }
-    });
-
-    document.querySelectorAll('.video-dot').forEach((d, i) =>
-      d.classList.toggle('active', i === current));
+    track.querySelectorAll('video').forEach((v, i) => { if (i === current) v.play().catch(()=>{}); else { v.pause(); v.currentTime = 0; } });
+    document.querySelectorAll('.video-dot').forEach((d, i) => d.classList.toggle('active', i === current));
   }
 
   function prev() { stopAuto(); goTo(current - 1); startAuto(); }
   function next() { stopAuto(); goTo(current + 1); startAuto(); }
-
-  function startAuto() {
-    if (videos.length <= 1) return;
-    stopAuto();
-    autoTimer = setInterval(() => goTo(current + 1), AUTO_DELAY);
-  }
+  function startAuto() { if (videos.length <= 1) return; stopAuto(); autoTimer = setInterval(() => goTo(current + 1), AUTO_DELAY); }
   function stopAuto() { clearInterval(autoTimer); }
 
-  // Swipe táctil
   function initSwipe() {
     const banner = document.getElementById('video-banner');
     if (!banner) return;
     let startX = 0;
     banner.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-    banner.addEventListener('touchend',   e => {
-      const dx = e.changedTouches[0].clientX - startX;
-      if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); }
-    }, { passive: true });
+    banner.addEventListener('touchend',   e => { const dx = e.changedTouches[0].clientX - startX; if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); } }, { passive: true });
   }
 
-  // API pública para agregar un video desde fuera (ej: upload)
-  function addVideo(src, label = '') {
-    videos.push({ src, label });
-    render();
-  }
+  function addVideo(src, label = '') { videos.push({ src, label }); render(); }
 
   document.addEventListener('DOMContentLoaded', () => { render(); initSwipe(); });
-
   return { prev, next, goTo, addVideo };
 })();
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 //  CONFIG
-// ═══════════════════════════════════════════════════════
-const TOTAL        = 35;
-const VIP_SEATS    = 8;
-const MAIN_SEATS   = 17;
-const LOWER_SEATS  = 10;
-const VIP_CODES    = ['GUATA2025','AIRA2025','VIPNIGHT','YACHTVIP'];
-const API          = '/api/attendees';
-const UPLOAD_API   = '/api/upload';
-const POLL_INTERVAL = 8000;
+// ═══════════════════════════════════════════
+const TOTAL          = 30;
+const ZONE_SEATS     = { playita: 10, lobby: 10, muelle: 10 };
+const API            = '/api/attendees';
+const UPLOAD_API     = '/api/upload';
+const POLL_INTERVAL  = 8000;
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 //  STATE
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 let attendees      = [];
 let selectedGender = '';
 let selectedZone   = '';
@@ -671,20 +666,17 @@ let photoLocalUrl  = null;
 let photoBlobUrl   = null;
 let photoUploading = false;
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 //  LOAD DATA
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 async function loadAttendees() {
   try {
     const res  = await fetch(API);
-    if(!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json();
-    attendees  = data;
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    attendees = await res.json();
     renderDeck(null);
     renderList();
-  } catch(e) {
-    console.error(e);
-  }
+  } catch(e) { console.error(e); }
 }
 
 function startPolling() {
@@ -692,209 +684,155 @@ function startPolling() {
   pollTimer = setInterval(loadAttendees, POLL_INTERVAL);
 }
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 //  PHOTO UPLOAD
-// ═══════════════════════════════════════════════════════
-function triggerPhotoInput() {
-  if(photoUploading) return;
-  document.getElementById('photo-input').click();
-}
+// ═══════════════════════════════════════════
+function triggerPhotoInput() { if (photoUploading) return; document.getElementById('photo-input').click(); }
 
 async function onPhotoSelected(input) {
   const file = input.files[0];
-  if(!file) return;
-  if(file.size > 5 * 1024 * 1024) { showToast('⚠️ La foto debe ser menor a 5 MB'); input.value=''; return; }
-  photoFile     = file;
-  photoLocalUrl = URL.createObjectURL(file);
-  photoBlobUrl  = null;
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { showToast('⚠️ La foto debe ser menor a 5 MB'); input.value = ''; return; }
+  photoFile = file; photoLocalUrl = URL.createObjectURL(file); photoBlobUrl = null;
   renderPhotoPreview(photoLocalUrl, true);
   updateConfirmPreview();
   await uploadToBlobStorage(file);
 }
 
 async function uploadToBlobStorage(file) {
-  photoUploading = true;
-  showUploadingState();
+  photoUploading = true; showUploadingState();
   try {
-    const formData = new FormData();
-    formData.append('file', file);
-    const res = await fetch(UPLOAD_API, { method: 'POST', body: formData });
-    if(!res.ok) throw new Error('Upload HTTP ' + res.status);
-    const json = await res.json();
-    photoBlobUrl = json.url;
+    const formData = new FormData(); formData.append('file', file);
+    const res  = await fetch(UPLOAD_API, { method: 'POST', body: formData });
+    if (!res.ok) throw new Error('Upload HTTP ' + res.status);
+    const json = await res.json(); photoBlobUrl = json.url;
     document.getElementById('photo-badge').textContent = '✅ LISTA';
     document.getElementById('photo-badge').style.background = 'rgba(100,220,100,0.15)';
     document.getElementById('photo-badge').style.color = '#64dc64';
     document.getElementById('photo-badge').style.borderColor = 'rgba(100,220,100,0.3)';
     renderPhotoPreview(photoLocalUrl, false);
   } catch(e) {
-    console.warn('Blob upload failed, will retry on register:', e);
+    console.warn('Blob upload failed:', e);
     renderPhotoPreview(photoLocalUrl, false);
     document.getElementById('photo-badge').textContent = '⚠️ REINTENTANDO';
     document.getElementById('photo-badge').style.background = 'rgba(255,200,0,0.12)';
     document.getElementById('photo-badge').style.color = '#ffc800';
-  } finally {
-    photoUploading = false;
-    updateConfirmPreview();
-  }
+  } finally { photoUploading = false; updateConfirmPreview(); }
 }
 
 function showUploadingState() {
-  const area = document.getElementById('photo-upload-area');
-  area.innerHTML = `
-    <div class="photo-uploading">
-      <div class="upload-spinner"></div>
-      <div class="upload-status-text">Subiendo foto…</div>
-    </div>`;
+  document.getElementById('photo-upload-area').innerHTML = `<div class="photo-uploading"><div class="upload-spinner"></div><div class="upload-status-text">Subiendo foto…</div></div>`;
 }
 
 function renderPhotoPreview(url, uploading) {
   const area = document.getElementById('photo-upload-area');
   area.className = 'photo-upload-area has-photo';
-  area.innerHTML = `
-    <img class="photo-preview" src="${url}" alt="Tu foto" width="398" height="180" loading="lazy">
-    ${uploading ? '' : '<button class="photo-change-btn" onclick="event.stopPropagation();triggerPhotoInput()">✏️ Cambiar foto</button>'}
-  `;
+  area.innerHTML = `<img class="photo-preview" src="${url}" alt="Tu foto" width="398" height="180" loading="lazy">${uploading ? '' : '<button class="photo-change-btn" onclick="event.stopPropagation();triggerPhotoInput()">✏️ Cambiar foto</button>'}`;
 }
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 //  CONFIRM PREVIEW
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 function updateConfirmPreview() {
-  const name   = document.getElementById('input-name').value.trim();
-  const insta  = document.getElementById('input-insta').value.trim().replace(/^@/,'');
-  const hasPhoto = !!photoLocalUrl;
-  if(!name || !insta || !selectedGender || !selectedZone || !hasPhoto || photoUploading) {
-    document.getElementById('confirm-preview').classList.remove('visible');
-    return;
+  const name  = document.getElementById('input-name').value.trim();
+  const insta = document.getElementById('input-insta').value.trim().replace(/^@/, '');
+  if (!name || !insta || !selectedGender || !selectedZone || !photoLocalUrl || photoUploading) {
+    document.getElementById('confirm-preview').classList.remove('visible'); return;
   }
   document.getElementById('confirm-avatar-img').src = photoLocalUrl;
   document.getElementById('confirm-name').textContent = name;
-  const zLabel = {vip:'🌟 VIP',main:'🎵 General',lower:'🌊 Social'}[selectedZone] || selectedZone;
+  const zLabel = { playita:'🏖️ Playita', lobby:'🏨 Lobby', muelle:'⚓ Muelle' }[selectedZone] || selectedZone;
   const gLabel = selectedGender === 'male' ? '👦 Hombre' : '👩 Mujer';
   document.getElementById('confirm-meta').textContent = `${gLabel} · ${zLabel} · @${insta}`;
   document.getElementById('confirm-preview').classList.add('visible');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  ['input-name','input-insta'].forEach(id => {
-    document.getElementById(id).addEventListener('input', updateConfirmPreview);
-  });
+  ['input-name','input-insta'].forEach(id => document.getElementById(id).addEventListener('input', updateConfirmPreview));
 });
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 //  SEAT HELPERS
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 function getOccupied() { return new Set(attendees.map(a => a.seat)); }
 
 function assignSeat(zone) {
-  const occ    = getOccupied();
-  const prefix = zone === 'vip' ? 'V' : zone === 'main' ? 'M' : 'L';
-  const max    = zone === 'vip' ? VIP_SEATS : zone === 'main' ? MAIN_SEATS : LOWER_SEATS;
-  for(let i = 1; i <= max; i++) {
-    const s = prefix + i;
-    if(!occ.has(s)) return s;
-  }
+  const occ = getOccupied();
+  const prefix = zone === 'playita' ? 'P' : zone === 'lobby' ? 'L' : 'M';
+  const max = ZONE_SEATS[zone];
+  for (let i = 1; i <= max; i++) { const s = prefix + i; if (!occ.has(s)) return s; }
   return null;
 }
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 //  DECK RENDER
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 function renderDeck(newSeat) {
   const map = {};
   attendees.forEach(a => { map[a.seat] = a; });
-  function buildDeck(el, prefix, count, rows) {
+
+  ['playita','lobby','muelle'].forEach(zone => {
+    const prefix = zone === 'playita' ? 'P' : zone === 'lobby' ? 'L' : 'M';
+    const el = document.getElementById('deck-' + zone);
     el.innerHTML = '';
-    if(rows) {
-      rows.forEach(row => {
-        const r = document.createElement('div');
-        r.className = 'seats-row';
-        row.forEach(i => { const s = prefix+i; r.appendChild(mkSeat(s, map[s], newSeat)); });
-        el.appendChild(r);
-      });
-    } else {
-      const r = document.createElement('div');
-      r.className = 'seats-row'; r.style.flexWrap = 'wrap';
-      for(let i = 1; i <= count; i++) { const s = prefix+i; r.appendChild(mkSeat(s, map[s], newSeat)); }
-      el.appendChild(r);
+    let occupied = 0;
+    for (let i = 1; i <= ZONE_SEATS[zone]; i++) {
+      const s = prefix + i;
+      const person = map[s];
+      if (person) occupied++;
+      el.appendChild(mkSeat(s, person, newSeat, zone));
     }
-  }
-  buildDeck(document.getElementById('deck-vip'),   'V', VIP_SEATS,   null);
-  buildDeck(document.getElementById('deck-main'),  'M', MAIN_SEATS,  [[1,2,3,4,5,6],[7,8,9,10,11,12],[13,14,15,16,17]]);
-  buildDeck(document.getElementById('deck-lower'), 'L', LOWER_SEATS, [[1,2,3,4,5],[6,7,8,9,10]]);
+    document.getElementById('badge-' + zone).textContent = `${occupied}/${ZONE_SEATS[zone]}`;
+  });
+
   updateStats();
 }
 
-function mkSeat(id, person, newSeat) {
+function mkSeat(id, person, newSeat, zone) {
   const el = document.createElement('div');
   el.className = 'seat' + (id === newSeat ? ' new-seat' : '');
-  if(!person) { el.classList.add('empty'); }
-  else if(person.zone === 'vip')          { el.classList.add('vip');    el.textContent = person.gender === 'male' ? '👦' : '👩'; }
-  else if(person.gender === 'male')       { el.classList.add('male');   el.textContent = '👦'; }
-  else                                    { el.classList.add('female'); el.textContent = '👩'; }
+  if (!person) { el.classList.add('empty'); }
+  else {
+    el.classList.add(person.gender);
+    el.classList.add(zone || person.zone);
+    el.textContent = person.gender === 'male' ? '👦' : '👩';
+  }
   el.addEventListener('click', () => openSeatModal(id, person));
   return el;
 }
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 //  SEAT MODAL
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 function openSeatModal(id, person) {
   const content = document.getElementById('seat-modal-content');
-
-  if(!person) {
-    content.innerHTML = `
-      <div class="seat-modal-empty">
-        <div class="sm-icon">🟢</div>
-        <h3>Puesto ${id} disponible</h3>
-        <p>Este lugar está libre.<br>¡Regístrate para tomarlo!</p>
-      </div>
-      <div style="height:16px"></div>`;
+  if (!person) {
+    content.innerHTML = `<div class="seat-modal-empty"><div class="sm-icon">🟢</div><h3>Puesto ${id} disponible</h3><p>Este lugar está libre.<br>¡Regístrate para tomarlo!</p></div><div style="height:16px"></div>`;
   } else {
-    const zoneLabel = {vip:'🌟 VIP',main:'🎵 General',lower:'🌊 Social'}[person.zone] || person.zone;
+    const zoneLabel = { playita:'🏖️ Playita', lobby:'🏨 Lobby', muelle:'⚓ Muelle' }[person.zone] || person.zone;
     const genderLabel = person.gender === 'male' ? '👦 Hombre' : '👩 Mujer';
-    const chipClass   = person.zone === 'vip' ? 'gold' : person.gender === 'male' ? 'blue' : 'lime';
-
+    const chipClass = person.zone === 'playita' ? 'teal' : person.zone === 'muelle' ? 'lime' : 'blue';
     const photoHtml = person.photo_url
       ? `<img class="seat-modal-photo" src="${person.photo_url}" alt="${person.name}" width="430" height="220" loading="lazy">`
       : `<div class="seat-modal-photo-placeholder">${person.gender === 'male' ? '👦' : '👩'}</div>`;
-
     const avatarHtml = person.photo_url
       ? `<div class="seat-modal-avatar"><img src="${person.photo_url}" alt="${person.name}" width="56" height="56" loading="lazy"></div>`
       : `<div class="seat-modal-avatar ${person.gender === 'male' ? 'male-av' : 'female-av'}">${person.gender === 'male' ? '👦' : '👩'}</div>`;
-
-    content.innerHTML = `
-      ${photoHtml}
-      <div class="seat-modal-body" style="margin-top:16px;">
-        <div class="seat-modal-row">
-          ${avatarHtml}
-          <div>
-            <div class="seat-modal-name">${person.name}</div>
-            <div class="seat-modal-insta">@${person.instagram}</div>
-          </div>
-        </div>
-        <div class="seat-modal-chips">
-          <span class="seat-modal-chip ${chipClass}">${zoneLabel}</span>
-          <span class="seat-modal-chip">${genderLabel}</span>
-          <span class="seat-modal-chip">Puesto ${id}</span>
-        </div>
-      </div>`;
+    content.innerHTML = `${photoHtml}<div class="seat-modal-body" style="margin-top:16px;"><div class="seat-modal-row">${avatarHtml}<div><div class="seat-modal-name">${person.name}</div><div class="seat-modal-insta">@${person.instagram}</div></div></div><div class="seat-modal-chips"><span class="seat-modal-chip ${chipClass}">${zoneLabel}</span><span class="seat-modal-chip">${genderLabel}</span><span class="seat-modal-chip">Puesto ${id}</span></div></div>`;
   }
-
   document.getElementById('seat-modal-backdrop').classList.add('show');
   document.body.style.overflow = 'hidden';
 }
 
 function closeSeatModal(event) {
-  if(event && event.target !== document.getElementById('seat-modal-backdrop')) return;
+  if (event && event.target !== document.getElementById('seat-modal-backdrop')) return;
   document.getElementById('seat-modal-backdrop').classList.remove('show');
   document.body.style.overflow = '';
 }
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 //  STATS
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 function updateStats() {
   const tot = attendees.length;
   const m   = attendees.filter(a => a.gender === 'male').length;
@@ -909,9 +847,9 @@ function updateStats() {
   document.getElementById('list-count').textContent       = tot;
 }
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 //  LIST
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 function setFilter(f) {
   currentFilter = f;
   document.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.dataset.filter === f));
@@ -919,20 +857,19 @@ function setFilter(f) {
 }
 
 function renderList() {
-  const el   = document.getElementById('attendees-list');
-  let   list = attendees;
-  if(currentFilter === 'male')   list = attendees.filter(a => a.gender === 'male');
-  if(currentFilter === 'female') list = attendees.filter(a => a.gender === 'female');
-  if(currentFilter === 'vip')    list = attendees.filter(a => a.zone   === 'vip');
-  if(!list.length) {
-    el.innerHTML = `<div class="empty-state"><div class="empty-icon">🛥️</div><h3>${currentFilter==='all'?'Aún no hay registros':'Sin resultados'}</h3><p>${currentFilter==='all'?'¡Sé el primero en unirte a la Pre-AIRA Party!':'No hay asistentes en esta categoría aún.'}</p></div>`;
+  const el = document.getElementById('attendees-list');
+  let list = attendees;
+  if (currentFilter === 'male')   list = attendees.filter(a => a.gender === 'male');
+  if (currentFilter === 'female') list = attendees.filter(a => a.gender === 'female');
+  if (!list.length) {
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">🏨</div><h3>${currentFilter==='all'?'Aún no hay registros':'Sin resultados'}</h3><p>${currentFilter==='all'?'¡Sé el primero en unirte a la Pre-AIRA Party!':'No hay asistentes en esta categoría aún.'}</p></div>`;
     return;
   }
   el.innerHTML = [...list].reverse().map(a => {
-    const ini  = a.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
-    const zone = {vip:'🌟 VIP',main:'🎵 General',lower:'🌊 Social'}[a.zone];
-    const bc   = a.zone === 'vip' ? 'vip' : a.gender;
-    const bl   = a.zone === 'vip' ? '⭐ VIP' : a.gender === 'male' ? '👦 H' : '👩 M';
+    const ini  = a.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+    const zone = { playita:'🏖️ Playita', lobby:'🏨 Lobby', muelle:'⚓ Muelle' }[a.zone];
+    const bc   = a.gender;
+    const bl   = a.gender === 'male' ? '👦 H' : '👩 M';
     const avatarHtml = a.photo_url
       ? `<img src="${a.photo_url}" alt="${a.name}" width="40" height="40" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`
       : ini;
@@ -940,36 +877,33 @@ function renderList() {
   }).join('');
 }
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 //  NAV
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 function goTo(s) {
   document.querySelectorAll('.screen').forEach(x  => x.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(x  => x.classList.remove('active'));
   document.getElementById('screen-' + s).classList.add('active');
   document.getElementById('nav-'    + s).classList.add('active');
-  if(s === 'list') renderList();
-  if(s === 'deck') renderDeck(null);
+  if (s === 'list') renderList();
+  if (s === 'deck') renderDeck(null);
 }
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 //  FORM HELPERS
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 function selectGender(g) {
   selectedGender = g;
-  document.getElementById('opt-male').className   = 'gender-opt' + (g==='male'   ? ' selected-m' : '');
-  document.getElementById('opt-female').className = 'gender-opt' + (g==='female' ? ' selected-f' : '');
+  document.getElementById('opt-male').className   = 'gender-opt' + (g === 'male'   ? ' selected-m' : '');
+  document.getElementById('opt-female').className = 'gender-opt' + (g === 'female' ? ' selected-f' : '');
   updateConfirmPreview();
 }
 
 function selectZone(z) {
   selectedZone = z;
-  ['main','lower','vip'].forEach(id => {
-    document.getElementById('zone-'+id).className = 'zone-card' + (id===z ? (' selected-'+(id==='vip'?'vip':'general')) : '');
+  ['playita','lobby','muelle'].forEach(id => {
+    document.getElementById('zone-' + id).className = 'zone-card' + (id === z ? (' selected-' + id) : '');
   });
-  const cg = document.getElementById('vip-code-group');
-  if(z === 'vip') cg.classList.add('visible');
-  else { cg.classList.remove('visible'); document.getElementById('input-vip-code').value=''; }
   updateConfirmPreview();
 }
 
@@ -977,22 +911,22 @@ function flashInput(id) {
   const el = document.getElementById(id);
   el.style.borderColor = 'rgba(255,79,79,0.7)';
   el.style.boxShadow   = '0 0 0 3px rgba(255,79,79,0.15)';
-  setTimeout(() => { el.style.borderColor=''; el.style.boxShadow=''; }, 900);
+  setTimeout(() => { el.style.borderColor = ''; el.style.boxShadow = ''; }, 900);
   el.focus();
 }
 
 function showToast(msg, type) {
   const t = document.getElementById('full-toast');
   t.textContent = msg;
-  t.className = 'full-toast show' + (type==='success' ? ' success' : '');
+  t.className = 'full-toast show' + (type === 'success' ? ' success' : '');
   setTimeout(() => t.className = 'full-toast', 2800);
 }
 
 function spawnConfetti() {
   const c = document.getElementById('confetti-container');
   c.innerHTML = '';
-  const colors = ['#004fff','#e1fe52','#ffffff','#ffd700','#0066ff','#c8e840'];
-  for(let i=0; i<50; i++) {
+  const colors = ['#004fff','#e1fe52','#ffffff','#00c9a7','#0066ff','#c8e840'];
+  for (let i = 0; i < 50; i++) {
     const p = document.createElement('div');
     p.className = 'confetti-piece';
     p.style.cssText = `left:${Math.random()*100}%;top:${-10+Math.random()*-20}%;background:${colors[i%colors.length]};animation-delay:${Math.random()*0.8}s;animation-duration:${1.5+Math.random()}s;transform:rotate(${Math.random()*360}deg);border-radius:${Math.random()>.5?'50%':'2px'};`;
@@ -1000,16 +934,15 @@ function spawnConfetti() {
   }
 }
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 //  REGISTER
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 async function registerAttendee() {
-  const name    = document.getElementById('input-name').value.trim();
-  const insta   = document.getElementById('input-insta').value.trim().replace(/^@/, '');
-  const vipCode = document.getElementById('input-vip-code').value.trim().toUpperCase();
-  const btn     = document.getElementById('btn-register');
+  const name  = document.getElementById('input-name').value.trim();
+  const insta = document.getElementById('input-insta').value.trim().replace(/^@/, '');
+  const btn   = document.getElementById('btn-register');
 
-  if(!photoFile) {
+  if (!photoFile) {
     const area = document.getElementById('photo-upload-area');
     area.classList.add('error-shake');
     setTimeout(() => area.classList.remove('error-shake'), 500);
@@ -1017,36 +950,28 @@ async function registerAttendee() {
     setTimeout(() => triggerPhotoInput(), 600);
     return;
   }
-  if(!name)           { flashInput('input-name');  showToast('⚠️ Ingresa tu nombre');         return; }
-  if(!insta)          { flashInput('input-insta'); showToast('⚠️ Instagram es obligatorio'); return; }
-  if(!selectedGender) {
+  if (!name)          { flashInput('input-name');  showToast('⚠️ Ingresa tu nombre');          return; }
+  if (!insta)         { flashInput('input-insta'); showToast('⚠️ Instagram es obligatorio');  return; }
+  if (!selectedGender) {
     document.querySelectorAll('.gender-opt').forEach(el => { el.style.borderColor='rgba(255,79,79,0.5)'; setTimeout(()=>el.style.borderColor='',900); });
     showToast('⚠️ Selecciona tu género'); return;
   }
-  if(!selectedZone) { showToast('⚠️ Elige una zona'); return; }
-  if(selectedZone === 'vip') {
-    if(!vipCode)                    { flashInput('input-vip-code'); showToast('🔑 Ingresa tu código de invitación'); return; }
-    if(!VIP_CODES.includes(vipCode)) { flashInput('input-vip-code'); showToast('❌ Código VIP inválido');            return; }
-  }
-  if(attendees.length >= TOTAL) { showToast('🛥️ ¡El yate está lleno!'); return; }
+  if (!selectedZone) { showToast('⚠️ Elige una zona'); return; }
+  if (attendees.length >= TOTAL) { showToast('🏨 ¡El evento está lleno!'); return; }
+
   const seat = assignSeat(selectedZone);
-  if(!seat) { showToast('⚠️ La zona '+({vip:'VIP',main:'General',lower:'Social'}[selectedZone])+' está llena'); return; }
+  if (!seat) { showToast('⚠️ La zona ' + ({playita:'Playita',lobby:'Lobby',muelle:'Muelle'}[selectedZone]) + ' está llena'); return; }
 
   btn.disabled = true;
 
-  if(!photoBlobUrl && photoFile) {
+  if (!photoBlobUrl && photoFile) {
     btn.textContent = '📤 Subiendo foto…';
     try {
-      const formData = new FormData();
-      formData.append('file', photoFile);
+      const formData = new FormData(); formData.append('file', photoFile);
       const res  = await fetch(UPLOAD_API, { method: 'POST', body: formData });
-      if(!res.ok) throw new Error('Upload HTTP ' + res.status);
-      const json = await res.json();
-      photoBlobUrl = json.url;
-    } catch(e) {
-      console.warn('Blob upload still failing:', e);
-      photoBlobUrl = null;
-    }
+      if (!res.ok) throw new Error('Upload HTTP ' + res.status);
+      photoBlobUrl = (await res.json()).url;
+    } catch(e) { console.warn('Blob upload still failing:', e); photoBlobUrl = null; }
   }
 
   btn.textContent = 'Guardando… ⏳';
@@ -1058,46 +983,36 @@ async function registerAttendee() {
       body: JSON.stringify({ name, instagram: insta, gender: selectedGender, zone: selectedZone, seat, photo_url: photoBlobUrl || null })
     });
     const json = await res.json();
-    if(!res.ok) throw new Error(json.error || 'Error');
+    if (!res.ok) throw new Error(json.error || 'Error');
 
     await loadAttendees();
     lastSeat = seat;
 
     const photoWrap = document.getElementById('success-photo-wrap');
-    if(photoLocalUrl) {
-      photoWrap.innerHTML = `<div class="success-photo"><img src="${photoLocalUrl}" alt="${name}" width="100" height="100" loading="lazy"></div>`;
-    } else {
-      photoWrap.innerHTML = `<div class="success-photo-fallback">🎉</div>`;
-    }
+    photoWrap.innerHTML = photoLocalUrl
+      ? `<div class="success-photo"><img src="${photoLocalUrl}" alt="${name}" width="100" height="100" loading="lazy"></div>`
+      : `<div class="success-photo-fallback">🎉</div>`;
 
-    const zoneLabel = {vip:'🌟 VIP',main:'🎵 General',lower:'🌊 Social'}[selectedZone];
+    const zoneLabel = { playita:'🏖️ Playita', lobby:'🏨 Lobby', muelle:'⚓ Muelle' }[selectedZone];
     document.getElementById('success-seat-num').textContent = 'Puesto ' + seat;
-    document.getElementById('success-msg').innerHTML =
-      (selectedZone==='vip' ? '<strong style="color:#ffd700">⭐ Zona VIP confirmada</strong><br>' : '') +
-      `<strong>${name}</strong>, tu lugar está asegurado<br>en el Yate Majestic 🛥️<br><span style="color:var(--aira-blue);font-size:13px">@${insta}</span> · ${zoneLabel}`;
+    document.getElementById('success-msg').innerHTML = `<strong>${name}</strong>, tu lugar está asegurado<br>en la Pre-AIRA Party 🎉<br><span style="color:var(--aira-blue);font-size:13px">@${insta}</span> · ${zoneLabel}`;
 
     spawnConfetti();
     document.getElementById('success-overlay').classList.add('show');
 
+    // Reset form
     document.getElementById('input-name').value  = '';
     document.getElementById('input-insta').value = '';
-    document.getElementById('input-vip-code').value = '';
-    selectedGender=''; selectedZone='';
-    photoFile=null; photoLocalUrl=null; photoBlobUrl=null;
+    selectedGender = ''; selectedZone = '';
+    photoFile = null; photoLocalUrl = null; photoBlobUrl = null;
     document.getElementById('opt-male').className   = 'gender-opt';
     document.getElementById('opt-female').className = 'gender-opt';
-    ['main','lower','vip'].forEach(id => document.getElementById('zone-'+id).className='zone-card');
-    document.getElementById('vip-code-group').classList.remove('visible');
+    ['playita','lobby','muelle'].forEach(id => document.getElementById('zone-' + id).className = 'zone-card');
     document.getElementById('confirm-preview').classList.remove('visible');
     document.getElementById('photo-badge').textContent = 'REQUERIDA';
     document.getElementById('photo-badge').style.cssText = '';
     document.getElementById('photo-upload-area').className = 'photo-upload-area';
-    document.getElementById('photo-upload-area').innerHTML = `
-      <div class="photo-placeholder" id="photo-placeholder">
-        <div class="photo-placeholder-icon">📸</div>
-        <div class="photo-placeholder-text">Toca para agregar tu foto</div>
-        <div class="photo-placeholder-hint">JPG, PNG · Máx 5 MB<br>En móvil abre la cámara frontal</div>
-      </div>`;
+    document.getElementById('photo-upload-area').innerHTML = `<div class="photo-placeholder" id="photo-placeholder"><div class="photo-placeholder-icon">📸</div><div class="photo-placeholder-text">Toca para agregar tu foto</div><div class="photo-placeholder-hint">JPG, PNG · Máx 5 MB<br>En móvil abre la cámara frontal</div></div>`;
     document.getElementById('photo-input').value = '';
 
   } catch(e) {
@@ -1113,9 +1028,9 @@ function closeSuccess() {
   renderDeck(lastSeat);
 }
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 //  INIT
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 renderDeck(null);
 updateStats();
 startPolling();

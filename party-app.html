@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>GuataParty 🛥️ — AIRA Yacht Night</title>
+  <title>Pre-AIRA Party 🛥️</title>
   <meta name="theme-color" content="#004fff">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -45,6 +45,65 @@
     .screen.active { display:flex; animation:fade-in 0.25s ease; }
     @keyframes fade-in { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
     section { padding:0 16px; margin-bottom:24px; }
+
+    /* ── VIDEO CAROUSEL BANNER ───────────────────────── */
+    .video-banner { position:relative; width:100%; overflow:hidden; background:#000; }
+    .video-track  { display:flex; transition:transform 0.45s cubic-bezier(0.4,0,0.2,1); will-change:transform; }
+    .video-slide  { flex:0 0 100%; position:relative; }
+    .video-slide video {
+      width:100%; height:220px; object-fit:cover; display:block;
+      background:#000;
+    }
+    /* Placeholder cuando no hay video cargado */
+    .video-placeholder {
+      width:100%; height:220px; display:flex; flex-direction:column;
+      align-items:center; justify-content:center; gap:8px;
+      background:linear-gradient(135deg,var(--aira-dark3),var(--aira-dark2));
+      cursor:pointer;
+    }
+    .video-placeholder-icon { font-size:42px; opacity:0.5; }
+    .video-placeholder-text { font-size:12px; color:var(--text-faint); font-weight:600; }
+    /* Overlay gradiente inferior */
+    .video-slide::after {
+      content:''; position:absolute; bottom:0; left:0; right:0; height:60px;
+      background:linear-gradient(to top, rgba(8,16,31,0.8), transparent);
+      pointer-events:none;
+    }
+    /* Botones prev/next */
+    .video-arrow {
+      position:absolute; top:50%; transform:translateY(-50%); z-index:10;
+      width:32px; height:32px; border-radius:50%;
+      background:rgba(8,16,31,0.6); border:1px solid rgba(255,255,255,0.15);
+      color:#fff; font-size:14px; display:flex; align-items:center; justify-content:center;
+      cursor:pointer; backdrop-filter:blur(6px); transition:background 0.2s;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .video-arrow:active { background:rgba(0,79,255,0.5); }
+    .video-arrow.prev { left:10px; }
+    .video-arrow.next { right:10px; }
+    /* Dots */
+    .video-dots { position:absolute; bottom:10px; left:50%; transform:translateX(-50%); display:flex; gap:5px; z-index:10; }
+    .video-dot { width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,0.35); transition:all 0.25s; }
+    .video-dot.active { background:var(--aira-lime); width:14px; border-radius:3px; }
+    /* Botón subir video */
+    .video-upload-btn {
+      position:absolute; top:10px; right:10px; z-index:10;
+      display:flex; align-items:center; gap:5px;
+      background:rgba(8,16,31,0.75); border:1px solid rgba(0,79,255,0.4);
+      border-radius:20px; padding:5px 12px;
+      font-size:11px; font-weight:700; color:#6699ff; font-family:var(--font);
+      cursor:pointer; backdrop-filter:blur(8px); transition:all 0.2s;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .video-upload-btn:active { background:rgba(0,79,255,0.3); }
+    /* Label del slide */
+    .video-label {
+      position:absolute; bottom:14px; left:14px; z-index:10;
+      font-size:11px; font-weight:700; color:rgba(255,255,255,0.7);
+      text-shadow:0 1px 4px rgba(0,0,0,0.6);
+      pointer-events:none;
+    }
+
     .hero-banner { margin:16px 16px 0; background:linear-gradient(135deg,var(--aira-dark3) 0%,var(--aira-dark2) 100%); border:1px solid var(--aira-border); border-radius:var(--r-xl); padding:24px; position:relative; overflow:hidden; }
     .hero-banner::before { content:''; position:absolute; top:-40px; right:-40px; width:180px; height:180px; background:radial-gradient(circle,rgba(0,79,255,0.25) 0%,transparent 70%); pointer-events:none; }
     .hero-banner::after  { content:''; position:absolute; bottom:-30px; left:20px; width:120px; height:120px; background:radial-gradient(circle,rgba(225,254,82,0.1) 0%,transparent 70%); pointer-events:none; }
@@ -297,16 +356,30 @@
           <path d="M10 18v-4h4v4" stroke="white" stroke-width="1.5"/>
         </svg>
       </div>
-      <div class="logo-text">Guata<em>Party</em></div>
+      <div class="logo-text">Pre-<em>AIRA</em> Party</div>
     </div>
     <div class="live-badge"><div class="live-dot"></div>En vivo</div>
   </header>
 
   <!-- CUBIERTA -->
   <div class="screen active" id="screen-deck">
+
+    <!-- ══ VIDEO CAROUSEL BANNER ══════════════════════ -->
+    <div class="video-banner" id="video-banner">
+      <div class="video-track" id="video-track">
+        <!-- Los slides se generan dinámicamente via JS -->
+      </div>
+      <button class="video-arrow prev" id="vid-prev" onclick="videoCarousel.prev()" aria-label="Video anterior">&#8249;</button>
+      <button class="video-arrow next" id="vid-next" onclick="videoCarousel.next()" aria-label="Video siguiente">&#8250;</button>
+      <div class="video-dots" id="video-dots"></div>
+      <!-- Botón subir video (oculto por defecto, descomenta para admins) -->
+      <!-- <button class="video-upload-btn" onclick="addVideoSlide()">＋ Agregar video</button> -->
+    </div>
+    <!-- ══════════════════════════════════════════════ -->
+
     <div class="hero-banner">
       <div class="hero-date">Sábado · Represa Guatapé 🌊</div>
-      <div class="hero-title">GuataParty 🛥️<br>Yacht Night</div>
+      <div class="hero-title">Pre-AIRA Party 🛥️</div>
       <div class="hero-subtitle">Yate Majestic — el más grande de<br>agua dulce en Latinoamérica</div>
       <div class="hero-stats">
         <div class="stat"><div class="stat-num" id="total-registered">0</div><div class="stat-label">Registrados</div></div>
@@ -363,7 +436,7 @@
     <div style="padding:20px 0 0;">
       <div class="form-card">
         <div class="form-title">Reserva tu puesto</div>
-        <div class="form-sub">Únete a la experiencia GuataParty en el Yate Majestic ✨</div>
+        <div class="form-sub">Únete a la experiencia Pre-AIRA Party en el Yate Majestic ✨</div>
 
         <div class="form-group">
           <label class="form-label">
@@ -471,6 +544,107 @@
 </div>
 
 <script>
+// ═══════════════════════════════════════════════════════
+//  VIDEO CAROUSEL
+// ═══════════════════════════════════════════════════════
+const videoCarousel = (() => {
+  // Array de videos — agrega objetos { src, label } para cargar videos reales.
+  // src puede ser una URL directa (.mp4) o un blob URL después de subir.
+  // Si el array está vacío se muestra un placeholder.
+  const videos = [
+    // Ejemplo: { src: 'https://tu-cdn.com/video1.mp4', label: 'Noche 1 🎶' },
+    // Ejemplo: { src: 'https://tu-cdn.com/video2.mp4', label: 'Highlights 🛥️' },
+  ];
+
+  let current  = 0;
+  let autoTimer = null;
+  const AUTO_DELAY = 6000;
+
+  function render() {
+    const track = document.getElementById('video-track');
+    const dots  = document.getElementById('video-dots');
+    if (!track || !dots) return;
+
+    if (videos.length === 0) {
+      track.innerHTML = `
+        <div class="video-slide">
+          <div class="video-placeholder">
+            <div class="video-placeholder-icon">🎬</div>
+            <div class="video-placeholder-text">Los videos del evento aparecerán aquí</div>
+          </div>
+        </div>`;
+      dots.innerHTML = '';
+      document.getElementById('vid-prev').style.display = 'none';
+      document.getElementById('vid-next').style.display = 'none';
+      return;
+    }
+
+    track.innerHTML = videos.map((v, i) => `
+      <div class="video-slide">
+        <video src="${v.src}" playsinline muted loop preload="metadata"
+               poster="" width="430" height="220"
+               oncanplay="this.closest('.video-slide').querySelector('.video-placeholder')?.remove()"
+        ></video>
+        ${v.label ? `<div class="video-label">${v.label}</div>` : ''}
+      </div>`).join('');
+
+    dots.innerHTML = videos.map((_, i) =>
+      `<div class="video-dot${i === 0 ? ' active' : ''}" onclick="videoCarousel.goTo(${i})"></div>`
+    ).join('');
+
+    goTo(0, false);
+    startAuto();
+  }
+
+  function goTo(idx, animate = true) {
+    if (videos.length === 0) return;
+    current = (idx + videos.length) % videos.length;
+    const track = document.getElementById('video-track');
+    if (track) track.style.transform = `translateX(-${current * 100}%)`;
+
+    // Pausa todos, reproduce el actual
+    track.querySelectorAll('video').forEach((v, i) => {
+      if (i === current) { v.play().catch(()=>{}); }
+      else               { v.pause(); v.currentTime = 0; }
+    });
+
+    document.querySelectorAll('.video-dot').forEach((d, i) =>
+      d.classList.toggle('active', i === current));
+  }
+
+  function prev() { stopAuto(); goTo(current - 1); startAuto(); }
+  function next() { stopAuto(); goTo(current + 1); startAuto(); }
+
+  function startAuto() {
+    if (videos.length <= 1) return;
+    stopAuto();
+    autoTimer = setInterval(() => goTo(current + 1), AUTO_DELAY);
+  }
+  function stopAuto() { clearInterval(autoTimer); }
+
+  // Swipe táctil
+  function initSwipe() {
+    const banner = document.getElementById('video-banner');
+    if (!banner) return;
+    let startX = 0;
+    banner.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    banner.addEventListener('touchend',   e => {
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); }
+    }, { passive: true });
+  }
+
+  // API pública para agregar un video desde fuera (ej: upload)
+  function addVideo(src, label = '') {
+    videos.push({ src, label });
+    render();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => { render(); initSwipe(); });
+
+  return { prev, next, goTo, addVideo };
+})();
+
 // ═══════════════════════════════════════════════════════
 //  CONFIG
 // ═══════════════════════════════════════════════════════
@@ -751,7 +925,7 @@ function renderList() {
   if(currentFilter === 'female') list = attendees.filter(a => a.gender === 'female');
   if(currentFilter === 'vip')    list = attendees.filter(a => a.zone   === 'vip');
   if(!list.length) {
-    el.innerHTML = `<div class="empty-state"><div class="empty-icon">🛥️</div><h3>${currentFilter==='all'?'Aún no hay registros':'Sin resultados'}</h3><p>${currentFilter==='all'?'¡Sé el primero en unirte a GuataParty!':'No hay asistentes en esta categoría aún.'}</p></div>`;
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">🛥️</div><h3>${currentFilter==='all'?'Aún no hay registros':'Sin resultados'}</h3><p>${currentFilter==='all'?'¡Sé el primero en unirte a la Pre-AIRA Party!':'No hay asistentes en esta categoría aún.'}</p></div>`;
     return;
   }
   el.innerHTML = [...list].reverse().map(a => {

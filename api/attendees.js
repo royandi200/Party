@@ -29,8 +29,11 @@ export default async function handler(req, res) {
       // ✅ Ahora incluye photo_url
       const { name, instagram, gender, zone, seat, photo_url } = req.body;
 
+      const VALID_ZONES = ['playita', 'lobby', 'muelle'];
       if (!name || !instagram || !gender || !zone || !seat)
-        return res.status(400).json({ error: 'Faltan campos obligatorios' });
+        return res.status(400).json({ error: 'Faltan campos obligatorios', received: { name:!!name, instagram:!!instagram, gender, zone, seat } });
+      if (!VALID_ZONES.includes(zone))
+        return res.status(400).json({ error: 'Zona inválida: ' + zone, validZones: VALID_ZONES });
 
       // Verificar que el puesto no esté ocupado
       const [existing] = await pool.query(

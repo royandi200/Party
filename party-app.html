@@ -1002,10 +1002,12 @@ async function registerAttendee() {
   btn.textContent = 'Guardando… ⏳';
 
   try {
+    const payload = { name, instagram: insta, gender: selectedGender, zone: selectedZone, seat, photo_url: photoBlobUrl || null };
+    console.log('[register] payload:', JSON.stringify(payload));
     const res = await fetch(API, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, instagram: insta, gender: selectedGender, zone: selectedZone, seat, photo_url: photoBlobUrl || null })
+      body: JSON.stringify(payload)
     });
     const json = await res.json();
     if (!res.ok) throw new Error(json.error || 'Error');

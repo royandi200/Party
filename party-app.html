@@ -892,7 +892,7 @@ function renderList() {
   }
   el.innerHTML = [...list].reverse().map(a => {
     const ini  = a.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
-    const zone = { playita:'🏖️ Playita', lobby:'🏨 Lobby', muelle:'⚓ Muelle' }[a.zone];
+    const zone = { playita:'🏖️ Playita', lobby:'🏨 Lobby', muelle:'⚓ Muelle' }[a.zone] || (a.zone ? `📍 ${a.zone}` : '📍 Sin zona');
     const bc   = a.gender;
     const bl   = a.gender === 'male' ? '👦 H' : '👩 M';
     const avatarHtml = a.photo_url

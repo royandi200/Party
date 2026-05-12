@@ -477,7 +477,8 @@
             <span class="required-dot"></span>Foto
             <span class="label-badge required-badge" id="photo-badge">REQUERIDA</span>
           </label>
-          <input type="file" id="photo-input" accept="image/*" capture="user" style="display:none" onchange="onPhotoSelected(this)">
+          <input type="file" id="photo-input" accept="image/*" style="display:none" onchange="onPhotoSelected(this)">
+          <input type="file" id="photo-input-camera" accept="image/*" capture="environment" style="display:none" onchange="onPhotoSelected(this)">
           <div class="photo-upload-area" id="photo-upload-area" onclick="triggerPhotoInput()">
             <div class="photo-placeholder" id="photo-placeholder">
               <div class="photo-placeholder-icon">📸</div>
@@ -695,7 +696,23 @@ function startPolling() {
 // ═══════════════════════════════════════════
 //  PHOTO UPLOAD
 // ═══════════════════════════════════════════
-function triggerPhotoInput() { if (photoUploading) return; document.getElementById('photo-input').click(); }
+function triggerPhotoInput() {
+  if (photoUploading) return;
+  // Detectar iOS Safari — capture puede bloquear galería
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  if (isIOS && isSafari) {
+    // En iOS Safari sin capture funciona mejor para galería
+    document.getElementById('photo-input').click();
+  } else {
+    document.getElementById('photo-input').click();
+  }
+}
+
+function triggerCamera() {
+  if (photoUploading) return;
+  document.getElementById('photo-input-camera').click();
+}
 
 async function onPhotoSelected(input) {
   const file = input.files[0];

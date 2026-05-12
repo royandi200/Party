@@ -574,7 +574,9 @@
 // ═══════════════════════════════════════════
 const videoCarousel = (() => {
   const videos = [
-    { src: 'https://res.cloudinary.com/dqfpxf3zq/video/upload/v1778558451/Aerea_1_ntk0xt.mov', label: '🚁 Vista aérea' }
+    { src: 'https://res.cloudinary.com/dqfpxf3zq/video/upload/v1778558451/Aerea_1_ntk0xt.mov',       label: '🚁 Vista aérea' },
+    { src: 'https://res.cloudinary.com/dqfpxf3zq/video/upload/v1778560989/VID-20260419-WA0045_mwxx4j.mp4', label: '🎉 Fiesta' },
+    { src: 'https://res.cloudinary.com/dqfpxf3zq/video/upload/v1778560989/VID-20260419-WA0047_b7bura.mp4', label: '🎶 Ambiente' },
   ];
   let current = 0, autoTimer = null;
   const AUTO_DELAY = 6000;
@@ -590,7 +592,14 @@ const videoCarousel = (() => {
       document.getElementById('vid-next').style.display = 'none';
       return;
     }
-    track.innerHTML = videos.map((v, i) => `<div class="video-slide"><video src="${v.src}" playsinline muted loop preload="metadata" width="430" height="220"></video>${v.label ? `<div class="video-label">${v.label}</div>` : ''}</div>`).join('');
+    track.innerHTML = videos.map((v, i) => `<div class="video-slide"><video src="${v.src}" playsinline muted preload="metadata" width="430" height="220" data-idx="${i}"></video>${v.label ? `<div class="video-label">${v.label}</div>` : ''}</div>`).join('');
+    // Al terminar cada video, pasar al siguiente automáticamente
+    track.querySelectorAll('video').forEach(vid => {
+      vid.addEventListener('ended', () => {
+        const idx = parseInt(vid.dataset.idx);
+        goTo((idx + 1) % videos.length);
+      });
+    });
     dots.innerHTML = videos.map((_, i) => `<div class="video-dot${i===0?' active':''}" onclick="videoCarousel.goTo(${i})"></div>`).join('');
     goTo(0, false); startAuto();
   }

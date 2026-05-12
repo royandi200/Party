@@ -190,7 +190,7 @@
     .gender-opt.selected-m { border-color:var(--aira-blue); background:rgba(0,79,255,0.12); color:#6699ff; }
     .gender-opt.selected-f { border-color:var(--aira-lime); background:rgba(225,254,82,0.08); color:#c8e840; }
 
-    /* Zone selector — 3 zonas sin VIP */
+    /* Zone selector */
     .zone-cards { display:flex; flex-direction:column; gap:8px; }
     .zone-card { display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:var(--r); border:1.5px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); cursor:pointer; transition:all 0.2s; }
     .zone-card:active { transform:scale(0.98); }
@@ -358,21 +358,15 @@
         <!-- SVG AERIAL MAP -->
         <div class="hotel-svg-wrap">
           <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mapa aéreo Hotel Joinn">
-            <!-- Water / lake background -->
             <rect width="400" height="260" fill="#0a1628"/>
             <ellipse cx="200" cy="220" rx="240" ry="80" fill="#0d2a4a" opacity="0.8"/>
             <ellipse cx="200" cy="240" rx="200" ry="50" fill="#0e3060" opacity="0.6"/>
-            <!-- Water ripples -->
             <ellipse cx="80" cy="230" rx="30" ry="6" fill="none" stroke="rgba(0,150,255,0.15)" stroke-width="1"/>
             <ellipse cx="320" cy="245" rx="25" ry="5" fill="none" stroke="rgba(0,150,255,0.12)" stroke-width="1"/>
             <ellipse cx="200" cy="255" rx="60" ry="8" fill="none" stroke="rgba(0,150,255,0.1)" stroke-width="1"/>
-
-            <!-- Hotel main building -->
             <rect x="100" y="30" width="200" height="110" rx="6" fill="#1a2d4a" stroke="rgba(0,79,255,0.4)" stroke-width="1.5"/>
-            <!-- Building roof detail -->
             <rect x="110" y="38" width="80" height="50" rx="4" fill="#1f3560" stroke="rgba(0,79,255,0.2)" stroke-width="1"/>
             <rect x="210" y="38" width="80" height="50" rx="4" fill="#1f3560" stroke="rgba(0,79,255,0.2)" stroke-width="1"/>
-            <!-- Windows -->
             <rect x="118" y="46" width="12" height="8" rx="2" fill="rgba(225,254,82,0.3)"/>
             <rect x="136" y="46" width="12" height="8" rx="2" fill="rgba(225,254,82,0.25)"/>
             <rect x="154" y="46" width="12" height="8" rx="2" fill="rgba(225,254,82,0.2)"/>
@@ -389,39 +383,23 @@
             <rect x="236" y="62" width="12" height="8" rx="2" fill="rgba(225,254,82,0.3)"/>
             <rect x="254" y="62" width="12" height="8" rx="2" fill="rgba(225,254,82,0.2)"/>
             <rect x="272" y="62" width="12" height="8" rx="2" fill="rgba(225,254,82,0.25)"/>
-
-            <!-- Lobby zone (center building bottom) -->
             <rect x="140" y="96" width="120" height="44" rx="4" fill="rgba(0,79,255,0.25)" stroke="rgba(0,79,255,0.6)" stroke-width="1.5"/>
             <text x="200" y="114" text-anchor="middle" font-size="9" font-weight="700" fill="#6699ff" font-family="Figtree,sans-serif">LOBBY</text>
             <text x="200" y="126" text-anchor="middle" font-size="8" fill="rgba(102,153,255,0.7)" font-family="Figtree,sans-serif">10 puestos</text>
-
-            <!-- Path from lobby to muelle -->
             <rect x="185" y="140" width="30" height="40" rx="2" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-
-            <!-- Muelle zone (pier into water) -->
             <rect x="160" y="180" width="80" height="50" rx="4" fill="rgba(225,254,82,0.15)" stroke="rgba(225,254,82,0.5)" stroke-width="1.5"/>
             <rect x="175" y="200" width="50" height="20" rx="3" fill="rgba(225,254,82,0.08)" stroke="rgba(225,254,82,0.3)" stroke-width="1"/>
             <text x="200" y="196" text-anchor="middle" font-size="9" font-weight="700" fill="#c8e840" font-family="Figtree,sans-serif">MUELLE</text>
             <text x="200" y="208" text-anchor="middle" font-size="8" fill="rgba(200,232,64,0.7)" font-family="Figtree,sans-serif">10 puestos</text>
-            <!-- Pier planks -->
             <line x1="175" y1="203" x2="225" y2="203" stroke="rgba(225,254,82,0.15)" stroke-width="1"/>
             <line x1="175" y1="208" x2="225" y2="208" stroke="rgba(225,254,82,0.15)" stroke-width="1"/>
             <line x1="175" y1="213" x2="225" y2="213" stroke="rgba(225,254,82,0.15)" stroke-width="1"/>
-
-            <!-- Playita zone (left side beach) -->
             <ellipse cx="58" cy="155" rx="50" ry="35" fill="rgba(0,201,167,0.15)" stroke="rgba(0,201,167,0.55)" stroke-width="1.5"/>
             <text x="58" y="151" text-anchor="middle" font-size="9" font-weight="700" fill="#00c9a7" font-family="Figtree,sans-serif">PLAYITA</text>
             <text x="58" y="163" text-anchor="middle" font-size="8" fill="rgba(0,201,167,0.7)" font-family="Figtree,sans-serif">10 puestos</text>
-            <!-- Beach sand texture -->
             <ellipse cx="58" cy="168" rx="35" ry="10" fill="rgba(255,220,100,0.06)"/>
-
-            <!-- Path lobby to playita -->
             <path d="M140 118 Q100 118 108 150" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2" stroke-dasharray="4,3"/>
-
-            <!-- Hotel label -->
             <text x="200" y="22" text-anchor="middle" font-size="10" font-weight="800" fill="rgba(232,238,248,0.6)" font-family="Figtree,sans-serif" letter-spacing="1">HOTEL JOINN</text>
-
-            <!-- Compass rose -->
             <g transform="translate(370,20)">
               <circle cx="0" cy="0" r="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
               <text x="0" y="-16" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.4)" font-family="sans-serif">N</text>
